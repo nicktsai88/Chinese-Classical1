@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(吳敏男 - 第三輯) 第5篇 鉏麑觸槐 - 互動式古文學習 (AI 旗艦版)</title>
+    <title>(吳敏男 - 第三輯) 第7篇 舍生取義 - 互動式古文學習 (AI 旗艦版)</title>
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 Marked.js -->
@@ -22,9 +22,7 @@
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fcd34d' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        .font-serif {
-            font-family: 'Noto Serif TC', serif;
-        }
+        .font-serif { font-family: 'Noto Serif TC', serif; }
 
         /* 自定義滾動條 */
         ::-webkit-scrollbar { width: 8px; }
@@ -85,7 +83,7 @@
                     <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
                 </div>
                 <div class="hidden md:block text-sm opacity-90 text-amber-100">
-                    深度學習：第5篇 鉏麑觸槐
+                    深度學習：第7篇 舍生取義
                 </div>
             </div>
         </div>
@@ -106,7 +104,7 @@
                     </div>
                     <div class="hidden md:block text-right">
                         <span class="inline-block bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-red-200">重要考試文章</span>
-                        <div class="text-xs text-amber-600 font-medium">適合程度：高階 (史傳散文與忠信哲理)</div>
+                        <div class="text-xs text-amber-600 font-medium">適合程度：高階 (孟子性善論與邏輯辯證)</div>
                     </div>
                 </div>
             </div>
@@ -123,7 +121,7 @@
         </div>
 
         <main id="content-display" class="flex-grow bg-white rounded-2xl shadow-lg p-6 sm:p-8 min-h-[500px] transition-all duration-300 relative border border-orange-50">
-            <!-- 內容動態載入 -->
+            <!-- 內容動態載入區 -->
         </main>
         
     </div>
@@ -158,118 +156,109 @@
 
     <script>
         // ----------------------------------------------------
-        // 1. 教材資料結構 (Content Data) - 鉏麑觸槐
+        // 1. 教材資料結構 (Content Data) - 舍生取義
+        // 嚴格依照台灣教育部辭典與課綱標準校對
         // ----------------------------------------------------
         const contentData = {
             metadata: {
-                title: "(吳敏男 - 第三輯) 第5篇 鉏麑觸槐",
-                author: "左丘明",
-                source: "《左傳·宣公二年》"
+                title: "(吳敏男 - 第三輯) 第7篇 舍生取義",
+                author: "孟子",
+                source: "《孟子·告子上》"
             },
-            summary: "本文選自《左傳》，記載了春秋時期晉國的一段著名歷史。晉靈公荒淫暴虐，正卿趙盾（趙宣子）屢次直言進諫，引來靈公的殺機。靈公派出刺客鉏麑去暗殺趙盾。鉏麑清晨潛入趙府，卻看見趙盾早已穿戴整齊，因時間尚早而坐著打瞌睡，展現了對國事極度恭敬的態度。鉏麑深受感動，陷入了「殺忠臣是不忠，違君命是不信」的道德兩難，最終選擇撞死在庭院的槐樹上。文章不僅刻畫了趙盾的忠良，更高度讚揚了鉏麑捨生取義、重義輕生的烈士精神。",
+            summary: "本文選自《孟子·告子上》。孟子以「魚與熊掌」的抉擇為譬喻，生動地引出「生與義」的終極道德兩難。他指出，雖然生命是人所珍惜的，但當生命與道義發生衝突時，君子會選擇「舍生取義」。因為人心中有比生命更渴望的（義），也有比死亡更厭惡的（不義）。這種道德本心並非聖賢獨有，而是人人皆有，只是聖賢能夠持守不失（勿喪）罷了。這展現了儒家對道德主體性的絕對堅持與性善論的核心觀點。",
             
-            meaning: "1. **敬業與忠誠（趙盾）**：『盛服將朝，早而假寐』，寥寥八字，生動描繪了趙盾為國操勞、不敢稍有懈怠的忠臣形象。這份敬業精神是國家安定的基石（社稷之鎮）。\n2. **道義的衝突與抉擇（鉏麑）**：鉏麑面臨著『君權（不信）』與『國家大義（不忠）』的激烈衝突。在先秦時期，刺客尤重承諾與大義。當兩者無法兼顧時，他寧可以死明志（享一名於此，不如死）。\n3. **暴政必亡（晉靈公）**：晉靈公殘暴不仁，連自己派出的刺客都不願為其效命，最終難逃被臣下推翻的命運。",
+            meaning: "1. **譬喻說理，淺入深出**：以日常生活中的飲食選擇（魚與熊掌）巧妙引入嚴肅的道德抉擇（生與義），使深奧的哲理淺顯易懂。\n2. **義重於生，絕不苟得**：生命誠可貴，但儒家認為「義」（道德正當性）的價值超越了生物性的生存。苟且偷生是可恥的，為義犧牲是高尚的。\n3. **本心論與性善論**：這種「所欲有甚於生者，所惡有甚於死者」的道德自覺，不是外在強加的，而是人內在固有的「本心」（羞惡之心）。賢者與凡人的差別僅在於是否能「勿喪」（不喪失）這份本心。",
             
             rhetoric: [
-                "**轉品 (詞類活用):** 「使鉏麑『賊』之」、「『賊』國之鎮」，這兩處的「賊」字皆由名詞轉為動詞，意為「刺殺、暗殺」。",
-                "**借代:** 「社稷之鎮」的「社稷」本指土神與穀神，在此借代為「國家」。",
-                "**對比 (映襯):** 以晉靈公的「虐」對比趙盾的「敬」，同時也以晉靈公的卑劣暗殺對比鉏麑的光明磊落與捨生取義。"
+                "**譬喻 (喻體、喻依):** 以具體的「魚與熊掌」作為喻依，比喻抽象的「生與義」（喻體）。",
+                "**對比 (映襯):** 全文充滿強烈的對比，如「生」與「義」、「生」與「死」、「欲」與「惡」、「賢者」與「眾人」。",
+                "**層遞與排比:** 「生亦我所欲...死亦我所惡...」句式工整，邏輯層層推導，氣勢磅礴。",
+                "**假設語氣:** 「如使人之所欲莫甚於生...使人之所惡莫甚於死者...」以反面假設來論證正面觀點，藉由「推謬」來證明本心的存在。"
             ],
             
             vocabulary: [
-                { word: "靈公虐", zhuyin: "ㄌㄧㄥˊ ㄍㄨㄥ ㄋㄩㄝˋ", pos: "句型", meaning: "晉靈公生性殘酷暴虐。「虐」，殘暴。" },
-                { word: "趙宣子", zhuyin: "ㄓㄠˋ ㄒㄩㄢ ㄗˇ", pos: "名詞", meaning: "即趙盾，春秋時晉國的正卿（宰相），為人剛直忠誠。" },
-                { word: "驟諫", zhuyin: "ㄓㄡˋ ㄐㄧㄢˋ", pos: "動賓", meaning: "屢次進諫勸阻。「驟」，屢次、多次。" },
-                { word: "患之", zhuyin: "ㄏㄨㄢˋ ㄓ", pos: "動賓", meaning: "對他感到厭惡、擔憂。「患」，當動詞，厭惡。" },
-                { word: "鉏麑", zhuyin: "ㄔㄨˊ ㄋㄧˊ", pos: "名詞", meaning: "春秋時期晉國著名的力士、刺客。" },
-                { word: "賊之", zhuyin: "ㄗㄟˊ ㄓ", pos: "動賓", meaning: "暗殺他。「賊」，名詞作動詞，刺殺。" },
-                { word: "辟", zhuyin: "ㄆㄧˋ", pos: "動詞", meaning: "通「闢」，打開。寢門辟矣，意指臥室的門已經打開了。" },
-                { word: "盛服", zhuyin: "ㄕㄥˋ ㄈㄨˊ", pos: "名詞/動賓", meaning: "穿戴著整齊隆重的朝服。" },
-                { word: "假寐", zhuyin: "ㄐㄧㄚˇ ㄇㄟˋ", pos: "動詞", meaning: "不脫衣服坐著打瞌睡。" },
-                { word: "趙孟", zhuyin: "ㄓㄠˋ ㄇㄥˋ", pos: "名詞", meaning: "即趙盾。孟是他的字，古人以字稱呼他人表示尊敬。" },
-                { word: "社稷之鎮", zhuyin: "ㄕㄜˋ ㄐㄧˋ ㄓ ㄓㄣˋ", pos: "名詞", meaning: "國家的棟樑。社稷代指國家；鎮，原指重石，引申為安邦定國的重臣。" },
-                { word: "賊國之鎮", zhuyin: "ㄗㄟˊ ㄍㄨㄛˊ ㄓ ㄓㄣˋ", pos: "動賓", meaning: "刺殺國家的棟樑。「賊」為動詞。" },
-                { word: "廢之", zhuyin: "ㄈㄟˋ ㄓ", pos: "動賓", meaning: "放棄執行（刺殺的任務）。" },
-                { word: "不信", zhuyin: "ㄅㄨˋ ㄒㄧㄣˋ", pos: "形容詞", meaning: "不守信用、違背承諾（指未完成君王的使命）。" },
-                { word: "享一名", zhuyin: "ㄒㄧㄤˇ ㄧˋ ㄇㄧㄥˊ", pos: "動賓", meaning: "承擔一個罪名。「享」，承受；「名」，指不忠或不信的惡名。" },
-                { word: "不克", zhuyin: "ㄅㄨˋ ㄎㄜˋ", pos: "動詞", meaning: "不能得逞、未能成功。" },
-                { word: "趙衰", zhuyin: "ㄓㄠˋ ㄘㄨㄟ", pos: "名詞", meaning: "晉國大夫。（歷史實為趙穿弒君，此處依文本為趙衰）。" },
-                { word: "逆", zhuyin: "ㄋㄧˋ", pos: "動詞", meaning: "迎接。如「逆公子黑臀」。" },
-                { word: "黑臀", zhuyin: "ㄏㄟ ㄊㄨㄣˊ", pos: "名詞", meaning: "晉文公之子，後被迎立為晉成公。" }
+                { word: "舍", zhuyin: "ㄕㄜˇ", pos: "動詞", meaning: "同「捨」，放棄、捨棄。" },
+                { word: "得兼", zhuyin: "ㄉㄜˊ ㄐㄧㄢ", pos: "動詞片語", meaning: "同時得到。「兼」，同時。" },
+                { word: "甚於", zhuyin: "ㄕㄣˋ ㄩˊ", pos: "介詞片語", meaning: "超過、比...更重要。「於」為介詞，表比較。" },
+                { word: "苟得", zhuyin: "ㄍㄡˇ ㄉㄜˊ", pos: "動賓片語", meaning: "苟且取得。此處指不擇手段地苟且偷生。" },
+                { word: "惡", zhuyin: "ㄨˋ", pos: "動詞", meaning: "厭惡、憎恨。與「欲」相對。" },
+                { word: "患", zhuyin: "ㄏㄨㄢˋ", pos: "名詞", meaning: "禍患、災禍。在此篇特指「死亡」的災難。" },
+                { word: "辟", zhuyin: "ㄅㄧˋ", pos: "動詞", meaning: "通假字，同「避」，躲開、迴避。" },
+                { word: "如使", zhuyin: "ㄖㄨˊ ㄕˇ", pos: "連詞", meaning: "如果、假使。表示假設語氣。" },
+                { word: "莫甚於", zhuyin: "ㄇㄛˋ ㄕㄣˋ ㄩˊ", pos: "片語", meaning: "沒有比...更強烈（更超過）的。" },
+                { word: "由是", zhuyin: "ㄧㄡˊ ㄕˋ", pos: "片語", meaning: "經由這種方法（指不擇手段求生或避患的方法）。" },
+                { word: "是心", zhuyin: "ㄕˋ ㄒㄧㄣ", pos: "名詞片語", meaning: "指這種「捨生取義」的本心（即孟子四端中的『羞惡之心』）。" },
+                { word: "喪", zhuyin: "ㄙㄤˋ", pos: "動詞", meaning: "失去、丟失、淪喪。" }
             ],
 
             segments: [
                 {
-                    original: "靈公虐，趙宣子驟諫。公患之，使鉏麑賊之。",
-                    translation: "晉靈公生性暴虐，正卿趙宣子（趙盾）屢次向他直言進諫。靈公對此感到非常厭惡，於是派刺客鉏麑去暗殺他。",
-                    audioText: "靈公虐，，趙宣子宙建。，公患之，，使除泥賊之。",
+                    original: "孟子曰︰「魚，我所欲也，熊掌，亦我所欲也，二者不可得兼，舍魚而取熊掌也。生，亦我所欲也，義，亦我所欲也，二者不可得兼，舍生而取義者也。」",
+                    translation: "孟子說：「魚，是我所喜愛的；熊掌，也是我所喜愛的；如果這兩樣東西不能同時得到，我就會放棄魚而選擇熊掌。生命，也是我所珍惜的；道義，也是我所珍惜的；如果這兩者不能同時保全，我就會犧牲生命而選擇道義。」",
+                    audioText: "孟子曰︰「魚，我所欲也，熊掌，亦我所欲也，二者不可得兼，捨魚而取熊掌也。生，亦我所欲也，義，亦我所欲也，二者不可得兼，捨生而取義者也。」",
                     notes: {
-                        "靈公虐": { zhuyin: "ㄌㄧㄥˊ ㄍㄨㄥ ㄋㄩㄝˋ", type: "句型", def: "晉靈公殘暴。" },
-                        "驟諫": { zhuyin: "ㄓㄡˋ ㄐㄧㄢˋ", type: "動賓", def: "屢次進諫。" },
-                        "患之": { zhuyin: "ㄏㄨㄢˋ ㄓ", type: "動賓", def: "對他感到厭惡。" },
-                        "鉏麑": { zhuyin: "ㄔㄨˊ ㄋㄧˊ", type: "名詞", def: "晉國刺客。" },
-                        "賊之": { zhuyin: "ㄗㄟˊ ㄓ", type: "動賓", def: "暗殺他（名轉動詞）。" }
+                        "得兼": { zhuyin: "ㄉㄜˊ ㄐㄧㄢ", type: "動詞", def: "同時得到。" },
+                        "舍": { zhuyin: "ㄕㄜˇ", type: "動詞", def: "同「捨」，放棄。" }
                     }
                 },
                 {
-                    original: "晨往，則寢門辟矣，盛服將朝，早而假寐。",
-                    translation: "鉏麑清晨潛往趙府，卻看見趙宣子臥室的門已經打開了。趙宣子早已穿戴著整齊的朝服準備上朝，因為時間還早，正端坐著打瞌睡。",
-                    audioText: "晨往，，則寢門闢矣，，盛服將朝，，早而假寐。",
+                    original: "「生亦我所欲，所欲有甚於生者，故不為苟得也。死亦我所惡，所惡有甚於死者，故患有不辟也。」",
+                    translation: "「生命固然是我所珍惜的，但因為我還有比生命更渴望的東西（道義），所以我不會去做苟且偷生的事。死亡固然是我所厭惡的，但因為我還有比死亡更厭惡的東西（不義），所以有些禍患（死亡），我是不願躲避的。」",
+                    audioText: "「生亦我所欲，所欲有甚於生者，故不為苟得也。死亦我所務，所務有甚於死者，故患有不必也。」",
                     notes: {
-                        "辟": { zhuyin: "ㄆㄧˋ", type: "動詞", def: "通「闢」，打開。" },
-                        "盛服": { zhuyin: "ㄕㄥˋ ㄈㄨˊ", type: "名詞", def: "穿戴整齊的朝服。" },
-                        "假寐": { zhuyin: "ㄐㄧㄚˇ ㄇㄟˋ", type: "動詞", def: "和衣坐著打瞌睡。" }
+                        "甚於": { zhuyin: "ㄕㄣˋ ㄩˊ", type: "片語", def: "超過、比...更重要。" },
+                        "苟得": { zhuyin: "ㄍㄡˇ ㄉㄜˊ", type: "動賓", def: "苟且偷生。" },
+                        "惡": { zhuyin: "ㄨˋ", type: "動詞", def: "厭惡、憎恨。" },
+                        "患": { zhuyin: "ㄏㄨㄢˋ", type: "名詞", def: "災難，此指死亡。" },
+                        "辟": { zhuyin: "ㄅㄧˋ", type: "動詞", def: "同「避」，躲避。" }
                     }
                 },
                 {
-                    original: "麑退，歎而言曰：「趙孟敬哉！夫不忘恭敬，社稷之鎮也。賊國之鎮，不忠；受命而廢之，不信；享一名於此，不如死!」觸庭之槐而死。",
-                    translation: "鉏麑見狀退了出來，感嘆地說：「趙孟真是恭敬盡責啊！不忘記對國事的恭敬，這正是國家安定的棟樑。如果我刺殺國家的棟樑，這是不忠；但我接受了國君的命令卻放棄執行，這是不信。要在這不忠與不信之間承擔一個惡名，我還不如去死！」於是，他猛力撞擊庭院中的槐樹自殺身亡。",
-                    audioText: "泥退，，歎而言曰：，「趙孟敬哉！，夫不忘恭敬，，社稷之鎮也。，賊國之鎮，，不忠；，受命而廢之，，不信；，享一名於此，，不如死！」，觸庭之懷而死。",
+                    original: "「如使人之所欲莫甚於生，則凡可以得生者，何不用也？使人之所惡莫甚於死者，則凡可以辟患者，何不為也？由是則生而有不用也；由是則可以辟患而有不為也。」",
+                    translation: "「如果人們所渴望的東西沒有比生命更重要的，那麼只要是可以保全生命的方法，有什麼手段不能用呢？如果人們所厭惡的東西沒有比死亡更可怕的，那麼只要是可以躲避死亡禍患的方法，有什麼事情不能做呢？然而，經由某些方法雖然能求得生存，但有人卻不願採用；經由某些方法雖然能躲避死亡，但有人卻不肯去做。」",
+                    audioText: "「如使人之所欲莫甚於生，則凡可以得生者，何不用也？使人之所務莫甚於死者，則凡可以必患者，何不為也？由是則生而有不用也；由是則可以必患而有不為也。」",
                     notes: {
-                        "趙孟": { zhuyin: "ㄓㄠˋ ㄇㄥˋ", type: "名詞", def: "趙盾的字，表尊敬。" },
-                        "社稷之鎮": { zhuyin: "ㄕㄜˋ ㄐㄧˋ ㄓ ㄓㄣˋ", type: "名詞", def: "國家的棟樑。社稷借代國家。" },
-                        "賊國之鎮": { zhuyin: "ㄗㄟˊ ㄍㄨㄛˊ ㄓ ㄓㄣˋ", type: "句型", def: "刺殺國家的棟樑。" },
-                        "廢之": { zhuyin: "ㄈㄟˋ ㄓ", type: "動賓", def: "放棄執行任務。" },
-                        "享一名": { zhuyin: "ㄒㄧㄤˇ ㄧˋ ㄇㄧㄥˊ", type: "動賓", def: "承擔一個（不忠或不信的）惡名。" }
+                        "如使": { zhuyin: "ㄖㄨˊ ㄕˇ", type: "連詞", def: "如果、假使。" },
+                        "莫甚於": { zhuyin: "ㄇㄛˋ ㄕㄣˋ ㄩˊ", type: "片語", def: "沒有比...更強烈的。" },
+                        "由是": { zhuyin: "ㄧㄡˊ ㄕˋ", type: "片語", def: "經由這種方法。" }
                     }
                 },
                 {
-                    original: "靈公將殺趙盾，不克。趙衰攻公於桃園，逆公子黑臀而立之，實為成公。",
-                    translation: "後來晉靈公又親自設下埋伏要殺趙盾，卻沒有得逞。趙衰（實為趙穿）在桃園攻殺了晉靈公，並迎回公子黑臀擁立為國君，這就是晉成公。",
-                    audioText: "靈公將殺趙盾，，不克。，趙崔攻公於桃園，，逆公子黑臀而立之，，實為成公。",
+                    original: "「是故所欲有甚於生者，所惡有甚於死者，非獨賢者有是心也，人皆有之，賢者能勿喪耳。」",
+                    translation: "「由此可知，人們確實有比生命更渴望的東西，也有比死亡更厭惡的東西。這種『捨生取義』的本心，並不是只有賢能的人才有，而是人人皆有，只是賢能的人能夠持守而不會喪失罷了。」",
+                    audioText: "「是故所欲有甚於生者，所務有甚於死者，非獨賢者有是心也，人皆有之，賢者能勿喪耳。」",
                     notes: {
-                        "不克": { zhuyin: "ㄅㄨˋ ㄎㄜˋ", type: "動詞", def: "沒有得逞、未能成功。" },
-                        "趙衰": { zhuyin: "ㄓㄠˋ ㄘㄨㄟ", type: "名詞", def: "晉國大夫。" },
-                        "逆": { zhuyin: "ㄋㄧˋ", type: "動詞", def: "迎接。" },
-                        "黑臀": { zhuyin: "ㄏㄟ ㄊㄨㄣˊ", type: "名詞", def: "後來的晉成公。" }
+                        "是心": { zhuyin: "ㄕˋ ㄒㄧㄣ", type: "名詞", def: "捨生取義的本心（羞惡之心）。" },
+                        "喪": { zhuyin: "ㄙㄤˋ", type: "動詞", def: "失去、淪喪。" }
                     }
                 }
             ],
             
             quiz: [
-                { q: "《鉏麑觸槐》一文出自於哪一本史書？", opts: ["A. 《國語》", "B. 《戰國策》", "C. 《左傳》", "D. 《史記》"], ans: "C", exp: "本文選自《左傳·宣公二年》，《左傳》以記事詳贍生動著稱，尤其擅長刻畫人物與戰爭細節。" },
-                { q: "「趙宣子驟諫」中，「驟」字的讀音與字義為何？", opts: ["A. ㄗㄡˋ，快速地", "B. ㄓㄡˋ，屢次、多次", "C. ㄐㄩˋ，突然", "D. ㄘㄡˋ，聚集"], ans: "B", exp: "「驟」在此讀作 ㄓㄡˋ，意為屢次。趙盾因為晉靈公殘暴，所以「多次」進諫勸阻。" },
-                { q: "「公患之，使鉏麑賊之」一句中，兩個「之」字的詞性與指代對象分別是？", opts: ["A. 都是助詞，無義", "B. 代詞(指進諫之事) / 代詞(指趙盾)", "C. 動詞(前往) / 代詞(指趙盾)", "D. 代詞(指趙盾) / 助詞(無義)"], ans: "B", exp: "第一個「之」代指趙宣子屢次進諫這件事（或代指趙宣子）；第二個「之」作「賊（刺殺）」的賓語，代指趙宣子本人。" },
-                { q: "承上題，「賊之」的「賊」字在此處的詞性與字義為何？", opts: ["A. 名詞，盜賊", "B. 形容詞，狡猾的", "C. 動詞，刺殺、暗殺", "D. 名詞，叛徒"], ans: "C", exp: "這是一個「轉品（名詞作動詞）」的修辭，賊字原本指破壞者或凶手，在此轉為動詞「刺殺」。" },
-                { q: "「晨往，則寢門辟矣」的「辟」字，其通假字與意義為何？", opts: ["A. 通「避」，躲避", "B. 通「僻」，偏遠", "C. 通「闢」，打開", "D. 通「劈」，砍劈"], ans: "C", exp: "「辟」通「闢」，音ㄆㄧˋ，意為打開。指趙盾臥室的門清晨就已經打開了。" },
-                { q: "「盛服將朝，早而假寐」這八個字，最主要在刻畫趙盾的哪一種特質？", opts: ["A. 貪睡懶惰", "B. 畏懼晉靈公", "C. 虛有其表", "D. 勤政敬業、夙夜匪懈"], ans: "D", exp: "趙盾因為要上朝，很早就穿好隆重的朝服，不敢脫衣，只能坐著打瞌睡。這展現了他極度敬業與恭敬的態度。" },
-                { q: "鉏麑感嘆「社稷之鎮也」，請問「社稷」使用了哪一種修辭手法？", opts: ["A. 譬喻", "B. 借代", "C. 轉品", "D. 雙關"], ans: "B", exp: "「社」是土神，「稷」是穀神，古代帝王諸侯必祭社稷，因此用「社稷」來「借代」國家。" },
-                { q: "承上題，「鎮」字在此處的解釋何者最為正確？", opts: ["A. 鄉鎮、城鎮", "B. 鎮定、冷靜", "C. 壓迫、鎮壓", "D. 安定國家的重物（引申為棟樑、重臣）"], ans: "D", exp: "鎮，原指壓物體的重石。在此比喻趙盾是安定國家、安邦定國的棟樑之臣。" },
-                { q: "鉏麑面臨了極大的道德困境，他所說的「不忠」與「不信」，分別指的是什麼？", opts: ["A. 背叛妻子 / 欺騙朋友", "B. 刺殺國家棟樑 / 放棄國君交付的任務", "C. 貪污公款 / 說謊造假", "D. 逃離晉國 / 違背神明"], ans: "B", exp: "殺趙盾（忠臣）是對國家「不忠」；不執行君王的暗殺命令，則是身為刺客的「不信（不守承諾）」。" },
-                { q: "「享一名於此，不如死」這句話中的「一名」，具體指的是什麼名聲？", opts: ["A. 流芳百世的美名", "B. 天下第一刺客的威名", "C. 不忠或不信的惡名", "D. 莫名其妙的名字"], ans: "C", exp: "「享」在此為承受之意。「一名」指的是不論他怎麼選，都會背負上「不忠」或「不信」的惡名。" },
-                { q: "鉏麑最終選擇「觸庭之槐而死」，這種行為最能體現先秦時代哪一種人物精神？", opts: ["A. 道家清靜無為", "B. 刺客重義輕生、寧為玉碎", "C. 法家嚴刑峻法", "D. 縱橫家朝秦暮楚"], ans: "B", exp: "鉏麑為了不陷於不忠不信的兩難，選擇犧牲生命來保全大義，這是標準的先秦俠客/死士精神。" },
-                { q: "文中稱呼趙宣子為「趙孟」，這是因為？", opts: ["A. 趙孟是他的本名", "B. 孟是他的字，古人以字稱呼他人以示尊敬", "C. 他排行老大，所以叫孟", "D. 這是國君賜予的封號"], ans: "B", exp: "趙盾，字孟。古人直呼其名是不禮貌的，稱呼「字」代表對他的尊敬。鉏麑稱他為趙孟，顯示內心已被折服。" },
-                { q: "關於本文的寫作技巧，下列敘述何者「錯誤」？", opts: ["A. 透過對比手法，凸顯靈公之暴與趙盾之敬", "B. 以動作描寫（盛服假寐）側寫趙盾的性格", "C. 使用大量華麗辭藻與排比句來堆砌情緒", "D. 鉏麑的獨白，將情節推向道德衝突的高潮"], ans: "C", exp: "《左傳》的敘事語言極為精鍊簡潔（如：靈公虐，趙宣子驟諫。短短八字即交代背景），並非堆砌華麗辭藻。" },
-                { q: "下列哪一個字「不是」通假字？", opts: ["A. 寢門「辟」矣", "B. 「逆」公子黑臀", "C. 甚矣，汝之不「惠」", "D. 滿座重「裀」"], ans: "B", exp: "A.辟通闢。C.惠通慧。D.裀通茵。B的「逆」就是本義「迎接」，並非通假字。" },
-                { q: "「靈公將殺趙盾，不克」中的「克」字，意思與下列何者相同？", opts: ["A. 攻「克」敵軍", "B. 「克」己復禮", "C. 無不「克」濟 (未能成功之意)", "D. 體重五十「克」"], ans: "C", exp: "「不克」意為不能勝任、未能得逞、沒有成功。" },
-                { q: "「逆公子黑臀而立之」一句的意思為何？", opts: ["A. 違逆公子黑臀的命令並讓他罰站", "B. 迎接公子黑臀回國並擁立他為國君", "C. 刺殺公子黑臀並樹立威信", "D. 把公子黑臀倒過來放"], ans: "B", exp: "「逆」在此為迎接之意；「立之」即擁立為君。" },
-                { q: "若要以一句成語來形容鉏麑的選擇，下列何者最為貼切？", opts: ["A. 苟且偷生", "B. 捨生取義", "C. 助紂為虐", "D. 見風轉舵"], ans: "B", exp: "鉏麑為了堅守道義（不殺忠臣），寧可放棄自己的生命，正是捨生取義的體現。" },
-                { q: "從這篇短文中，我們可以看出《左傳》作者的歷史價值觀偏向哪一方？", opts: ["A. 無條件服從君權，認為鉏麑背叛了君主", "B. 贊同暴君的統治", "C. 肯定忠臣的敬業與義士的道德抉擇", "D. 認為所有人都是自私的"], ans: "C", exp: "作者高度讚揚趙盾的「敬」與鉏麑的「義」，同時以晉靈公被弒的結局暗示暴政必亡。" },
-                { q: "下列哪一個句子的句型結構與「使鉏麑賊之」的「賊」字用法相同？", opts: ["A. 春風又「綠」江南岸", "B. 國之「棟樑」", "C. 臣本「布衣」", "D. 「逝」者如斯夫"], ans: "A", exp: "「賊」是名詞作動詞。A選項的「綠」也是轉品，形容詞作動詞（使...變綠）。" },
-                { q: "「趙衰攻公於桃園」一事，在歷史上引發了著名的「董狐直筆」事件。史官董狐在史書上寫下「趙盾弒其君」。這說明了什麼先秦政治理念？", opts: ["A. 史官可以隨便捏造事實", "B. 趙盾是真正的幕後黑手", "C. 身為正卿（首長），未能討伐叛賊（即使逃亡未出境），需承擔政治責任", "D. 晉靈公其實是自殺的"], ans: "C", exp: "這是史書中著名的「書法不隱」。趙盾雖未親手弒君，但身為宰相，出亡未越境，回來後也沒懲罰弒君者，因此史官認為他必須承擔最高的政治責任。" }
+                { q: "「舍生取義」的「舍」字，字義與讀音為何？", opts: ["A. 房屋，ㄕㄜˋ", "B. 施捨，ㄕㄜˇ", "C. 同「捨」，放棄，ㄕㄜˇ", "D. 停止，ㄕㄜˋ"], ans: "C", exp: "「舍」在此通「捨」，動詞，讀作ㄕㄜˇ，意為放棄、捨棄。" },
+                { q: "「死亦我所惡」的「惡」字，詞性與讀音為何？", opts: ["A. 名詞，罪惡，ㄜˋ", "B. 形容詞，醜陋的，ㄜˋ", "C. 動詞，厭惡，ㄨˋ", "D. 疑問詞，怎麼，ㄨ"], ans: "C", exp: "「惡」作動詞，讀作ㄨˋ，意思是厭惡、憎恨，與前面的「欲」字相對。" },
+                { q: "「故患有不辟也」的「辟」字，是哪一個字的通假字？讀音為何？", opts: ["A. 避，躲避，ㄅㄧˋ", "B. 闢，開闢，ㄆㄧˋ", "C. 僻，偏僻，ㄆㄧˋ", "D. 譬，譬喻，ㄆㄧˋ"], ans: "A", exp: "「辟」在此通「避」，讀作ㄅㄧˋ，意思是躲避災禍（患）。" },
+                { q: "本文開頭，孟子以「魚與熊掌」的選擇為譬喻，其中「熊掌」是用來比喻什麼？", opts: ["A. 財富", "B. 權力", "C. 生命 (生)", "D. 道義 (義)"], ans: "D", exp: "孟子以較普通的「魚」喻「生」，以較珍貴的「熊掌」喻「義」，兩者不可得兼時，取熊掌（取義）。" },
+                { q: "「二者不可得兼」的「兼」字，在此處的解釋為何？", opts: ["A. 兼職", "B. 兩倍", "C. 同時得到", "D. 吞併"], ans: "C", exp: "「兼」是副詞，意為同時。不可得兼即無法同時擁有。" },
+                { q: "「所欲有甚於生者」的「於」字，其用法與意義與下列何者相同？", opts: ["A. 己所不欲，勿施「於」人", "B. 苛政猛「於」虎也", "C. 舟行「於」海", "D. 得之「於」人者太多"], ans: "B", exp: "題幹的「於」表比較（比...更甚）。A為給予，C為在，D為從。B的「猛於虎」也是表比較（比老虎更猛）。" },
+                { q: "「故不為苟得也」中的「苟得」，在本文脈絡下最精確的意涵是？", opts: ["A. 隨便拿取別人的東西", "B. 貪圖不義之財", "C. 為了求生而不擇手段，苟且偷生", "D. 輕易獲得成功"], ans: "C", exp: "在「生與義」的抉擇中，「苟得」指的是違背道義去苟延殘喘、苟且偷生。" },
+                { q: "「如使人之所欲莫甚於生」的「如使」，可以替換為下列哪一個詞語而不改變句意？", opts: ["A. 如果、假使", "B. 使命", "C. 即使、縱然", "D. 既然"], ans: "A", exp: "「如使」是連詞，表示假設語氣，意為如果、假使。" },
+                { q: "「何不用也？」與「何不為也？」這兩句中的「用」與「為」，在論證中暗示了什麼樣的行為？", opts: ["A. 善用資源以造福人群", "B. 為了求生與避死，不擇手段、無所不用其極", "C. 展現個人的才華與能力", "D. 遵守國家的法令規範"], ans: "B", exp: "孟子以此反問：如果人最看重生命、最怕死亡，那為了活命，難道不是什麼卑鄙手段都會用盡嗎？" },
+                { q: "承上題，孟子觀察到「由是則生而有不用也」，他認為這種現象證明了什麼？", opts: ["A. 人們其實並不怕死", "B. 生存的方法太過困難", "C. 人們心中有比「生存」更強烈的渴望（即道義）", "D. 社會法律過於嚴苛"], ans: "C", exp: "既然有求生之法卻不願意用，證明人的心中存在著超越生物本能的道德價值（義）。" },
+                { q: "「非獨賢者有是心也」中的「是心」，具體指的是孟子「四端之心」中的哪一種？", opts: ["A. 惻隱之心 (仁之端)", "B. 羞惡之心 (義之端)", "C. 辭讓之心 (禮之端)", "D. 是非之心 (智之端)"], ans: "B", exp: "「舍生取義」的核心在於不願苟且偷生的羞恥感與對道義的堅持，這正是「羞惡之心，義之端也」。" },
+                { q: "文末提到「賢者能勿喪耳」，此處的「喪」字作何解釋？", opts: ["A. 辦理喪事", "B. 悲傷痛哭", "C. 死亡", "D. 失去、丟失、淪喪"], ans: "D", exp: "「勿喪」即不喪失。孟子認為這份本心人人皆有，只是凡人容易因物慾而「喪失」，賢者能持守不失。" },
+                { q: "整篇文章的推論邏輯基礎，是建立在孟子的哪一個核心哲學主張上？", opts: ["A. 性善論", "B. 性惡論", "C. 民貴君輕", "D. 尊王攘夷"], ans: "A", exp: "「人皆有之，賢者能勿喪耳」明確指出道德本心是與生俱來的，此即孟子「性善論」的核心。" },
+                { q: "本文運用了豐富的修辭技巧，下列哪一種修辭「沒有」出現在本文中？", opts: ["A. 譬喻", "B. 映襯", "C. 排比", "D. 誇飾"], ans: "D", exp: "A(魚與熊掌)、B(生與死、欲與惡)、C(生亦我所欲...死亦我所惡...)皆有。文中並無誇大不實的誇飾修辭。" },
+                { q: "「使人之所惡莫甚於死者」是一句什麼語氣的句子？", opts: ["A. 祈使語氣", "B. 假設語氣", "C. 讚嘆語氣", "D. 斥責語氣"], ans: "B", exp: "「使」同「如使」，表假設。假使人們最討厭的沒有超過死亡的..." },
+                { q: "下列哪一個成語的意涵，與孟子「舍生取義」的理念最為「相反」？", opts: ["A. 殺身成仁", "B. 視死如歸", "C. 明哲保身 / 苟且偷安", "D. 大義滅親"], ans: "C", exp: "明哲保身與苟且偷安，都是為了保全自身生命利益而放棄原則，正是孟子所批評的「苟得」。" },
+                { q: "「生亦我所欲，所欲有甚於生者」這兩句話，在句型結構上使用了哪一種修辭？", opts: ["A. 頂真", "B. 借代", "C. 雙關", "D. 回文"], ans: "A", exp: "上一句的結尾「所欲」，作為下一句的開頭「所欲」，首尾相接，屬於頂真修辭。" },
+                { q: "「賢者能勿喪耳」的「耳」字，作為句末助詞，表達了何種語氣？", opts: ["A. 疑問語氣（呢）", "B. 驚嘆語氣（啊）", "C. 限止語氣（罷了、而已）", "D. 祈使語氣（吧）"], ans: "C", exp: "「耳」在此同「爾」，表示限止語氣，翻譯為「罷了」、「而已」。" },
+                { q: "本文論證「人皆有是心」的邏輯手法為何？", opts: ["A. 大量引用《詩經》、《尚書》來證明", "B. 以反面假設推導出荒謬結果（推謬），再以現實行為反證正面觀點", "C. 以孔子的權威言論作為唯一依據", "D. 講述古代聖王的故事來感化讀者"], ans: "B", exp: "孟子先假設「如果人最怕死，那不就什麼都會做嗎？」，再點出現實中「有人不願做」，藉此推導出人心必有高於生命的追求。" },
+                { q: "下列引號中的字詞，何者詞性與其他三者「不同」？", opts: ["A. 「舍」生取義", "B. 故「患」有不辟也", "C. 生亦我所「欲」", "D. 賢者能勿「喪」耳"], ans: "B", exp: "A(放棄)、C(喜愛)、D(失去)皆為動詞。B的「患」為名詞（災禍）。" }
             ]
         };
 
+        // 預處理所有關鍵字 (確保能在內文中被高亮並綁定事件)
         const allKeywords = {};
         contentData.segments.forEach((seg, idx) => {
             Object.entries(seg.notes).forEach(([key, note]) => {
@@ -342,17 +331,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-landmark text-amber-600 text-2xl"></i>
+                                <i class="fas fa-balance-scale text-amber-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">敬業與忠誠</h3>
-                            <p class="text-amber-800 font-serif text-lg">盛服將朝，社稷之鎮</p>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">道德抉擇</h3>
+                            <p class="text-amber-800 font-serif text-lg">魚與熊掌，生與義的終極天平</p>
                         </div>
                         <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-balance-scale text-orange-600 text-2xl"></i>
+                                <i class="fas fa-heart text-orange-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">道義的抉擇</h3>
-                            <p class="text-orange-800 font-serif text-lg">捨生取義，觸槐而死</p>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">性善本心</h3>
+                            <p class="text-orange-800 font-serif text-lg">羞惡之心，人皆有之勿喪耳</p>
                         </div>
                     </div>
                 </div>
@@ -369,7 +358,7 @@
                 });
 
                 // 修改為直接讀取本地靜態圖片
-                const localPath = `Chinese-Classical-563-images/reading_segment_${idx + 1}.jpg`;
+                const localPath = `Chinese-Classical1-13-images/reading_segment_${idx + 1}.jpg`;
                 let imageSection = `
                     <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
                         <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
@@ -403,7 +392,7 @@
             container.innerHTML = `
                 <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-orange-100 shadow-sm">
                     <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
-                    <p class="text-sm text-amber-700">為您重現刺客與忠臣的驚險瞬間。</p>
+                    <p class="text-sm text-amber-700">為您重現孟子雄辯與生義抉擇的深刻場景。</p>
                 </div>
                 <div class="max-w-4xl mx-auto mt-4">
                     ${segmentsHtml}
@@ -419,7 +408,7 @@
             container.innerHTML = `
                 <div class="space-y-12">
                     <section>
-                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">忠信兩難抉擇圖</h2>
+                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">孟子邏輯推論圖 (假設與反證)</h2>
                         <div class="bg-white rounded-xl shadow-lg p-8 border border-orange-100 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
                              <svg viewBox="0 0 700 400" class="w-full h-full">
                                 <defs>
@@ -428,34 +417,34 @@
                                     </marker>
                                 </defs>
                                 
-                                <!-- Center Source: Chu Ni -->
-                                <rect x="250" y="20" width="200" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
-                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="18" fill="#374151">鉏麑的刺殺任務</text>
+                                <!-- Center Source: False Assumption -->
+                                <rect x="200" y="20" width="300" height="50" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5"/>
+                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#b91c1c">反面假設：人最貪生怕死</text>
 
-                                <path d="M350,70 L150,110" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                <path d="M350,70 L550,110" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L350,110" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
 
-                                <!-- Left Path: Kill Zhao -->
-                                <rect x="60" y="110" width="180" height="80" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="3" />
-                                <text x="150" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#0369a1">執行命令 (殺趙盾)</text>
-                                <text x="150" y="165" text-anchor="middle" font-size="14" fill="#075985">賊國之鎮，不忠</text>
+                                <!-- Consequence of False Assumption -->
+                                <rect x="200" y="110" width="300" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
+                                <text x="350" y="135" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">推論：為了求生避死</text>
+                                <text x="350" y="155" text-anchor="middle" font-size="14" fill="#7f1d1d">必無所不用其極 (何不用也？)</text>
 
-                                <!-- Right Path: Abandon -->
-                                <rect x="460" y="110" width="180" height="80" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="3" />
-                                <text x="550" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#b91c1c">放棄任務 (違命)</text>
-                                <text x="550" y="165" text-anchor="middle" font-size="14" fill="#991b1b">受命而廢之，不信</text>
+                                <path d="M350,170 L350,210" stroke="#374151" stroke-width="2" marker-end="url(#arrow-deep)" />
 
-                                <!-- Convergence -->
-                                <path d="M150,190 L150,240 L350,270" stroke="#8b5cf6" stroke-width="2" fill="none"/>
-                                <path d="M550,190 L550,240 L350,270" stroke="#8b5cf6" stroke-width="2" fill="none"/>
-                                
-                                <rect x="250" y="270" width="200" height="70" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="3" />
-                                <text x="350" y="295" text-anchor="middle" font-weight="bold" font-size="16" fill="#5b21b6">兩難困境 (享一名)</text>
-                                <text x="350" y="320" text-anchor="middle" font-size="14" fill="#4c1d95">不如死！ (觸槐自殺)</text>
+                                <!-- The Reality (Contradiction) -->
+                                <rect x="200" y="210" width="300" height="60" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="3" />
+                                <text x="350" y="235" text-anchor="middle" font-weight="bold" font-size="16" fill="#b45309">現實矛盾：有人不願苟得</text>
+                                <text x="350" y="255" text-anchor="middle" font-size="14" fill="#92400e">(生而有不用，辟患而有不為)</text>
+
+                                <path d="M350,270 L350,310" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-deep)" />
+
+                                <!-- The True Conclusion -->
+                                <rect x="150" y="310" width="400" height="60" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="4" />
+                                <text x="350" y="335" text-anchor="middle" font-weight="bold" font-size="18" fill="#047857">正面結論：本心存在</text>
+                                <text x="350" y="355" text-anchor="middle" font-size="14" fill="#065f46">人有甚於生之所欲 (義)，甚於死之所惡 (不義)</text>
                             </svg>
                         </div>
                         <p class="mt-6 text-amber-800 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-100">
-                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學與哲學分析：</strong> 《左傳》以精鍊的筆觸，不僅展現了趙盾的忠良，更深刻探討了先秦刺客的道德觀。鉏麑被夾在「對君主的信（契約）」與「對國家社稷的忠（大義）」之間。當他發現目標是一位無私的國家棟樑時，他選擇以最壯烈的方式——自我犧牲，來化解這個無法兩全的死結。
+                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>哲理分析：</strong> 孟子在此展現了極為嚴密的邏輯推論。他先用「歸謬法」，假設人如果真的是生物性本能（貪生怕死）至上，那必定會為了活命不擇手段。然而，現實中我們看到許多人寧死也不願做苟且之事，這個「矛盾」完美地證明了：在人的內心深處，一定有一種價值（義）是超越了生物性生存（生）的。
                         </p>
                     </section>
                 </div>
@@ -480,7 +469,7 @@
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold text-amber-900 font-serif mb-2">語詞精解</h2>
-                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，並已完全整合於上方「精讀與圖解」中，供您隨時查閱。</p>
+                        <p class="text-amber-700">依據教育部辭典嚴格校對，收錄 ${contentData.vocabulary.length} 個高頻字音與字義考點</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         ${cardsHtml}
@@ -590,7 +579,7 @@
                     <div class="text-center mb-10">
                         <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高難度與高鑑別度</span>
                         <h2 class="text-3xl font-bold text-amber-900 font-serif">隨堂測驗 (20題)</h2>
-                        <p class="text-amber-700 mt-2">挑戰詞性轉換、通假字與忠信哲理的深度考題</p>
+                        <p class="text-amber-700 mt-2">挑戰詞性轉換、倒裝句與推恩哲理的深度考題</p>
                     </div>
                     ${quizHtml}
                     
@@ -607,30 +596,23 @@
         const storyNodes = {
             start: {
                 id: 'start',
-                text: "你是晉國頂尖刺客鉏麑，今夜你接到了晉靈公的密令：去刺殺正卿趙盾。清晨，你潛入趙府，卻驚訝地發現臥室門大開，趙盾早已穿戴整齊，端坐著打瞌睡。面對這位為國操勞的忠臣，你決定...",
+                text: "你是戰國時代的一名地方官吏。今年大旱，百姓飢荒。然而，你的頂头上司（一位貪官）卻將救災的糧食私吞。他私下拿出一大筆黃金給你，並威脅道：「收下黃金，保你一生榮華富貴（生）；若敢向上舉發，明日便讓你身首異處（死）。」面對威逼利誘，你決定：",
                 choices: [
-                    { text: "立刻動手！君王的命令絕對不能違背，殺掉趙盾領賞。", next: "kill_zhao" },
-                    { text: "放棄任務，趁沒人發現悄悄逃走，隱姓埋名過一生。", next: "run_away" },
-                    { text: "停下腳步，陷入沉思。殺忠臣是不忠，違君命是不信，我該如何抉擇？", next: "dilemma" }
+                    { text: "收下黃金並保持沉默。生命和財富最重要，不值得白白送死。", next: "take_gold" },
+                    { text: "拍案而起，大聲斥責。寧可犧牲生命，也絕不與貪官同流合汙！", next: "reject_gold" }
                 ]
             },
-            kill_zhao: {
-                id: 'kill_zhao',
-                text: "【不忠的罪人】你狠下心，刺殺了國家棟樑趙盾。晉國從此失去重心，陷入大亂。雖然你拿到了賞賜，但歷史將你永遠釘在恥辱柱上，成為暴君的鷹犬。",
-                choices: [{ text: "重來，這不是義士所為", next: "start" }],
+            take_gold: {
+                id: 'take_gold',
+                text: "【喪失本心，苟得求生】你收下了黃金，雖然得以保全性命，甚至升官發財。但每當夜半無人時，想起那些餓死的百姓，你的良心便備受煎熬。孟子嘆息道：「這便是為了苟得生命，而喪失了人之所以為人的『羞惡之心』啊！」",
+                choices: [{ text: "重來，君子不為苟得", next: "start" }],
                 isEnding: true
             },
-            run_away: {
-                id: 'run_away',
-                text: "【不信的懦夫】你轉身逃跑了。晉靈公大怒，派出更多殺手追殺你。你後半生只能東躲西藏，不僅背棄了作為刺客的承諾（不信），也失去了堂堂正正做人的尊嚴。",
-                choices: [{ text: "重來，苟且偷生非大義", next: "start" }],
-                isEnding: true
-            },
-            dilemma: {
-                id: 'dilemma',
-                text: "【捨生取義】你悲壯地感嘆：「賊國之鎮，不忠；受命而廢之，不信。享一名於此，不如死！」為了保全趙盾（忠），同時也為自己未完成任務負責（信），你猛力撞向庭院的槐樹...",
+            reject_gold: {
+                id: 'reject_gold',
+                text: "【舍生取義，勿喪是心】你拒絕了黃金，並將貪官的罪證公之於世。貪官最終被法辦，無數飢民得到了救贖。雖然你因此遭到了貪官殘黨的報復而犧牲，但你的義舉名垂青史。孟子讚賞道：「此真君子也！所欲有甚於生者，所惡有甚於死者，你成功守住了這份本心！」",
                 choices: [
-                    { text: "回到總覽，銘記這壯烈的一幕", next: "start" }
+                    { text: "回到總覽，銘記生與義的抉擇", next: "start" }
                 ],
                 isEnding: true,
                 win: true
@@ -642,14 +624,14 @@
             const node = storyNodes[window.currentStoryNode];
 
             // 修改為直接讀取本地靜態圖片
-            const localPath = `Chinese-Classical-563-images/rpg_${window.currentStoryNode}.jpg`;
+            const localPath = `Chinese-Classical1-13-images/rpg_${window.currentStoryNode}.jpg`;
             let imageContent = `
                 <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
                     <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
                 </div>
             `;
 
-            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>捨生取義</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>浩然正氣</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
             if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
         }
 
