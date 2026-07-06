@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吳敏男 - 第三輯 第9篇 春夜宴桃李園序 - 文言文測驗</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            /* 嚴格遵守：藍粉交錯點點背景 */
+            background-image: radial-gradient(#bae6fd 1.5px, transparent 1.5px), radial-gradient(#fecdd3 1.5px, transparent 1.5px); 
+            background-size: 24px 24px; 
+            background-position: 0 0, 12px 12px; 
+            background-color: #ffffff;
+            color: #374151;
+        }
+        
+        .serif {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .biaukai {
+            font-family: 'BiauKai', 'DFKai-SB', '標楷體', serif;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 選項按鈕微小浮動動畫 */
+        .option-btn {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px rgba(0,0,0,0.1);
+        }
+
+        /* 狀態燈號 */
+        .status-dot {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            border: 2px solid #fff;
+        }
+        .status-loading { background-color: #fbbf24; }
+        .status-success { background-color: #34d399; }
+        .status-error { background-color: #ef4444; }
+
+        /* 粉色系客製化滾動條 */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #fdf2f8; border-left: 2px solid #fbcfe8; }
+        ::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 10px; border: 2px solid #fdf2f8; }
+        ::-webkit-scrollbar-thumb:hover { background: #db2777; }
+        
+        /* 隱藏原生捲軸 (某些特定區塊) */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+
+    <!-- 客製化 Modal (取代 alert 與 confirm) -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity">
+        <div class="bg-white border-4 border-solid border-rose-300 rounded-[2.5rem] p-8 max-w-sm w-[90%] shadow-2xl transform scale-95 transition-transform" id="custom-modal-box">
+            <div class="text-center">
+                <div class="text-5xl mb-4" id="modal-icon">💬</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4" id="modal-text">提示訊息</h3>
+                <div class="flex justify-center gap-4 mt-6" id="modal-buttons">
+                    <!-- Buttons injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-rose-100 border-b-4 border-solid border-rose-300 shadow-md sticky top-0 z-50 h-[4.5rem] flex items-center">
+        <div class="w-full mx-auto px-4 md:px-6 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-wider flex items-center gap-2 text-rose-800 cursor-pointer hover:scale-105 transition-transform" onclick="goHome()">
+                <span class="text-3xl">🎒</span>
+                <span class="hidden sm:inline">文言文推與敲 - </span>
+                <span>吳敏男 - 第三輯 第9篇 春夜宴桃李園序</span>
+            </h1>
+            
+            <div class="flex items-center gap-3">
+                <!-- Status Indicator -->
+                <div id="connection-status" class="hidden sm:flex items-center text-sm bg-white border-2 border-solid border-rose-200 px-3 py-1.5 rounded-full font-bold text-rose-600 shadow-sm">
+                    <span id="status-dot" class="status-dot status-loading"></span>
+                    <span id="status-text">連線中...</span>
+                </div>
+
+                <div id="user-display" class="hidden flex items-center gap-2">
+                    <div class="text-base bg-white border-2 border-solid border-teal-200 px-4 py-1.5 rounded-full flex items-center shadow-sm text-teal-800">
+                        <span class="mr-2 text-xl">🧑‍🎓</span>
+                        <span id="username-span" class="font-bold"></span>
+                    </div>
+                    <button onclick="window.customConfirm('👋 確定要登出嗎？', window.logout)" class="text-sm font-bold bg-rose-400 hover:bg-rose-500 text-white px-4 py-2 rounded-full border-2 border-solid border-rose-600 shadow-[0_4px_0_#9f1239] active:translate-y-1 active:shadow-none transition-all">
+                        登出
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full py-8">
+        
+        <!-- View: Login -->
+        <div id="view-login" class="fade-in max-w-lg mx-auto mt-6 px-4">
+            <div class="bg-white border-4 border-solid border-rose-300 rounded-[2.5rem] shadow-xl overflow-hidden p-6 md:p-8">
+                <!-- 封面圖片 -->
+                <img src="images/cc-18.jpg" alt="春夜宴桃李園序" onerror="this.src='https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" class="w-full h-48 md:h-56 object-cover rounded-[2rem] border-4 border-solid border-rose-200 mb-6 shadow-sm">
+                
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-black text-gray-800 mb-2">文言文推與敲</h2>
+                    <p class="text-rose-500 font-bold text-xl">吳敏男 - 第三輯 第9篇 春夜宴桃李園序</p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-lg font-bold text-gray-600 mb-2 pl-2">請輸入姓名開始挑戰 ✏️</label>
+                        <input type="text" id="username" 
+                            class="w-full px-6 py-4 text-xl border-4 border-solid border-teal-200 rounded-full focus:outline-none focus:border-teal-400 focus:bg-teal-50 transition-all font-bold text-gray-700" 
+                            placeholder="例如：王小明"
+                            onkeypress="if(event.key === 'Enter') window.attemptLogin()">
+                    </div>
+                    
+                    <button onclick="window.attemptLogin()" class="w-full bg-amber-300 hover:bg-amber-400 text-amber-900 py-4 px-6 rounded-full text-2xl font-black border-4 border-solid border-amber-500 shadow-[0_6px_0_#b45309] active:translate-y-2 active:shadow-none transition-all flex justify-center items-center gap-2">
+                        進入學習 🚀
+                    </button>
+
+                    <!-- Quick Login Section -->
+                    <div id="quick-login-area" class="hidden pt-6 mt-4 border-t-4 border-dashed border-gray-200">
+                        <p class="text-center text-gray-500 font-bold mb-4">✨ 雲端最近登入 ✨</p>
+                        <div id="recent-users-list" class="flex flex-wrap justify-center gap-3 max-h-48 overflow-y-auto no-scrollbar pb-2">
+                            <!-- JS Injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Dashboard -->
+        <div id="view-dashboard" class="hidden fade-in max-w-3xl mx-auto mt-6 px-4">
+            <div class="bg-white border-4 border-solid border-teal-300 rounded-[2.5rem] shadow-xl p-8">
+                <div class="text-center mb-10">
+                    <div class="text-6xl mb-4">🌟</div>
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-800">歡迎回來，<span id="dashboard-username" class="text-teal-600 border-b-4 border-teal-200 pb-1"></span>！</h2>
+                    <p class="text-gray-500 text-lg mt-4 font-bold">今天想先進行哪個項目呢？</p>
+                </div>
+
+                <!-- 選單排版調整：第一排佔據整欄 (col-span-2) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- 佔據一整排的「開始全真測驗」大按鈕 -->
+                    <button onclick="window.startExam()" class="md:col-span-2 bg-rose-100 hover:bg-rose-200 border-4 border-solid border-rose-300 p-8 rounded-[2.5rem] transition-transform hover:-translate-y-2 shadow-[0_6px_0_#fda4af] active:translate-y-1 active:shadow-none flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+                        <span class="text-6xl md:text-7xl">📝</span>
+                        <span class="text-3xl md:text-4xl font-black text-rose-800 tracking-wide">開始全真測驗</span>
+                    </button>
+
+                    <!-- 下方兩欄 -->
+                    <button onclick="window.showReview('wrong')" class="bg-amber-100 hover:bg-amber-200 border-4 border-solid border-amber-300 p-6 rounded-[2.5rem] transition-transform hover:-translate-y-2 shadow-[0_6px_0_#fcd34d] active:translate-y-1 active:shadow-none flex flex-col items-center justify-center gap-3 relative">
+                        <span class="text-5xl">❌</span>
+                        <span class="text-2xl font-bold text-amber-800">錯題本</span>
+                        <span class="absolute top-4 right-4 bg-white border-2 border-solid border-amber-400 text-amber-600 font-black px-3 py-1 rounded-full text-lg shadow-sm" id="dash-wrong-count">0</span>
+                    </button>
+
+                    <button onclick="window.showReview('favorite')" class="bg-teal-100 hover:bg-teal-200 border-4 border-solid border-teal-300 p-6 rounded-[2.5rem] transition-transform hover:-translate-y-2 shadow-[0_6px_0_#5eead4] active:translate-y-1 active:shadow-none flex flex-col items-center justify-center gap-3 relative">
+                        <span class="text-5xl">⭐</span>
+                        <span class="text-2xl font-bold text-teal-800">我的最愛</span>
+                        <span class="absolute top-4 right-4 bg-white border-2 border-solid border-teal-400 text-teal-600 font-black px-3 py-1 rounded-full text-lg shadow-sm" id="dash-fav-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Quiz List (35/65 雙欄排版) -->
+        <div id="view-quiz" class="hidden fade-in max-w-[95rem] mx-auto px-4 pb-20">
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+                
+                <!-- 左側：古文全文 (35%) - 嚴格遵守 Sticky 且淡黃底粗邊框 -->
+                <div class="w-full lg:w-[35%] shrink-0">
+                    <div class="sticky top-[5.5rem] bg-yellow-50/95 border-4 border-solid border-amber-300 rounded-[2.5rem] p-8 md:p-10 shadow-xl max-h-[85vh] overflow-y-auto">
+                        <div class="flex items-center gap-3 mb-6 border-b-4 border-solid border-amber-200 pb-4">
+                            <span class="text-4xl">📜</span>
+                            <h2 class="text-2xl font-black text-amber-800">古文全文</h2>
+                        </div>
+                        <!-- 古文內容 (字體調整為 1.5rem) -->
+                        <div class="biaukai text-[1.5rem] leading-[2.2] tracking-wider text-gray-800 font-medium text-justify">
+                            夫天地者，萬物之逆旅；光陰者，百代之過客。而浮生若夢，為歡幾何？古人秉燭夜遊，良有以也。況陽春召我以煙景，大塊假我以文章。會桃李之芳園，序天倫之樂事。群季俊秀，皆為惠連。吾人詠歌，獨慚康樂。幽賞未已，高談轉清。開瓊筵以坐花，飛羽觴而醉月。不有佳作，何伸雅懷？如詩不成，罰依金谷酒數。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：測驗區 (65%) -->
+                <div class="w-full lg:w-[65%] flex-grow space-y-6">
+                    
+                    <!-- 頂部固定列：統計與重置 -->
+                    <div class="sticky top-[5.5rem] z-40 bg-white/90 backdrop-blur-md border-4 border-solid border-gray-200 p-4 rounded-[2rem] shadow-md flex flex-wrap justify-between items-center gap-4">
+                        <div id="quiz-header-title" class="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
+                            <!-- Title Injected via JS -->
+                        </div>
+                        
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center bg-green-100 border-2 border-solid border-green-400 px-4 py-1.5 rounded-full shadow-sm text-green-800">
+                                <span class="text-lg mr-2">⭕ 答對:</span>
+                                <span id="stat-correct" class="font-black text-xl">0</span>
+                            </div>
+                            <div class="flex items-center bg-rose-100 border-2 border-solid border-rose-400 px-4 py-1.5 rounded-full shadow-sm text-rose-800">
+                                <span class="text-lg mr-2">❌ 答錯:</span>
+                                <span id="stat-wrong" class="font-black text-xl">0</span>
+                            </div>
+                            <button onclick="window.restartQuiz()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 border-2 border-solid border-gray-300 p-2 rounded-full w-10 h-10 flex items-center justify-center transition-colors" title="重新開始">
+                                🔄
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 瀑布流卡片容器 -->
+                    <div id="quiz-list-container" class="space-y-6">
+                        <!-- Questions will be injected here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+        // --- Custom Modal Logic ---
+        const modalEl = document.getElementById('custom-modal');
+        const modalBox = document.getElementById('custom-modal-box');
+        const modalText = document.getElementById('modal-text');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalButtons = document.getElementById('modal-buttons');
+
+        function openModal() {
+            modalEl.classList.remove('hidden');
+            // Small delay for transition
+            setTimeout(() => {
+                modalEl.classList.add('opacity-100');
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalEl.classList.remove('opacity-100');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modalEl.classList.add('hidden');
+            }, 200);
+        }
+
+        window.customAlert = function(msg) {
+            modalIcon.textContent = '💡';
+            modalText.textContent = msg;
+            modalButtons.innerHTML = `<button onclick="window._closeModal()" class="bg-teal-300 hover:bg-teal-400 text-teal-900 border-4 border-solid border-teal-500 font-bold py-2 px-8 rounded-full shadow-[0_4px_0_#0f766e] active:translate-y-1 active:shadow-none transition-all">知道囉！</button>`;
+            openModal();
+        };
+
+        window._currentConfirmCallback = null;
+        window.customConfirm = function(msg, onYes) {
+            window._currentConfirmCallback = onYes;
+            modalIcon.textContent = '🤔';
+            modalText.innerHTML = msg.replace(/\n/g, '<br>');
+            modalButtons.innerHTML = `
+                <button onclick="window._closeModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 border-4 border-solid border-gray-400 font-bold py-2 px-6 rounded-full shadow-[0_4px_0_#9ca3af] active:translate-y-1 active:shadow-none transition-all">再想想</button>
+                <button onclick="window._closeModal(); setTimeout(window._currentConfirmCallback, 200);" class="bg-rose-300 hover:bg-rose-400 text-rose-900 border-4 border-solid border-rose-500 font-bold py-2 px-6 rounded-full shadow-[0_4px_0_#be123c] active:translate-y-1 active:shadow-none transition-all">確定執行</button>
+            `;
+            openModal();
+        };
+        window._closeModal = closeModal;
+
+        // --- Configuration ---
+        const COLLECTION_NAME = 'Chinese-Classical1-18';
+        const DOC_GLOBAL = 'global';
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAxQFt76ZPXE7d0i1XeNZ1yiiD2WYNIfHs",
+          authDomain: "chinese-learning-47f4d.firebaseapp.com",
+          projectId: "chinese-learning-47f4d",
+          storageBucket: "chinese-learning-47f4d.firebasestorage.app",
+          messagingSenderId: "76289812052",
+          appId: "1:76289812052:web:898384a916f9f341f62fc1"
+        };
+
+        let app, db, auth;
+        let isFirebaseReady = false;
+        let currentUserUnsubscribe = null;
+
+        // Initialize Firebase
+        try {
+            if(firebaseConfig.apiKey) {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                signInAnonymously(auth).catch(console.error);
+                isFirebaseReady = true;
+            } else {
+                updateConnectionStatus('error', '未連線');
+            }
+        } catch (e) {
+            console.error("Firebase init error:", e);
+            updateConnectionStatus('error', '連線錯誤');
+        }
+
+        // --- Questions Data ---
+        // 針對李白《春夜宴桃李園序》，涵蓋字義辨析、特殊句式、修辭轉品、省略主語判斷，以及跨文本對讀
+        const questionsData = [
+            {
+                id: 1,
+                category: "字音辨析",
+                question: "下列「」中字詞的讀音，何者標示完全正確？",
+                options: [
+                    "「秉」燭：ㄅㄧㄥˇ / 「瓊」筵：ㄐㄩㄥˊ",
+                    "大「塊」：ㄎㄨㄞˋ / 羽「觴」：ㄕㄤ",
+                    "「假」我：ㄐㄧㄚˋ / 「惠」連：ㄏㄨㄟˋ",
+                    "「幽」賞：ㄧㄡ / 酒「數」：ㄕㄨㄛˋ"
+                ],
+                answer: 1,
+                explanation: "(B) 完全正確。「塊」音ㄎㄨㄞˋ，「觴」音ㄕㄤ。(A)瓊(ㄑㄩㄥˊ)。(C)假(ㄐㄧㄚˇ)我：借給。(D)酒數(ㄕㄨˋ)：罰酒的杯數。"
+            },
+            {
+                id: 2,
+                category: "字形辨析",
+                question: "下列各選項的文句，何者用字完全正確？",
+                options: [
+                    "浮生若夢，為歡幾合？",
+                    "陽春召我以煙景，大塊假我以文章。",
+                    "幽賞未已，高談轉清。開瓊廷以坐花。",
+                    "如詩不成，罰依金谷酒數。會桃李之芳園，敘天倫之樂事。"
+                ],
+                answer: 1,
+                explanation: "(B) 完全正確。(A)幾合 → 幾何。(C)瓊廷 → 瓊筵。(D)敘天倫 → 序天倫。"
+            },
+            {
+                id: 3,
+                category: "字義辨析",
+                question: "「陽春召我以煙景」的「以」字，解釋為「用、拿」。下列文句中的「以」，何者意思與此相同？",
+                options: [
+                    "「以」五十步笑百步，則何如？",
+                    "不「以」物喜，不以己悲",
+                    "屬予作文「以」記之",
+                    "斧斤「以」時入山林"
+                ],
+                answer: 0,
+                explanation: "(A) 正確。題幹「以煙景召我」的「以」為介詞「用、拿」。(A)「用」五十步笑百步。(B)介詞，因為。(C)連詞，用來(表目的)。(D)介詞，依照、按。"
+            },
+            {
+                id: 4,
+                category: "詞語解釋",
+                question: "關於下列文句中詞語的解釋，何者「錯誤」？",
+                options: [
+                    "「逆旅」：指旅館、客棧。逆，迎接。",
+                    "「大塊」：大塊的土地，此指寬廣的桃李園。",
+                    "「文章」：錯綜華美的色彩、花紋，此指大自然的美景。",
+                    "「群季」：眾位弟弟。季，古代兄弟排行「伯仲叔季」，季為最小或泛指弟弟。"
+                ],
+                answer: 1,
+                explanation: "(B) 錯誤。「大塊」在此指造物者、大自然，而非土地。語出《莊子·大宗師》「大塊載我以形」。"
+            },
+            {
+                id: 5,
+                category: "句型結構",
+                question: "「陽春召我以煙景」為「陽春以煙景召我」的倒裝句（介賓結構後置 / 狀語後置）。下列文句，何者也使用了相同的倒裝句型？",
+                options: [
+                    "甚矣，吾衰也。",
+                    "何陋之有？",
+                    "嘗貽余核舟一。",
+                    "相與步於中庭。"
+                ],
+                answer: 3,
+                explanation: "(D) 正確。「相與步於中庭」即「相與於中庭步」，屬介賓結構後置。(A)主謂倒裝。(B)賓語前置。(C)定語後置。"
+            },
+            {
+                id: 6,
+                category: "修辭辨識",
+                question: "本文使用了許多「借代」修辭，下列選項對應的借代意涵，何者「錯誤」？",
+                options: [
+                    "「羽觴」借代為酒杯",
+                    "「惠連」借代為才華洋溢的弟弟們",
+                    "「康樂」借代為隱居山林的高士",
+                    "「金谷酒數」借代為罰酒三杯"
+                ],
+                answer: 2,
+                explanation: "(C) 錯誤。「康樂」是指南朝宋詩人謝靈運(襲封康樂公)，李白在此借代「自己」，是自謙才華不如謝靈運之意。"
+            },
+            {
+                id: 7,
+                category: "修辭辨識",
+                question: "「陽春召我以煙景，大塊假我以文章」使用了「擬人(轉化)」修辭。下列文句，何者也使用了相同的修辭手法？",
+                options: [
+                    "浮生若夢，為歡幾何？",
+                    "晚來天欲雪，能飲一杯無？",
+                    "綠樹村邊合，青山郭外斜。",
+                    "桃花聽得風聲語，笑吐嬌紅照碧池。"
+                ],
+                answer: 3,
+                explanation: "(D) 正確。「聽、語、笑吐」賦予桃花與風聲人類的動作與情感，為擬人修辭。(A)譬喻。(B)設問。(C)對偶。"
+            },
+            {
+                id: 8,
+                category: "詞性轉品",
+                question: "古漢語中常有詞性轉換的「轉品」現象。如「開瓊筵以『坐』花，飛羽觴而『醉』月」中的「醉」字，原本是形容詞或名詞(醉態)，在此作動詞「醉飲」用。下列文句「」中的字，何者也是「名詞轉為動詞」？",
+                options: [
+                    "「席」地而坐",
+                    "春風又「綠」江南岸",
+                    "且「貳」於楚也",
+                    "「晚」來天欲雪"
+                ],
+                answer: 0,
+                explanation: "(A) 正確。「席」原為名詞(墊席)，此作動詞(當作墊席/鋪席子)。(B)形容詞轉動詞。(C)數詞轉動詞(懷有二心)。(D)名詞轉副詞(在傍晚時)。"
+            },
+            {
+                id: 9,
+                category: "文意理解",
+                question: "「浮生若夢，為歡幾何？」表達了生命短暫，應及時把握光陰的思想。下列成語，何者最能呼應這種人生觀？",
+                options: [
+                    "醉生夢死",
+                    "秉燭夜遊",
+                    "朝生暮死",
+                    "杞人憂天"
+                ],
+                answer: 1,
+                explanation: "(B) 正確。「秉燭夜遊」比喻及時行樂，呼應文中「古人秉燭夜遊，良有以也」之意，展現把握良辰美景的積極面。(A)消極頹廢。(C)生命短暫。(D)無謂的憂慮。"
+            },
+            {
+                id: 10,
+                category: "省略主語",
+                question: "文言文常省略主語以求精簡。關於下列文句省略的主語，何者還原「錯誤」？",
+                options: [
+                    "(李白與群季) 幽賞未已，高談轉清。",
+                    "(群季) 皆為惠連。",
+                    "(古人) 秉燭夜遊。",
+                    "(天地與光陰) 不有佳作，何伸雅懷？"
+                ],
+                answer: 3,
+                explanation: "(D) 錯誤。「不有佳作，何伸雅懷？」的主語應是「李白與赴宴的眾人」，意指我們若沒有寫出好詩，怎能抒發高雅的情懷？"
+            },
+            {
+                id: 11,
+                category: "深層文意推敲",
+                question: "「古人秉燭夜遊，良有以也」一句，展現了李白何種生命態度？",
+                options: [
+                    "悲嘆生命無常，主張拋棄俗世，隱居山林以求長生。",
+                    "認為人生苦短，應日夜享樂，沉溺於酒色財氣之中。",
+                    "感慨光陰流逝，因而更要熱愛生命，積極把握良辰美景與親情交融。",
+                    "批評古人點燈夜遊是浪費資源，呼籲世人應順應自然的日夜作息。"
+                ],
+                answer: 2,
+                explanation: "(C) 正確。李白雖言及時行樂，但從後文「會桃李、序天倫、詠歌、高談」可知，其核心是熱愛生命、欣賞大自然與親情交融的高雅情趣，而非低俗的頹廢享樂。"
+            },
+            {
+                id: 12,
+                category: "國學常識",
+                question: "李白被後世尊稱為「詩仙」，其作品風格豪放飄逸、自然率真。下列哪一首詩歌的風格與《春夜宴桃李園序》最為相近，皆展現出奔放與及時行樂的豪情？",
+                options: [
+                    "杜甫〈春望〉：「國破山河在，城春草木深。」",
+                    "李白〈將進酒〉：「人生得意須盡歡，莫使金樽空對月。」",
+                    "王維〈鹿柴〉：「空山不見人，但聞人語響。」",
+                    "白居易〈賣炭翁〉：「可憐身上衣正單，心憂炭賤願天寒。」"
+                ],
+                answer: 1,
+                explanation: "(B) 正確。李白的〈將進酒〉與本篇序文皆充滿豪放飄逸之氣與「及時行樂」的人生觀。(A)為沉鬱頓挫的愛國詩。(C)為空靈淡遠的山水詩。(D)為反映民生疾苦的社會寫實詩。"
+            },
+            {
+                id: 13,
+                category: "典故測驗",
+                question: "「罰依金谷酒數」典出晉代石崇在金谷園宴客，若作詩不成，則罰酒三杯。這個典故在本文中主要用來強調什麼情境？",
+                options: [
+                    "警告弟弟們若不作詩，將面臨嚴厲的體罰。",
+                    "展現宴會中飲酒賦詩的風雅與歡樂氣氛。",
+                    "諷刺石崇生活奢靡，借此警惕家人不可鋪張浪費。",
+                    "暗示作者自己酒量很好，不畏懼任何罰酒。"
+                ],
+                answer: 1,
+                explanation: "(B) 正確。李白引用金谷園的典故，是文人雅士間的行酒令遊戲，目的是為宴席增添風雅與歡愉的氣氛，鼓勵大家盡情創作。"
+            },
+            {
+                id: 14,
+                category: "跨文本對讀",
+                question: "蘇軾〈前赤壁賦〉云：「哀吾生之須臾，羨長江之無窮。」表達了對宇宙永恆與人生短暫的對比。本文中哪一句話表達了最相近的宇宙時空觀？",
+                options: [
+                    "會桃李之芳園，序天倫之樂事",
+                    "陽春召我以煙景，大塊假我以文章",
+                    "夫天地者，萬物之逆旅；光陰者，百代之過客",
+                    "幽賞未已，高談轉清"
+                ],
+                answer: 2,
+                explanation: "(C) 正確。蘇軾對比了短暫(吾生)與無窮(長江)；李白則以廣闊永恆的空間(天地)與時間(光陰)，對比人類短暫如寄居過客(逆旅/過客)的生命。"
+            },
+            {
+                id: 15,
+                category: "跨文本比較",
+                question: "王羲之〈蘭亭集序〉：「向之所欣，俯仰之間，已為陳跡，猶不能不以之興懷。」充滿對生死無常的深沉悲慨。相較之下，李白在本文中面對「浮生若夢」的態度有何不同？",
+                options: [
+                    "李白選擇逃避現實，追求仙丹以求長生不老。",
+                    "李白認為既然人生如夢，不如終日昏睡以減少痛苦。",
+                    "李白化悲傷為力量，積極投入政治，期盼建功立業。",
+                    "李白轉向豁達開朗，主張以欣賞美景、親友團聚與飲酒賦詩來充實短暫的人生。"
+                ],
+                answer: 3,
+                explanation: "(D) 正確。王羲之對於人生無常感到悲涼(悲)；李白雖然也意識到人生短暫，但他隨即轉為豁達，以「為歡幾何」帶出積極宴飲、賦詩、賞景的高雅樂趣(達)。"
+            },
+            {
+                id: 16,
+                category: "修辭辨識",
+                question: "駢文講究對仗工整。下列文句，何者「沒有」使用對偶修辭？",
+                options: [
+                    "天地者，萬物之逆旅；光陰者，百代之過客。",
+                    "陽春召我以煙景，大塊假我以文章。",
+                    "開瓊筵以坐花，飛羽觴而醉月。",
+                    "不有佳作，何伸雅懷？如詩不成，罰依金谷酒數。"
+                ],
+                answer: 3,
+                explanation: "(D) 正確。此選項的兩句字數與詞性皆不相對，非對偶。(A)(B)(C)皆為字數、詞性工整的對仗句式。"
+            },
+            {
+                id: 17,
+                category: "文學常識",
+                question: "本文是一篇「序」。關於「序」這種文體，下列敘述何者正確？",
+                options: [
+                    "序必定放在書的最前面，用來介紹書籍的內容大意與寫作動機。",
+                    "本文屬於「宴集序」，是古人在宴飲聚會時，為了將大家所作的詩彙集成冊而寫的序文。",
+                    "「序」與「跋」是完全相同的文體，只是作者不同而已。",
+                    "「贈序」是用來批評朋友過失的文體，如韓愈的〈送董邵南序〉。"
+                ],
+                answer: 1,
+                explanation: "(B) 正確。如〈蘭亭集序〉與本文，皆為宴集後為詩集所作的序。(A)序不一定放在書前，放在書後的稱為跋。(C)跋寫於書後，性質相近但不完全相同。(D)贈序是臨別贈言，多為勉勵、期許，非專門用於批評。"
+            },
+            {
+                id: 18,
+                category: "邏輯推演",
+                question: "作者認為「古人秉燭夜遊，良有以也（確實有其原因）」的「原因」是什麼？",
+                options: [
+                    "因為晚上天氣涼爽，適合出門賞月。",
+                    "因為古人為了逃避白天的繁重工作。",
+                    "因為大自然的美景只有在夜晚才能完全展現。",
+                    "因為人生如夢般短暫虛幻，能歡樂的時間太少，故連夜晚也不願浪費。"
+                ],
+                answer: 3,
+                explanation: "(D) 正確。前文云「而浮生若夢，為歡幾何？」正因為人生短促，所以古人才要秉燭夜遊，及時把握光陰行樂。"
+            },
+            {
+                id: 19,
+                category: "現代情境轉換",
+                question: "若要將《春夜宴桃李園序》的核心精神，化為現代社群媒體上的 Hashtag (主題標籤)，下列哪一組標籤最符合李白此文的意境？",
+                options: [
+                    "#厭世日常 #躺平主義 #拒絕社交",
+                    "#把握當下 #家族聚餐 #春日微醺 #寫作挑戰",
+                    "#深夜emo #失眠夜 #孤獨患者",
+                    "#自然環保 #愛護花草 #減碳生活"
+                ],
+                answer: 1,
+                explanation: "(B) 正確。「把握當下」對應(浮生若夢，為歡幾何)；「家族聚餐」對應(序天倫之樂事)；「春日微醺」對應(飛羽觴而醉月)；「寫作挑戰」對應(如詩不成，罰依金谷酒數)。完美契合全文精神。"
+            },
+            {
+                id: 20,
+                category: "綜合鑑別題",
+                question: "關於《春夜宴桃李園序》一文的寫作手法與藝術特色，下列分析何者「錯誤」？",
+                options: [
+                    "全文情感由「悲/嘆」轉「喜/達」，先慨嘆人生短促，隨即轉為讚賞春景與天倫之樂的喜悅。",
+                    "語言華美且具節奏感，大量使用駢文的對偶句式，如「會桃李之芳園，序天倫之樂事」。",
+                    "善用典故，以「惠連」、「康樂」借代兄弟與自身，以「金谷酒數」增添宴飲的風雅。",
+                    "結尾以嚴厲的語氣警告諸弟，若不遵守作詩的規定，將會受到嚴厲的家族家法懲處。"
+                ],
+                answer: 3,
+                explanation: "(D) 錯誤。結尾的「罰依金谷酒數」是文人雅士之間為了助興而玩的行酒令遊戲，充滿幽默與雅興，絕非嚴厲的家法懲處。"
+            }
+        ];
+
+        // --- State Management ---
+        let currentState = {
+            username: '',
+            answers: {},
+            mistakes: [], 
+            favorites: [],
+            viewMode: 'all',
+        };
+
+        const ui = {
+            usernameInput: document.getElementById('username'),
+            userDisplay: document.getElementById('user-display'),
+            usernameSpan: document.getElementById('username-span'),
+            dashboardUsername: document.getElementById('dashboard-username'),
+            dashWrongCount: document.getElementById('dash-wrong-count'),
+            dashFavCount: document.getElementById('dash-fav-count'),
+            quickLoginArea: document.getElementById('quick-login-area'),
+            recentUsersList: document.getElementById('recent-users-list'),
+            statCorrect: document.getElementById('stat-correct'),
+            statWrong: document.getElementById('stat-wrong'),
+            quizListContainer: document.getElementById('quiz-list-container'),
+            statusDot: document.getElementById('status-dot'),
+            statusText: document.getElementById('status-text'),
+            quizHeaderTitle: document.getElementById('quiz-header-title'),
+            views: {
+                login: document.getElementById('view-login'),
+                dashboard: document.getElementById('view-dashboard'),
+                quiz: document.getElementById('view-quiz')
+            }
+        };
+
+        // --- Initialization ---
+        function init() {
+            if (isFirebaseReady) {
+                const globalRef = doc(db, COLLECTION_NAME, DOC_GLOBAL);
+                onSnapshot(globalRef, (docSnap) => {
+                    updateConnectionStatus('success', '連線成功');
+                    if (docSnap.exists()) {
+                        renderRecentUsers(docSnap.data().users || []);
+                    }
+                }, (error) => {
+                    console.error("Global listen error", error);
+                    updateConnectionStatus('error', '雲端錯誤');
+                });
+            } else {
+                renderRecentUsers([]); 
+            }
+        }
+
+        function updateConnectionStatus(type, text) {
+            ui.statusText.textContent = text;
+            ui.statusDot.className = 'status-dot';
+            if (type === 'loading') ui.statusDot.classList.add('status-loading');
+            else if (type === 'success') ui.statusDot.classList.add('status-success');
+            else if (type === 'error') ui.statusDot.classList.add('status-error');
+        }
+
+        function renderRecentUsers(users) {
+            if (users && users.length > 0) {
+                ui.quickLoginArea.classList.remove('hidden');
+                ui.recentUsersList.innerHTML = '';
+                // 反轉陣列讓最新的在前面，取前 10 名
+                [...users].reverse().slice(0, 10).forEach(user => {
+                    const btn = document.createElement('button');
+                    // 嚴格遵守：按鈕要大，圓角，加上 text-4xl 的 🧑‍🎓
+                    btn.className = 'bg-white hover:bg-teal-50 border-4 border-solid border-teal-200 text-teal-800 rounded-[1.5rem] px-4 py-2 transition-transform hover:-translate-y-1 shadow-[0_4px_0_#99f6e4] active:translate-y-1 active:shadow-none font-bold flex items-center gap-2 text-lg';
+                    btn.innerHTML = `<span class="text-4xl">🧑‍🎓</span> <span>${user}</span>`;
+                    btn.onclick = () => {
+                        ui.usernameInput.value = user;
+                        window.attemptLogin();
+                    };
+                    ui.recentUsersList.appendChild(btn);
+                });
+            } else {
+                 ui.quickLoginArea.classList.add('hidden');
+            }
+        }
+
+        // --- Login Logic ---
+        window.attemptLogin = async function() {
+            const name = ui.usernameInput.value.trim();
+            if (!name) { window.customAlert('請輸入姓名才能開始喔！✨'); return; }
+            
+            currentState.username = name;
+            
+            if (isFirebaseReady) {
+                const globalRef = doc(db, COLLECTION_NAME, DOC_GLOBAL);
+                setDoc(globalRef, { users: arrayUnion(name) }, { merge: true })
+                    .catch(e => console.error("Global user update error:", e));
+                startUserListener(name);
+            }
+
+            ui.userDisplay.classList.remove('hidden');
+            ui.usernameSpan.textContent = name;
+            ui.dashboardUsername.textContent = name;
+            
+            switchView('dashboard');
+        }
+
+        function startUserListener(username) {
+            if (currentUserUnsubscribe) currentUserUnsubscribe();
+
+            const userRef = doc(db, COLLECTION_NAME, username);
+            
+            currentUserUnsubscribe = onSnapshot(userRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    currentState.favorites = data.favorites || [];
+                    currentState.mistakes = data.mistakes || [];
+                    ui.dashWrongCount.textContent = currentState.mistakes.length;
+                    ui.dashFavCount.textContent = currentState.favorites.length;
+
+                    if (data.progress) {
+                        currentState.answers = data.progress.answers || {};
+                    }
+                } else {
+                    currentState.favorites = [];
+                    currentState.mistakes = [];
+                    currentState.answers = {};
+                    ui.dashWrongCount.textContent = 0;
+                    ui.dashFavCount.textContent = 0;
+                }
+                if(currentState.username && !ui.views.quiz.classList.contains('hidden')) {
+                    renderWaterfallQuiz();
+                }
+            });
+        }
+
+        function switchView(viewName) {
+            Object.values(ui.views).forEach(el => el.classList.add('hidden'));
+            ui.views[viewName].classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        window.startExam = function() {
+            currentState.viewMode = 'all';
+            switchView('quiz');
+            renderWaterfallQuiz();
+        }
+
+        window.showDashboard = function() {
+            switchView('dashboard');
+        }
+
+        window.restartQuiz = function() {
+            window.customConfirm("確定要重新開始測驗嗎？🔄\n這會清除本回的「作答紀錄」，但「錯題本」與「收藏」都會保留喔！", () => {
+                currentState.answers = {};
+                saveProgress();
+                renderWaterfallQuiz();
+                window.scrollTo({top:0, behavior:'smooth'});
+            });
+        }
+
+        // --- Waterfall Render Logic ---
+        function renderWaterfallQuiz() {
+            const container = ui.quizListContainer;
+            container.innerHTML = ''; 
+
+            let questionsToRender = questionsData;
+            let titleHtml = '';
+
+            if (currentState.viewMode === 'wrong') {
+                questionsToRender = questionsData.filter(q => currentState.mistakes.includes(q.id));
+                titleHtml = `<span class="text-3xl">❌</span> <span class="text-amber-600">錯題本複習</span> <span class="text-base text-gray-400 ml-2 border-2 border-dashed border-gray-300 rounded-full px-3 py-1">共 ${questionsToRender.length} 題</span>`;
+                
+                if (questionsToRender.length === 0) {
+                    container.innerHTML = `<div class="text-center py-20 bg-white border-4 border-solid border-gray-200 rounded-[2.5rem]"><div class="text-6xl mb-4">🎉</div><p class="text-2xl font-bold text-gray-500">太棒了！目前沒有錯題紀錄！</p></div>`;
+                }
+            } else if (currentState.viewMode === 'favorite') {
+                questionsToRender = questionsData.filter(q => currentState.favorites.includes(q.id));
+                titleHtml = `<span class="text-3xl">⭐</span> <span class="text-teal-600">我的最愛</span> <span class="text-base text-gray-400 ml-2 border-2 border-dashed border-gray-300 rounded-full px-3 py-1">共 ${questionsToRender.length} 題</span>`;
+                
+                if (questionsToRender.length === 0) {
+                    container.innerHTML = `<div class="text-center py-20 bg-white border-4 border-solid border-gray-200 rounded-[2.5rem]"><div class="text-6xl mb-4">🤍</div><p class="text-2xl font-bold text-gray-500">目前還沒有收藏的題目喔！</p></div>`;
+                }
+            } else {
+                questionsToRender = questionsData;
+                titleHtml = `<span class="text-3xl">📝</span> <span class="text-rose-600">全真模擬試題</span> <span class="text-base text-gray-400 ml-2 border-2 border-dashed border-gray-300 rounded-full px-3 py-1">共 ${questionsData.length} 題</span>`;
+            }
+
+            ui.quizHeaderTitle.innerHTML = titleHtml;
+
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            questionsToRender.forEach((q) => {
+                const userAnswer = currentState.answers[q.id];
+                const isAnswered = userAnswer !== undefined;
+                const isCorrect = isAnswered && userAnswer === q.answer;
+                
+                if (isAnswered) {
+                    if (isCorrect) correctCount++;
+                    else wrongCount++;
+                }
+
+                // 嚴格遵守：卡片底色與邊框依狀態改變
+                let borderColor = 'border-gray-300';
+                let bgColor = 'bg-white';
+                if (isAnswered) {
+                    if (isCorrect) {
+                        borderColor = 'border-teal-400';
+                        bgColor = 'bg-teal-50';
+                    } else {
+                        borderColor = 'border-rose-400';
+                        bgColor = 'bg-rose-50';
+                    }
+                }
+
+                const card = document.createElement('div');
+                card.className = `relative rounded-[2.5rem] shadow-sm border-4 border-solid p-6 md:p-8 transition-colors duration-300 ${borderColor} ${bgColor}`;
+                
+                // 嚴格遵守：標籤與題目上下排列，標題上方要有紅色明顯的考點標籤
+                const isFav = currentState.favorites.includes(q.id);
+                const headerHtml = `
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex flex-col w-full">
+                            <div class="mb-3">
+                                <span class="inline-block bg-rose-100 border-2 border-solid border-rose-300 text-rose-700 font-bold rounded-xl px-3 py-1 text-sm tracking-widest shadow-sm">
+                                    📌 【${q.category}】
+                                </span>
+                            </div>
+                            <div class="flex items-start gap-3 w-full">
+                                <span class="flex-shrink-0 bg-amber-400 border-2 border-solid border-amber-500 text-amber-900 font-black rounded-full w-10 h-10 flex items-center justify-center text-lg shadow-sm mt-1">
+                                    ${q.id}
+                                </span>
+                                <h3 class="text-xl md:text-2xl font-black text-gray-800 leading-relaxed font-serif tracking-wide pt-1">
+                                    ${q.question}
+                                </h3>
+                            </div>
+                        </div>
+                        <button onclick="window.toggleFavorite(${q.id})" class="text-4xl transition-transform hover:scale-110 flex-shrink-0 mt-1 ml-4 focus:outline-none">
+                            ${isFav ? '⭐' : '🤍'}
+                        </button>
+                    </div>
+                `;
+
+                // 嚴格遵守：選項為獨立的大按鈕 `rounded-[1.5rem]`
+                let optionsHtml = '<div class="grid gap-4">';
+                q.options.forEach((opt, optIdx) => {
+                    const letter = ['A','B','C','D'][optIdx];
+                    let btnClass = "option-btn w-full text-left p-4 md:p-5 rounded-[1.5rem] border-4 border-solid flex items-center group ";
+                    let badgeClass = "w-10 h-10 flex items-center justify-center rounded-full font-black mr-4 text-xl flex-shrink-0 border-2 border-solid ";
+                    let resultIcon = "";
+                    
+                    if (isAnswered) {
+                        if (optIdx === q.answer) {
+                            btnClass += "bg-teal-100 border-teal-500 text-teal-900";
+                            badgeClass += "bg-teal-500 border-teal-600 text-white";
+                            resultIcon = '<span class="ml-auto text-3xl">⭕</span>';
+                        } else if (optIdx === userAnswer) {
+                            btnClass += "bg-rose-100 border-rose-500 text-rose-900";
+                            badgeClass += "bg-rose-500 border-rose-600 text-white";
+                            resultIcon = '<span class="ml-auto text-3xl">❌</span>';
+                        } else {
+                            btnClass += "bg-white border-gray-200 text-gray-400 opacity-70";
+                            badgeClass += "bg-gray-100 border-gray-300 text-gray-400";
+                        }
+                    } else {
+                        btnClass += "bg-white border-gray-300 hover:border-amber-400 hover:bg-amber-50 text-gray-700 cursor-pointer";
+                        badgeClass += "bg-gray-100 border-gray-300 text-gray-500 group-hover:bg-amber-400 group-hover:border-amber-500 group-hover:text-amber-900 transition-colors";
+                    }
+
+                    const clickAction = isAnswered ? "" : `onclick="window.handleAnswer(${q.id}, ${optIdx})"`;
+
+                    optionsHtml += `
+                        <button ${clickAction} class="${btnClass}" ${isAnswered ? 'disabled' : ''}>
+                            <span class="${badgeClass}">${letter}</span>
+                            <span class="font-bold text-lg md:text-xl leading-relaxed font-serif">${opt}</span>
+                            ${resultIcon}
+                        </button>
+                    `;
+                });
+                optionsHtml += '</div>';
+
+                // 嚴格遵守：解析區塊帶有 💡 Emoji 與淡黃色背景對話框設計
+                let explanationHtml = '';
+                if (isAnswered) {
+                    explanationHtml = `
+                        <div class="mt-6 bg-yellow-50 p-6 rounded-[2rem] border-4 border-solid border-amber-200 animate-fade-in-up relative">
+                            <div class="absolute -top-5 left-6 text-4xl bg-white rounded-full p-1 border-4 border-solid border-amber-200 shadow-sm">💡</div>
+                            <div class="pt-4">
+                                <span class="font-black text-amber-800 block mb-2 text-xl">解析小幫手：</span>
+                                <p class="text-gray-700 text-lg md:text-xl leading-relaxed text-justify font-medium">${q.explanation}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = headerHtml + optionsHtml + explanationHtml;
+                container.appendChild(card);
+            });
+
+            ui.statCorrect.textContent = correctCount;
+            ui.statWrong.textContent = wrongCount;
+        }
+
+        window.handleAnswer = function(qId, selectedIdx) {
+            if (!currentState.username) return;
+
+            currentState.answers[qId] = selectedIdx;
+            
+            const q = questionsData.find(x => x.id === qId);
+            const isCorrect = q.answer === selectedIdx;
+            
+            if (!isCorrect) {
+                if (!currentState.mistakes.includes(qId)) {
+                    currentState.mistakes.push(qId);
+                    saveUserData('mistakes');
+                }
+            }
+
+            saveProgress();
+            renderWaterfallQuiz();
+        }
+
+        window.toggleFavorite = function(qId) {
+            if (!currentState.username) {
+                window.customAlert('請先登入才能收藏題目喔！');
+                return;
+            }
+            
+            const idx = currentState.favorites.indexOf(qId);
+            if (idx === -1) currentState.favorites.push(qId);
+            else currentState.favorites.splice(idx, 1);
+            
+            saveUserData('favorites');
+            renderWaterfallQuiz(); 
+        }
+
+        // --- Implementation of Review Modes ---
+        window.showReview = function(type) {
+            if (!currentState.username) return;
+
+            if (type === 'wrong') {
+                if (currentState.mistakes.length === 0) {
+                    window.customAlert("太棒了！目前沒有錯題紀錄 🎉");
+                    return;
+                }
+                currentState.viewMode = 'wrong';
+            } else if (type === 'favorite') {
+                if (currentState.favorites.length === 0) {
+                    window.customAlert("目前沒有收藏任何題目喔 🤍");
+                    return;
+                }
+                currentState.viewMode = 'favorite';
+            } else {
+                currentState.viewMode = 'all';
+            }
+            
+            switchView('quiz');
+            renderWaterfallQuiz();
+        }
+
+        // --- Persistence Helpers ---
+        function saveProgress() {
+            if (!isFirebaseReady || !currentState.username) return;
+            const userRef = doc(db, COLLECTION_NAME, currentState.username);
+            const progressData = {
+                answers: currentState.answers,
+                timestamp: new Date().getTime()
+            };
+            setDoc(userRef, { progress: progressData }, { merge: true });
+        }
+
+        function saveUserData(type) {
+            if (!isFirebaseReady || !currentState.username) return;
+            const userRef = doc(db, COLLECTION_NAME, currentState.username);
+            const data = {};
+            data[type] = currentState[type];
+            setDoc(userRef, data, { merge: true });
+        }
+
+        window.logout = function() {
+            if (currentUserUnsubscribe) currentUserUnsubscribe();
+            currentState.username = '';
+            ui.views.login.classList.remove('hidden');
+            ui.views.dashboard.classList.add('hidden');
+            ui.views.quiz.classList.add('hidden');
+            ui.userDisplay.classList.add('hidden');
+            document.getElementById('username').value = '';
+        }
+        
+        window.goHome = function() {
+            if (currentState.username) {
+                window.scrollTo({top:0, behavior:'smooth'});
+                switchView('dashboard');
+            } else {
+                window.location.reload();
+            }
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(15px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-up {
+                animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+        `;
+        document.head.appendChild(style);
+
+        init();
+
+    </script>
+</body>
+</html>
