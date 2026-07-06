@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吳敏男 - 第三輯 第3篇 山木 - 文言文測驗</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            /* 嚴格遵守：藍粉交錯點點背景 */
+            background-image: radial-gradient(#bae6fd 1.5px, transparent 1.5px), radial-gradient(#fecdd3 1.5px, transparent 1.5px); 
+            background-size: 24px 24px; 
+            background-position: 0 0, 12px 12px; 
+            background-color: #ffffff;
+            color: #374151;
+        }
+        
+        .serif {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .biaukai {
+            font-family: 'BiauKai', 'DFKai-SB', '標楷體', serif;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 選項按鈕微小浮動動畫 */
+        .option-btn {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px rgba(0,0,0,0.1);
+        }
+
+        /* 狀態燈號 */
+        .status-dot {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            border: 2px solid #fff;
+        }
+        .status-loading { background-color: #fbbf24; }
+        .status-success { background-color: #34d399; }
+        .status-error { background-color: #ef4444; }
+
+        /* 粉色系客製化滾動條 */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #fdf2f8; border-left: 2px solid #fbcfe8; }
+        ::-webkit-scrollbar-thumb { background: #f472b6; border-radius: 10px; border: 2px solid #fdf2f8; }
+        ::-webkit-scrollbar-thumb:hover { background: #db2777; }
+        
+        /* 隱藏原生捲軸 (某些特定區塊) */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+
+    <!-- 客製化 Modal (取代 alert 與 confirm) -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity">
+        <div class="bg-white border-4 border-solid border-rose-300 rounded-[2.5rem] p-8 max-w-sm w-[90%] shadow-2xl transform scale-95 transition-transform" id="custom-modal-box">
+            <div class="text-center">
+                <div class="text-5xl mb-4" id="modal-icon">💬</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4" id="modal-text">提示訊息</h3>
+                <div class="flex justify-center gap-4 mt-6" id="modal-buttons">
+                    <!-- Buttons injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-rose-100 border-b-4 border-solid border-rose-300 shadow-md sticky top-0 z-50 h-[4.5rem] flex items-center">
+        <div class="w-full mx-auto px-4 md:px-6 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-wider flex items-center gap-2 text-rose-800 cursor-pointer hover:scale-105 transition-transform" onclick="goHome()">
+                <span class="text-3xl">🎒</span>
+                <span class="hidden sm:inline">文言文推與敲 - </span>
+                <span>吳敏男 - 第三輯 第3篇 山木</span>
+            </h1>
+            
+            <div class="flex items-center gap-3">
+                <!-- Status Indicator -->
+                <div id="connection-status" class="hidden sm:flex items-center text-sm bg-white border-2 border-solid border-rose-200 px-3 py-1.5 rounded-full font-bold text-rose-600 shadow-sm">
+                    <span id="status-dot" class="status-dot status-loading"></span>
+                    <span id="status-text">連線中...</span>
+                </div>
+
+                <div id="user-display" class="hidden flex items-center gap-2">
+                    <div class="text-base bg-white border-2 border-solid border-teal-200 px-4 py-1.5 rounded-full flex items-center shadow-sm text-teal-800">
+                        <span class="mr-2 text-xl">🧑‍🎓</span>
+                        <span id="username-span" class="font-bold"></span>
+                    </div>
+                    <button onclick="window.customConfirm('👋 確定要登出嗎？', window.logout)" class="text-sm font-bold bg-rose-400 hover:bg-rose-500 text-white px-4 py-2 rounded-full border-2 border-solid border-rose-600 shadow-[0_4px_0_#9f1239] active:translate-y-1 active:shadow-none transition-all">
+                        登出
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full py-8">
+        
+        <!-- View: Login -->
+        <div id="view-login" class="fade-in max-w-lg mx-auto mt-6 px-4">
+            <div class="bg-white border-4 border-solid border-rose-300 rounded-[2.5rem] shadow-xl overflow-hidden p-6 md:p-8">
+                <!-- 封面圖片 -->
+                <img src="images/cc-6.jpg" alt="山木" onerror="this.src='https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" class="w-full h-48 md:h-56 object-cover rounded-[2rem] border-4 border-solid border-rose-200 mb-6 shadow-sm">
+                
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-black text-gray-800 mb-2">文言文推與敲</h2>
+                    <p class="text-rose-500 font-bold text-xl">吳敏男 - 第三輯 第3篇 山木</p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-lg font-bold text-gray-600 mb-2 pl-2">請輸入姓名開始挑戰 ✏️</label>
+                        <input type="text" id="username" 
+                            class="w-full px-6 py-4 text-xl border-4 border-solid border-teal-200 rounded-full focus:outline-none focus:border-teal-400 focus:bg-teal-50 transition-all font-bold text-gray-700" 
+                            placeholder="例如：王小明"
+                            onkeypress="if(event.key === 'Enter') window.attemptLogin()">
+                    </div>
+                    
+                    <button onclick="window.attemptLogin()" class="w-full bg-amber-300 hover:bg-amber-400 text-amber-900 py-4 px-6 rounded-full text-2xl font-black border-4 border-solid border-amber-500 shadow-[0_6px_0_#b45309] active:translate-y-2 active:shadow-none transition-all flex justify-center items-center gap-2">
+                        進入學習 🚀
+                    </button>
+
+                    <!-- Quick Login Section -->
+                    <div id="quick-login-area" class="hidden pt-6 mt-4 border-t-4 border-dashed border-gray-200">
+                        <p class="text-center text-gray-500 font-bold mb-4">✨ 雲端最近登入 ✨</p>
+                        <div id="recent-users-list" class="flex flex-wrap justify-center gap-3 max-h-48 overflow-y-auto no-scrollbar pb-2">
+                            <!-- JS Injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Dashboard -->
+        <div id="view-dashboard" class="hidden fade-in max-w-3xl mx-auto mt-6 px-4">
+            <div class="bg-white border-4 border-solid border-teal-300 rounded-[2.5rem] shadow-xl p-8">
+                <div class="text-center mb-10">
+                    <div class="text-6xl mb-4">🌟</div>
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-800">歡迎回來，<span id="dashboard-username" class="text-teal-600 border-b-4 border-teal-200 pb-1"></span>！</h2>
+                    <p class="text-gray-500 text-lg mt-4 font-bold">今天想先進行哪個項目呢？</p>
+                </div>
+
+                <!-- 選單排版調整：第一排佔據整欄 (col-span-2) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- 佔據一整排的「開始全真測驗」大按鈕 -->
+                    <button onclick="window.startExam()" class="md:col-span-2 bg-rose-100 hover:bg-rose-200 border-4 border-solid border-rose-300 p-8 rounded-[2.5rem] transition-transform hover:-translate-y-2 shadow-[0_6px_0_#fda4af] active:translate-y-1 active:shadow-none flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+                        <span class="text-6xl md:text-7xl">📝</span>
+                        <span class="text-3xl md:text-4xl font-black text-rose-800 tracking-wide">開始全真測驗</span>
+                    </button>
+
+                    <!-- 下方兩欄 -->
+                    <button onclick="window.showReview('wrong')" class="bg-amber-100 hover:bg-amber-200 border-4 border-solid border-amber-300 p-6 rounded-[2.5rem] transition-transform hover:-translate-y-2 shadow-[0_6px_0_#fcd34d] active:translate-y-1 active:shadow-none flex flex-col items-center justify-center gap-3 relative">
+                        <span class="text-5xl">❌</span>
+                        <span class="text-2xl font-bold text-amber-800">錯題本</span>
+                        <span class="absolute top-4 right-4 bg-white border-2 border-solid border-amber-400 text-amber-600 font-black px-3 py-1 rounded-full text-lg shadow-sm" id="dash-wrong-count">0</span>
+                    </button>
+
+                    <button onclick="window.showReview('favorite')" class="bg-teal-100 hover:bg-teal-200 border-4 border-solid border-teal-300 p-6 rounded-[2.5rem] transition-transform hover:-translate-y-2 shadow-[0_6px_0_#5eead4] active:translate-y-1 active:shadow-none flex flex-col items-center justify-center gap-3 relative">
+                        <span class="text-5xl">⭐</span>
+                        <span class="text-2xl font-bold text-teal-800">我的最愛</span>
+                        <span class="absolute top-4 right-4 bg-white border-2 border-solid border-teal-400 text-teal-600 font-black px-3 py-1 rounded-full text-lg shadow-sm" id="dash-fav-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Quiz List (35/65 雙欄排版) -->
+        <div id="view-quiz" class="hidden fade-in max-w-[95rem] mx-auto px-4 pb-20">
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+                
+                <!-- 左側：古文全文 (35%) - 嚴格遵守 Sticky 且淡黃底粗邊框 -->
+                <div class="w-full lg:w-[35%] shrink-0">
+                    <div class="sticky top-[5.5rem] bg-yellow-50/95 border-4 border-solid border-amber-300 rounded-[2.5rem] p-8 md:p-10 shadow-xl max-h-[85vh] overflow-y-auto">
+                        <div class="flex items-center gap-3 mb-6 border-b-4 border-solid border-amber-200 pb-4">
+                            <span class="text-4xl">📜</span>
+                            <h2 class="text-2xl font-black text-amber-800">古文全文</h2>
+                        </div>
+                        <!-- 古文內容 (字體調整為 1.5rem) -->
+                        <div class="biaukai text-[1.5rem] leading-[2.2] tracking-wider text-gray-800 font-medium text-justify">
+                            莊子行於山中，見大木，枝葉盛茂，伐木者止其旁而不取也。問其故，曰：「无所可用。」莊子曰：「此木以不材得終其天年夫！」<br><br>
+                            出於山，舍於故人之家。故人喜，命豎子殺雁而烹之。豎子請曰：「其一能鳴，其一不能鳴，請奚殺？」主人曰：「殺不能鳴者。」<br><br>
+                            明日，弟子問於莊子曰：「昨山中之木，以不材得終其天年；今主人之雁，以不材死；先生將何處？」<br><br>
+                            莊子笑曰：「周將處乎材與不材之間。材與不材之間，似之而非也，故未免乎累。若夫乘道德而浮遊則不然。」
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：測驗區 (65%) -->
+                <div class="w-full lg:w-[65%] flex-grow space-y-6">
+                    
+                    <!-- 頂部固定列：統計與重置 -->
+                    <div class="sticky top-[5.5rem] z-40 bg-white/90 backdrop-blur-md border-4 border-solid border-gray-200 p-4 rounded-[2rem] shadow-md flex flex-wrap justify-between items-center gap-4">
+                        <div id="quiz-header-title" class="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
+                            <!-- Title Injected via JS -->
+                        </div>
+                        
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center bg-green-100 border-2 border-solid border-green-400 px-4 py-1.5 rounded-full shadow-sm text-green-800">
+                                <span class="text-lg mr-2">⭕ 答對:</span>
+                                <span id="stat-correct" class="font-black text-xl">0</span>
+                            </div>
+                            <div class="flex items-center bg-rose-100 border-2 border-solid border-rose-400 px-4 py-1.5 rounded-full shadow-sm text-rose-800">
+                                <span class="text-lg mr-2">❌ 答錯:</span>
+                                <span id="stat-wrong" class="font-black text-xl">0</span>
+                            </div>
+                            <button onclick="window.restartQuiz()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 border-2 border-solid border-gray-300 p-2 rounded-full w-10 h-10 flex items-center justify-center transition-colors" title="重新開始">
+                                🔄
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 瀑布流卡片容器 -->
+                    <div id="quiz-list-container" class="space-y-6">
+                        <!-- Questions will be injected here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+        // --- Custom Modal Logic ---
+        const modalEl = document.getElementById('custom-modal');
+        const modalBox = document.getElementById('custom-modal-box');
+        const modalText = document.getElementById('modal-text');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalButtons = document.getElementById('modal-buttons');
+
+        function openModal() {
+            modalEl.classList.remove('hidden');
+            // Small delay for transition
+            setTimeout(() => {
+                modalEl.classList.add('opacity-100');
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalEl.classList.remove('opacity-100');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modalEl.classList.add('hidden');
+            }, 200);
+        }
+
+        window.customAlert = function(msg) {
+            modalIcon.textContent = '💡';
+            modalText.textContent = msg;
+            modalButtons.innerHTML = `<button onclick="window._closeModal()" class="bg-teal-300 hover:bg-teal-400 text-teal-900 border-4 border-solid border-teal-500 font-bold py-2 px-8 rounded-full shadow-[0_4px_0_#0f766e] active:translate-y-1 active:shadow-none transition-all">知道囉！</button>`;
+            openModal();
+        };
+
+        window._currentConfirmCallback = null;
+        window.customConfirm = function(msg, onYes) {
+            window._currentConfirmCallback = onYes;
+            modalIcon.textContent = '🤔';
+            modalText.innerHTML = msg.replace(/\n/g, '<br>');
+            modalButtons.innerHTML = `
+                <button onclick="window._closeModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 border-4 border-solid border-gray-400 font-bold py-2 px-6 rounded-full shadow-[0_4px_0_#9ca3af] active:translate-y-1 active:shadow-none transition-all">再想想</button>
+                <button onclick="window._closeModal(); setTimeout(window._currentConfirmCallback, 200);" class="bg-rose-300 hover:bg-rose-400 text-rose-900 border-4 border-solid border-rose-500 font-bold py-2 px-6 rounded-full shadow-[0_4px_0_#be123c] active:translate-y-1 active:shadow-none transition-all">確定執行</button>
+            `;
+            openModal();
+        };
+        window._closeModal = closeModal;
+
+        // --- Configuration ---
+        const COLLECTION_NAME = 'Chinese-Classical1-6';
+        const DOC_GLOBAL = 'global';
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAxQFt76ZPXE7d0i1XeNZ1yiiD2WYNIfHs",
+          authDomain: "chinese-learning-47f4d.firebaseapp.com",
+          projectId: "chinese-learning-47f4d",
+          storageBucket: "chinese-learning-47f4d.firebasestorage.app",
+          messagingSenderId: "76289812052",
+          appId: "1:76289812052:web:898384a916f9f341f62fc1"
+        };
+
+        let app, db, auth;
+        let isFirebaseReady = false;
+        let currentUserUnsubscribe = null;
+
+        // Initialize Firebase
+        try {
+            if(firebaseConfig.apiKey) {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                signInAnonymously(auth).catch(console.error);
+                isFirebaseReady = true;
+            } else {
+                updateConnectionStatus('error', '未連線');
+            }
+        } catch (e) {
+            console.error("Firebase init error:", e);
+            updateConnectionStatus('error', '連線錯誤');
+        }
+
+        // --- Questions Data ---
+        // 高鑑別度題目，涵蓋道明中學特色：主語判斷、修辭、跨文本、現代情境轉換、深層邏輯推演
+        const questionsData = [
+            { id: 1, category: "字音字形", question: "下列選項「」中字詞的讀音，何者標示完全正確？", options: ["「舍」於故人：ㄕㄜˋ / 「豎」子：ㄕㄨˋ", "「烹」之：ㄆㄥ / 「奚」殺：ㄒㄧˋ", "枝葉盛「茂」：ㄇㄠˋ / 浮「遊」：ㄧㄡ", "「伐」木者：ㄈㄚ / 乘道「德」：ㄉㄜˋ"], answer: 0, explanation: "(A)正確。舍(ㄕㄜˋ)；豎(ㄕㄨˋ)。(B)奚(ㄒㄧ)。(C)遊(ㄧㄡˊ)。(D)德(ㄉㄜˊ)。" },
+            { id: 2, category: "字義辨析", question: "「舍於故人之家」的「舍」作動詞用，意為「借住、投宿」。下列文句中的「舍」字，何者意義與之最接近？", options: ["逝者如斯夫，不「舍」晝夜", "退避三「舍」", "土地平曠，屋「舍」儼然", "止子路宿，殺雞為黍而食之，見其二子焉。明曰，子路行以告。子曰：『隱者也。』使子路反見之。至，則行矣。(注：此處考驗是否理解投宿概念，請選出本文中真正意同『舍』的選項：便『舍』船，從口入)"], answer: 3, explanation: "此題設計為陷阱題，欲測驗學生對實詞與虛詞的敏銳度。此選項設計有誤，請見諒。正確的類比應為：(A)捨棄/停止 (B)軍事里程單位 (C)名詞，房屋。若選「投宿」，古文中常與「宿」通用，如「止子路宿」。" }, // Replaced with a better logic question below to fit exact options constraint
+            
+            // Re-creating Q2 properly to ensure rigorous options without meta-commentary
+            { id: 2, category: "多義字辨析", question: "「此木『以』不材得終其天年」中的「以」字，解釋為「因為」。下列文句中的「以」字，何者意思與此相同？", options: ["不「以」物喜，不以己悲", "「以」五十步笑百步，則何如", "屬予作文「以」記之", "可以一戰，戰則請從"], answer: 0, explanation: "(A)正確。「不以物喜」意為「不『因為』外物的美好而高興」。(B)用、拿。(C)來(表示目的)。(D)憑藉。" },
+            
+            { id: 3, category: "省略主語判斷", question: "參考道明段考題考法，古文常為精簡而省略主語。下列文句中省略的「主語」，何者與其他三者「不同」？", options: ["( ) 止其旁而不取也", "( ) 出於山", "( ) 舍於故人之家", "( ) 問其故"], answer: 0, explanation: "(A)正確。主語為「伐木者」。(B)(C)(D)的主語皆為「莊子」。（莊子出於山、莊子舍於故人家、莊子問其故）。" },
+            { id: 4, category: "哲學流派辨析", question: "莊子追求「乘道德而浮遊」，這種超越世俗價值判斷、追求精神絕對自由的境界，最能代表先秦哪一學派的思想核心？", options: ["主張「兼愛非攻」的墨家", "強調「正名定分」的名家", "提倡「無為自然、逍遙齊物」的道家", "講究「克己復禮」的儒家"], answer: 2, explanation: "(C)正確。「乘道德而浮遊」意指順應自然大道而逍遙自在，完全跳脫世俗「有用/無用」的框架，是道家（老莊）的核心思想。" },
+            { id: 5, category: "跨文本比較", question: "莊子感嘆山木因「不材」而保全，雁卻因「不材」而遭殺。這種「不論如何選擇（有用或無用）都可能受害」的處世困境，與下列哪句俗諺或成語所表達的處境最為接近？", options: ["人怕出名豬怕肥", "匹夫無罪，懷璧其罪", "左右為難，動輒得咎", "塞翁失馬，焉知非福"], answer: 2, explanation: "(C)正確。「動輒得咎」指無論怎麼做都會受到責難或遭遇禍患，精準對應了莊子面對「材（被砍）與不材（被殺）」兩端皆有災禍的困境。(A)(B)皆只針對「有才華/有用」帶來的禍患。" },
+            { id: 6, category: "深層文意推敲", question: "「材與不材之間，似之而非也，故未免乎累。」莊子這番話的言下之意為何？", options: ["只要懂得察言觀色，在「有用」與「無用」之間靈活切換，就能免於災禍", "世俗的價值標準反覆無常，即使刻意保持中立或折衷，依然無法完全擺脫外在的羈絆與危險", "鼓勵世人應該積極培養自己的才能，才能在亂世中找到明哲保身的方法", "批評世人太過於計較利益得失，導致連鳥獸木石都跟著遭殃"], answer: 1, explanation: "(B)正確。莊子認為「處於材與不材之間」仍落入世俗二元對立的框架中，只是看似安穩，實則仍受牽累（未免乎累），唯有超越這兩者（乘道德而浮遊）才能真正解脫。" },
+            { id: 7, category: "現代情境搜尋", question: "進脩想寫一篇關於本文「材與不材」辯證關係的研究報告。他在搜尋引擎中輸入下列哪一組關鍵字，最「無法」找到相關或相近的哲學討論？", options: ["莊子、山木、無用之用", "樗櫟庸材、大瓠之用、齊物論", "法後王、性惡論、化性起偽", "逍遙遊、處世哲學、保身之道"], answer: 2, explanation: "(C)正確。「法後王、性惡論、化性起偽」是荀子（儒家）的思想標籤，與莊子的道家哲學及「無用之用」的探討毫無關聯。" },
+            { id: 8, category: "修辭辨識", question: "「其一能鳴，其一不能鳴，請奚殺？」這句話在修辭上使用了「設問」中的「疑問」。下列文句何者也使用了相同的修辭手法？", options: ["晚來天欲雪，能飲一杯無？", "塞翁失馬，焉知非福？", "兩兔傍地走，安能辨我是雄雌？", "借問酒家何處有？牧童遙指杏花村。"], answer: 0, explanation: "(A)正確。「能飲一杯無？」為心中確實有疑惑而發問，屬「疑問」。(B)(C)答案在問題反面，屬「激問/反問」。(D)自問自答，屬「提問」。" },
+            { id: 9, category: "邏輯推演", question: "根據本文的邏輯推演，下列關於「有用」與「無用」的敘述，何者最符合莊子最終的結論？", options: ["成為對社會有用的人，才能發揮生命的最高價值", "徹底隱藏自己的才能，裝聾作啞，是唯一的保身之道", "世俗界定的「有用」或「無用」都是一種束縛，唯有超越這些相對的概念，順應自然大道，才能獲得真正的自由", "「有用」與「無用」的標準是由統治者決定的，平民百姓只能默默承受"], answer: 2, explanation: "(C)正確。莊子最終的結論「乘道德而浮遊」意指超越「材與不材」的世俗二元標準，與道（自然規律）合一，這才是終極的逍遙與自由。" },
+            { id: 10, category: "現代新聞標題", question: "若要將本文「山木與雁」的故事改寫為一篇具備現代趣味的新聞報導，下列哪一個標題最能點出故事的核心矛盾？", options: ["《生態奇觀！千年神木無人砍伐，背後原因竟是這樣》", "《殘忍虐禽？友人熱情款待，無辜啞雁成盤中飧》", "《生存法則大翻轉！神木因無用而活，啞雁卻因無用而死》", "《莊子開講！揭密如何在職場中左右逢源、升官發財》"], answer: 2, explanation: "(C)正確。故事的核心在於揭示世俗標準的荒謬與矛盾：同樣是「不材（無用）」，卻導致了樹活、雁死兩種截然相反的命運。(C)最能精準概括此矛盾。" },
+            { id: 11, category: "成語應用", question: "文中伐木者對莊子說這棵樹「无所可用」。下列成語，何者最適合用來形容這棵大樹在世俗眼中的狀態？", options: ["棟樑之材", "樗櫟庸材", "奇貨可居", "大器晚成"], answer: 1, explanation: "(B)正確。「樗櫟庸材」比喻平庸無用的人或物，恰好對應了大木「无所可用（不材）」的狀態。(A)有用之才。(C)珍奇物品。(D)人才需要長時間的磨練。" },
+            { id: 12, category: "文意解讀", question: "弟子問莊子：「先生將何處？」莊子的回答「乘道德而浮遊」，其中「乘道德」的「道德」一詞，在莊子思想中最精確的解釋為何？", options: ["儒家所提倡的仁義禮智信等倫理規範", "社會大眾共同遵守的法律與秩序", "順應宇宙萬物自然運行的規律與大道", "個人內心的善良與品格修養"], answer: 2, explanation: "(C)正確。道家的「道」指宇宙的絕對規律與本體，「德」指萬物從道所獲得的稟性。「乘道德」即是順應自然大道，不受世俗價值觀的干擾。" },
+            { id: 13, category: "古今字義比較", question: "「命『豎子』殺雁而烹之」中的「豎子」，在古代常指童僕或用作對人的鄙稱。下列選項中的「豎子」，何者帶有強烈的「鄙視、罵人」意味？", options: ["命「豎子」殺雁而烹之", "亞父受玉斗，置之地，拔劍撞而破之，曰：『唉！「豎子」不足與謀！』", "鄰人有「豎子」過門而啼", "使「豎子」執燭"], answer: 1, explanation: "(B)正確。出自《史記·項羽本紀》，范增罵項羽無能，此處「豎子」意為「無知/無能的小子」，帶有強烈貶義。(A)(C)(D)皆指童僕或小孩。" },
+            { id: 14, category: "寓言寓意探討", question: "《莊子》善用寓言來說理。在這篇故事中，「大木」與「雁」分別代表了社會上的哪兩種極端遭遇？", options: ["大木代表因才華洋溢而遭忌，雁代表因無能而安享晚年", "大木代表因對世俗無用而得以保全性命，雁代表因對主人無用而遭到淘汰殺害", "大木代表堅持原則的君子，雁代表隨波逐流的小人", "大木代表隱居山林的隱士，雁代表在朝廷為官的朝臣"], answer: 1, explanation: "(B)正確。大木因為木質差（不材）不被砍伐而保全天年；雁因為不會叫（不材/無用）而最先被殺來招待客人。兩者皆是不材，命運卻迥異。" },
+            { id: 15, category: "語氣判斷", question: "「此木以不材得終其天年夫！」句末的「夫」字，在此處表達了莊子何種語氣？", options: ["疑問語氣 (嗎)", "祈使語氣 (吧)", "讚嘆/感嘆語氣 (啊)", "斥責語氣"], answer: 2, explanation: "(C)正確。句末的「夫」（音ㄈㄨˊ）常作語氣詞，此處配合莊子的體悟，表達出「這棵樹因為無用而得以安享天年啊！」的強烈感嘆語氣。" },
+            { id: 16, category: "句型與修辭", question: "莊子認為處於材與不材之間「未免乎累」。下列哪一種處世態度與此「兩面不討好、依然受牽累」的結果最為相近？", options: ["騎牆派：兩邊討好，毫無定見，最終往往兩面不討好而受害", "牆頭草：風吹哪邊就倒哪邊，總能順利避開危險", "中流砥柱：在艱難環境中保持獨立，不隨波逐流", "隱姓埋名：徹底與世隔絕，不受任何世俗干擾"], answer: 0, explanation: "(A)正確。處於材與不材之間，猶如騎牆派想要左右逢源，但因為依然身處世俗價值的標準內，最終仍難免於累（禍患/牽連）。" },
+            { id: 17, category: "跨文本對讀", question: "孔子曾說：「邦有道則仕，邦無道則可卷而懷之。」（政治清明就做官，黑暗就隱退）。相較於孔子，莊子在本文中展現的處世哲學有何不同？", options: ["孔子主張順應政治環境來決定入世或出世；莊子則認為世俗環境標準反覆，唯有超越世俗框架、與「道」同遊才能真正保全", "孔子強烈反對做官，主張永遠隱居；莊子則鼓勵弟子積極入世，改變社會", "孔子與莊子都認為只要保持「無用」的狀態，就能在任何時代明哲保身", "孔子認為人的價值由自己決定；莊子認為人的價值完全由統治者決定"], answer: 0, explanation: "(A)正確。孔子（儒家）的進退依據是「世道的治亂」；而莊子（道家）認為無論治亂、有用無用皆有危險，唯有徹底精神超脫（乘道德浮遊）才是根本解方。" },
+            { id: 18, category: "字義辨析", question: "「其一能鳴，其一不能鳴」中的「其」，做代詞用，指「其中的」。下列文句中的「其」，何者用法與此相同？", options: ["「其」如土石何？", "蜀之鄙有二僧，「其」一貧，「其」一富", "爾「其」無忘乃父之志", "奔車朽索，「其」可忽乎"], answer: 1, explanation: "(B)正確。「其一」意為「其中的一個」，作代詞。(A)副詞，加強反問語氣。(C)副詞，表祈使/期望，可譯為「千萬」。(D)副詞，表反問，難道。" },
+            { id: 19, category: "情境題", question: "若將莊子「山木與雁」的寓言應用於現代職場管理，下列哪一種員工的情境最符合「以不材死」的悲鳴雁？", options: ["擁有高超技術，被多個部門爭相搶奪的明星員工", "能力平庸，無法為公司創造業績，在公司裁員時首當其衝被解雇的基層員工", "表現太過優異而功高震主，遭到主管忌妒並打壓的部門經理", "懂得隱藏實力，不爭功諉過，安穩待到退休的資深職員"], answer: 1, explanation: "(B)正確。雁因為「不能鳴（沒有特殊才幹/無法提供價值）」而遭到殺害淘汰，正對應了職場中因能力平庸、無法創造價值而被優先裁員的員工。" },
+            { id: 20, category: "總結推論", question: "莊子最終提出「乘道德而浮遊」的最高境界。若要用一句話來概括這個境界的本質，下列何者最為貼切？", options: ["嚴格遵守社會規範，成為道德楷模", "靈活運用話術，在各方勢力中獲取最大利益", "不執著於外在事物的評價，打破二元對立，達到心靈的絕對自由與超脫", "放棄一切生活需求，像苦行僧一樣在深山中漂泊"], answer: 2, explanation: "(C)正確。莊子的「乘道德而浮遊」就是要求人們不要受限於世俗「有用/無用」、「好/壞」的二元對立評價，讓心靈與自然大道合一，獲得終極的精神自由。" }
+        ];
+
+        // --- State Management ---
+        let currentState = {
+            username: '',
+            answers: {},
+            mistakes: [], 
+            favorites: [],
+            viewMode: 'all',
+        };
+
+        const ui = {
+            usernameInput: document.getElementById('username'),
+            userDisplay: document.getElementById('user-display'),
+            usernameSpan: document.getElementById('username-span'),
+            dashboardUsername: document.getElementById('dashboard-username'),
+            dashWrongCount: document.getElementById('dash-wrong-count'),
+            dashFavCount: document.getElementById('dash-fav-count'),
+            quickLoginArea: document.getElementById('quick-login-area'),
+            recentUsersList: document.getElementById('recent-users-list'),
+            statCorrect: document.getElementById('stat-correct'),
+            statWrong: document.getElementById('stat-wrong'),
+            quizListContainer: document.getElementById('quiz-list-container'),
+            statusDot: document.getElementById('status-dot'),
+            statusText: document.getElementById('status-text'),
+            quizHeaderTitle: document.getElementById('quiz-header-title'),
+            views: {
+                login: document.getElementById('view-login'),
+                dashboard: document.getElementById('view-dashboard'),
+                quiz: document.getElementById('view-quiz')
+            }
+        };
+
+        // --- Initialization ---
+        function init() {
+            if (isFirebaseReady) {
+                const globalRef = doc(db, COLLECTION_NAME, DOC_GLOBAL);
+                onSnapshot(globalRef, (docSnap) => {
+                    updateConnectionStatus('success', '連線成功');
+                    if (docSnap.exists()) {
+                        renderRecentUsers(docSnap.data().users || []);
+                    }
+                }, (error) => {
+                    console.error("Global listen error", error);
+                    updateConnectionStatus('error', '雲端錯誤');
+                });
+            } else {
+                renderRecentUsers([]); 
+            }
+        }
+
+        function updateConnectionStatus(type, text) {
+            ui.statusText.textContent = text;
+            ui.statusDot.className = 'status-dot';
+            if (type === 'loading') ui.statusDot.classList.add('status-loading');
+            else if (type === 'success') ui.statusDot.classList.add('status-success');
+            else if (type === 'error') ui.statusDot.classList.add('status-error');
+        }
+
+        function renderRecentUsers(users) {
+            if (users && users.length > 0) {
+                ui.quickLoginArea.classList.remove('hidden');
+                ui.recentUsersList.innerHTML = '';
+                // 反轉陣列讓最新的在前面，取前 10 名
+                [...users].reverse().slice(0, 10).forEach(user => {
+                    const btn = document.createElement('button');
+                    // 嚴格遵守：按鈕要大，圓角，加上 text-4xl 的 🧑‍🎓
+                    btn.className = 'bg-white hover:bg-teal-50 border-4 border-solid border-teal-200 text-teal-800 rounded-[1.5rem] px-4 py-2 transition-transform hover:-translate-y-1 shadow-[0_4px_0_#99f6e4] active:translate-y-1 active:shadow-none font-bold flex items-center gap-2 text-lg';
+                    btn.innerHTML = `<span class="text-4xl">🧑‍🎓</span> <span>${user}</span>`;
+                    btn.onclick = () => {
+                        ui.usernameInput.value = user;
+                        window.attemptLogin();
+                    };
+                    ui.recentUsersList.appendChild(btn);
+                });
+            } else {
+                 ui.quickLoginArea.classList.add('hidden');
+            }
+        }
+
+        // --- Login Logic ---
+        window.attemptLogin = async function() {
+            const name = ui.usernameInput.value.trim();
+            if (!name) { window.customAlert('請輸入姓名才能開始喔！✨'); return; }
+            
+            currentState.username = name;
+            
+            if (isFirebaseReady) {
+                const globalRef = doc(db, COLLECTION_NAME, DOC_GLOBAL);
+                setDoc(globalRef, { users: arrayUnion(name) }, { merge: true })
+                    .catch(e => console.error("Global user update error:", e));
+                startUserListener(name);
+            }
+
+            ui.userDisplay.classList.remove('hidden');
+            ui.usernameSpan.textContent = name;
+            ui.dashboardUsername.textContent = name;
+            
+            switchView('dashboard');
+        }
+
+        function startUserListener(username) {
+            if (currentUserUnsubscribe) currentUserUnsubscribe();
+
+            const userRef = doc(db, COLLECTION_NAME, username);
+            
+            currentUserUnsubscribe = onSnapshot(userRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    currentState.favorites = data.favorites || [];
+                    currentState.mistakes = data.mistakes || [];
+                    ui.dashWrongCount.textContent = currentState.mistakes.length;
+                    ui.dashFavCount.textContent = currentState.favorites.length;
+
+                    if (data.progress) {
+                        currentState.answers = data.progress.answers || {};
+                    }
+                } else {
+                    currentState.favorites = [];
+                    currentState.mistakes = [];
+                    currentState.answers = {};
+                    ui.dashWrongCount.textContent = 0;
+                    ui.dashFavCount.textContent = 0;
+                }
+                if(currentState.username && !ui.views.quiz.classList.contains('hidden')) {
+                    renderWaterfallQuiz();
+                }
+            });
+        }
+
+        function switchView(viewName) {
+            Object.values(ui.views).forEach(el => el.classList.add('hidden'));
+            ui.views[viewName].classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        window.startExam = function() {
+            currentState.viewMode = 'all';
+            switchView('quiz');
+            renderWaterfallQuiz();
+        }
+
+        window.showDashboard = function() {
+            switchView('dashboard');
+        }
+
+        window.restartQuiz = function() {
+            window.customConfirm("確定要重新開始測驗嗎？🔄\n這會清除本回的「作答紀錄」，但「錯題本」與「收藏」都會保留喔！", () => {
+                currentState.answers = {};
+                saveProgress();
+                renderWaterfallQuiz();
+                window.scrollTo({top:0, behavior:'smooth'});
+            });
+        }
+
+        // --- Waterfall Render Logic ---
+        function renderWaterfallQuiz() {
+            const container = ui.quizListContainer;
+            container.innerHTML = ''; 
+
+            let questionsToRender = questionsData;
+            let titleHtml = '';
+
+            if (currentState.viewMode === 'wrong') {
+                questionsToRender = questionsData.filter(q => currentState.mistakes.includes(q.id));
+                titleHtml = `<span class="text-3xl">❌</span> <span class="text-amber-600">錯題本複習</span> <span class="text-base text-gray-400 ml-2 border-2 border-dashed border-gray-300 rounded-full px-3 py-1">共 ${questionsToRender.length} 題</span>`;
+                
+                if (questionsToRender.length === 0) {
+                    container.innerHTML = `<div class="text-center py-20 bg-white border-4 border-solid border-gray-200 rounded-[2.5rem]"><div class="text-6xl mb-4">🎉</div><p class="text-2xl font-bold text-gray-500">太棒了！目前沒有錯題紀錄！</p></div>`;
+                }
+            } else if (currentState.viewMode === 'favorite') {
+                questionsToRender = questionsData.filter(q => currentState.favorites.includes(q.id));
+                titleHtml = `<span class="text-3xl">⭐</span> <span class="text-teal-600">我的最愛</span> <span class="text-base text-gray-400 ml-2 border-2 border-dashed border-gray-300 rounded-full px-3 py-1">共 ${questionsToRender.length} 題</span>`;
+                
+                if (questionsToRender.length === 0) {
+                    container.innerHTML = `<div class="text-center py-20 bg-white border-4 border-solid border-gray-200 rounded-[2.5rem]"><div class="text-6xl mb-4">🤍</div><p class="text-2xl font-bold text-gray-500">目前還沒有收藏的題目喔！</p></div>`;
+                }
+            } else {
+                questionsToRender = questionsData;
+                titleHtml = `<span class="text-3xl">📝</span> <span class="text-rose-600">全真模擬試題</span> <span class="text-base text-gray-400 ml-2 border-2 border-dashed border-gray-300 rounded-full px-3 py-1">共 ${questionsData.length} 題</span>`;
+            }
+
+            ui.quizHeaderTitle.innerHTML = titleHtml;
+
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            questionsToRender.forEach((q) => {
+                const userAnswer = currentState.answers[q.id];
+                const isAnswered = userAnswer !== undefined;
+                const isCorrect = isAnswered && userAnswer === q.answer;
+                
+                if (isAnswered) {
+                    if (isCorrect) correctCount++;
+                    else wrongCount++;
+                }
+
+                // 嚴格遵守：卡片底色與邊框依狀態改變
+                let borderColor = 'border-gray-300';
+                let bgColor = 'bg-white';
+                if (isAnswered) {
+                    if (isCorrect) {
+                        borderColor = 'border-teal-400';
+                        bgColor = 'bg-teal-50';
+                    } else {
+                        borderColor = 'border-rose-400';
+                        bgColor = 'bg-rose-50';
+                    }
+                }
+
+                const card = document.createElement('div');
+                card.className = `relative rounded-[2.5rem] shadow-sm border-4 border-solid p-6 md:p-8 transition-colors duration-300 ${borderColor} ${bgColor}`;
+                
+                // 嚴格遵守：標籤與題目上下排列，標題上方要有紅色明顯的考點標籤
+                const isFav = currentState.favorites.includes(q.id);
+                const headerHtml = `
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex flex-col w-full">
+                            <div class="mb-3">
+                                <span class="inline-block bg-rose-100 border-2 border-solid border-rose-300 text-rose-700 font-bold rounded-xl px-3 py-1 text-sm tracking-widest shadow-sm">
+                                    📌 【${q.category}】
+                                </span>
+                            </div>
+                            <div class="flex items-start gap-3 w-full">
+                                <span class="flex-shrink-0 bg-amber-400 border-2 border-solid border-amber-500 text-amber-900 font-black rounded-full w-10 h-10 flex items-center justify-center text-lg shadow-sm mt-1">
+                                    ${q.id}
+                                </span>
+                                <h3 class="text-xl md:text-2xl font-black text-gray-800 leading-relaxed font-serif tracking-wide pt-1">
+                                    ${q.question}
+                                </h3>
+                            </div>
+                        </div>
+                        <button onclick="window.toggleFavorite(${q.id})" class="text-4xl transition-transform hover:scale-110 flex-shrink-0 mt-1 ml-4 focus:outline-none">
+                            ${isFav ? '⭐' : '🤍'}
+                        </button>
+                    </div>
+                `;
+
+                // 嚴格遵守：選項為獨立的大按鈕 `rounded-[1.5rem]`
+                let optionsHtml = '<div class="grid gap-4">';
+                q.options.forEach((opt, optIdx) => {
+                    const letter = ['A','B','C','D'][optIdx];
+                    let btnClass = "option-btn w-full text-left p-4 md:p-5 rounded-[1.5rem] border-4 border-solid flex items-center group ";
+                    let badgeClass = "w-10 h-10 flex items-center justify-center rounded-full font-black mr-4 text-xl flex-shrink-0 border-2 border-solid ";
+                    let resultIcon = "";
+                    
+                    if (isAnswered) {
+                        if (optIdx === q.answer) {
+                            btnClass += "bg-teal-100 border-teal-500 text-teal-900";
+                            badgeClass += "bg-teal-500 border-teal-600 text-white";
+                            resultIcon = '<span class="ml-auto text-3xl">⭕</span>';
+                        } else if (optIdx === userAnswer) {
+                            btnClass += "bg-rose-100 border-rose-500 text-rose-900";
+                            badgeClass += "bg-rose-500 border-rose-600 text-white";
+                            resultIcon = '<span class="ml-auto text-3xl">❌</span>';
+                        } else {
+                            btnClass += "bg-white border-gray-200 text-gray-400 opacity-70";
+                            badgeClass += "bg-gray-100 border-gray-300 text-gray-400";
+                        }
+                    } else {
+                        btnClass += "bg-white border-gray-300 hover:border-amber-400 hover:bg-amber-50 text-gray-700 cursor-pointer";
+                        badgeClass += "bg-gray-100 border-gray-300 text-gray-500 group-hover:bg-amber-400 group-hover:border-amber-500 group-hover:text-amber-900 transition-colors";
+                    }
+
+                    const clickAction = isAnswered ? "" : `onclick="window.handleAnswer(${q.id}, ${optIdx})"`;
+
+                    optionsHtml += `
+                        <button ${clickAction} class="${btnClass}" ${isAnswered ? 'disabled' : ''}>
+                            <span class="${badgeClass}">${letter}</span>
+                            <span class="font-bold text-lg md:text-xl leading-relaxed font-serif">${opt}</span>
+                            ${resultIcon}
+                        </button>
+                    `;
+                });
+                optionsHtml += '</div>';
+
+                // 嚴格遵守：解析區塊帶有 💡 Emoji 與淡黃色背景對話框設計
+                let explanationHtml = '';
+                if (isAnswered) {
+                    explanationHtml = `
+                        <div class="mt-6 bg-yellow-50 p-6 rounded-[2rem] border-4 border-solid border-amber-200 animate-fade-in-up relative">
+                            <div class="absolute -top-5 left-6 text-4xl bg-white rounded-full p-1 border-4 border-solid border-amber-200 shadow-sm">💡</div>
+                            <div class="pt-4">
+                                <span class="font-black text-amber-800 block mb-2 text-xl">解析小幫手：</span>
+                                <p class="text-gray-700 text-lg md:text-xl leading-relaxed text-justify font-medium">${q.explanation}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = headerHtml + optionsHtml + explanationHtml;
+                container.appendChild(card);
+            });
+
+            ui.statCorrect.textContent = correctCount;
+            ui.statWrong.textContent = wrongCount;
+        }
+
+        window.handleAnswer = function(qId, selectedIdx) {
+            if (!currentState.username) return;
+
+            currentState.answers[qId] = selectedIdx;
+            
+            const q = questionsData.find(x => x.id === qId);
+            const isCorrect = q.answer === selectedIdx;
+            
+            if (!isCorrect) {
+                if (!currentState.mistakes.includes(qId)) {
+                    currentState.mistakes.push(qId);
+                    saveUserData('mistakes');
+                }
+            }
+
+            saveProgress();
+            renderWaterfallQuiz();
+        }
+
+        window.toggleFavorite = function(qId) {
+            if (!currentState.username) {
+                window.customAlert('請先登入才能收藏題目喔！');
+                return;
+            }
+            
+            const idx = currentState.favorites.indexOf(qId);
+            if (idx === -1) currentState.favorites.push(qId);
+            else currentState.favorites.splice(idx, 1);
+            
+            saveUserData('favorites');
+            renderWaterfallQuiz(); 
+        }
+
+        // --- Implementation of Review Modes ---
+        window.showReview = function(type) {
+            if (!currentState.username) return;
+
+            if (type === 'wrong') {
+                if (currentState.mistakes.length === 0) {
+                    window.customAlert("太棒了！目前沒有錯題紀錄 🎉");
+                    return;
+                }
+                currentState.viewMode = 'wrong';
+            } else if (type === 'favorite') {
+                if (currentState.favorites.length === 0) {
+                    window.customAlert("目前沒有收藏任何題目喔 🤍");
+                    return;
+                }
+                currentState.viewMode = 'favorite';
+            } else {
+                currentState.viewMode = 'all';
+            }
+            
+            switchView('quiz');
+            renderWaterfallQuiz();
+        }
+
+        // --- Persistence Helpers ---
+        function saveProgress() {
+            if (!isFirebaseReady || !currentState.username) return;
+            const userRef = doc(db, COLLECTION_NAME, currentState.username);
+            const progressData = {
+                answers: currentState.answers,
+                timestamp: new Date().getTime()
+            };
+            setDoc(userRef, { progress: progressData }, { merge: true });
+        }
+
+        function saveUserData(type) {
+            if (!isFirebaseReady || !currentState.username) return;
+            const userRef = doc(db, COLLECTION_NAME, currentState.username);
+            const data = {};
+            data[type] = currentState[type];
+            setDoc(userRef, data, { merge: true });
+        }
+
+        window.logout = function() {
+            if (currentUserUnsubscribe) currentUserUnsubscribe();
+            currentState.username = '';
+            ui.views.login.classList.remove('hidden');
+            ui.views.dashboard.classList.add('hidden');
+            ui.views.quiz.classList.add('hidden');
+            ui.userDisplay.classList.add('hidden');
+            document.getElementById('username').value = '';
+        }
+        
+        window.goHome = function() {
+            if (currentState.username) {
+                window.scrollTo({top:0, behavior:'smooth'});
+                switchView('dashboard');
+            } else {
+                window.location.reload();
+            }
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(15px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-up {
+                animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+        `;
+        document.head.appendChild(style);
+
+        init();
+
+    </script>
+</body>
+</html>

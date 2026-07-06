@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(吳敏男 - 第三輯) 第1篇 聖人不病 - 互動式古文學習 (AI 旗艦版)</title>
+    <title>(吳敏男 - 第三輯) 第4篇 大同世界 - 互動式古文學習 (AI 旗艦版)</title>
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 Marked.js -->
@@ -77,7 +77,6 @@
 </head>
 <body class="text-stone-800 min-h-screen flex flex-col">
 
-    <!-- 頂部導航欄 -->
     <nav class="bg-amber-900 text-amber-50 shadow-lg sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -86,7 +85,7 @@
                     <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
                 </div>
                 <div class="hidden md:block text-sm opacity-90 text-amber-100">
-                    深度學習：第1篇 聖人不病
+                    深度學習：第4篇 大同世界
                 </div>
             </div>
         </div>
@@ -94,7 +93,6 @@
 
     <div id="app" class="max-w-6xl mx-auto p-4 sm:p-6 w-full flex-grow flex flex-col">
         
-        <!-- 課程標題卡片 -->
         <header class="bg-white rounded-2xl shadow-md overflow-hidden mb-6 border border-amber-100 relative">
             <div class="absolute top-0 right-0 w-40 h-40 bg-amber-50 rounded-bl-full opacity-60 z-0"></div>
             <div class="bg-gradient-to-r from-amber-50/50 to-white p-6 sm:p-8 relative z-10">
@@ -108,13 +106,12 @@
                     </div>
                     <div class="hidden md:block text-right">
                         <span class="inline-block bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-red-200">重要考試文章</span>
-                        <div class="text-xs text-amber-600 font-medium">適合程度：中高階 (道家哲理與詞性轉換)</div>
+                        <div class="text-xs text-amber-600 font-medium">適合程度：高階 (儒家理想與句型修辭)</div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- 功能標籤 (無 AI 對話) -->
         <div class="flex flex-wrap justify-center bg-white rounded-xl shadow-sm mb-6 border border-amber-100 sticky top-20 z-40 overflow-x-auto">
             <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('overview')"><i class="fas fa-info-circle mr-2"></i>總覽</button>
             <button id="tab-reading" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('reading')"><i class="fas fa-glasses mr-2"></i>精讀與圖解</button>
@@ -125,20 +122,17 @@
             <button id="tab-quiz" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('quiz')"><i class="fas fa-pen-nib mr-2"></i>隨堂測驗</button>
         </div>
 
-        <!-- 主要內容區 -->
         <main id="content-display" class="flex-grow bg-white rounded-2xl shadow-lg p-6 sm:p-8 min-h-[500px] transition-all duration-300 relative border border-orange-50">
             <!-- 內容動態載入 -->
         </main>
         
     </div>
 
-    <!-- 註釋彈出框模板 -->
     <div id="note-template" class="note-popup absolute bg-white border-l-4 border-amber-500 rounded-r-lg shadow-2xl p-4 z-50 hidden w-72" onclick="event.stopPropagation()">
         <button onclick="closeNote()" class="absolute top-2 right-2 text-amber-400 hover:text-amber-600 transition"><i class="fas fa-times"></i></button>
         <div id="note-content"></div>
     </div>
 
-    <!-- 結果模態框 -->
     <div id="score-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl transform transition-all scale-100 border-2 border-amber-100">
             <div class="text-center">
@@ -154,7 +148,6 @@
         </div>
     </div>
 
-    <!-- 錯誤提示 -->
     <div id="error-toast" class="fixed bottom-6 right-6 bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg shadow-xl hidden z-50 flex items-center transition-all transform translate-y-10 opacity-0">
         <i class="fas fa-exclamation-circle mr-3 text-xl"></i>
         <div>
@@ -165,83 +158,139 @@
 
     <script>
         // ----------------------------------------------------
-        // 1. 教材資料結構 (Content Data) - 聖人不病
+        // 1. 教材資料結構 (Content Data) - 大同世界
         // ----------------------------------------------------
         const contentData = {
             metadata: {
-                title: "(吳敏男 - 第三輯) 第1篇 聖人不病",
-                author: "老子",
-                source: "《道德經》第七十一章"
+                title: "(吳敏男 - 第三輯) 第4篇 大同世界",
+                author: "孔子 (言偃記錄)",
+                source: "《禮記·禮運》"
             },
-            summary: "本文選自《道德經》第七十一章。老子以極簡的文字，深刻探討了「知識」與「無知」的哲學關係。他認為，能夠認識到自己的無知（知不知），是最高明的智慧；相反地，不懂裝懂、沒有意識到自己的無知（不知不知），則是認知上的嚴重缺陷（病）。聖人之所以能成為聖人，正是因為他能時刻正視並警惕這種無知的弊病，『以其病病』，所以他才不會犯下盲目自大的毛病。",
+            summary: "本文選自《禮記·禮運》篇，記錄了孔子與弟子言偃（子游）的對話。孔子在感嘆生不逢時之際，向弟子描繪了他心中最完美的政治與社會藍圖——「大同世界」。在這樣的理想社會中，政治清明（天下為公、選賢與能），社會充滿博愛與互助（不獨親其親、鰥寡孤獨皆有所養），經濟上物盡其用且人盡其才（貨惡其棄、力惡不出），最終達到沒有自私自利與犯罪作亂，連大門都不必關閉的太平盛世。這是儒家社會理想的最高境界。",
             
-            meaning: "1. **真知的起點**：真正的智慧始於承認自己的無知。這與西方哲學家蘇格拉底『我唯一知道的，就是我一無所知』的觀念有異曲同工之妙。\n2. **傲慢的危害**：『不知不知』是一種心理上的『病』（缺陷），不懂裝懂會讓人陷入盲目自大的危險之中。\n3. **聖人的修養**：聖人並非全知全能，而是具備極高的自省能力。把缺點當作缺點來警惕（病病），正是道家『反求諸己、居微處下』的實踐。",
+            meaning: "1. **政治清明（天下為公）**：權力與天下是屬於全體人民共有的，打破了世襲制與私有制。領導者的產生是基於「選拔賢德與有能力的人（選賢與能）」。\n2. **社會博愛（老少安頓）**：打破狹隘的家族觀念，將愛心推己及人。社會建構了完善的福利制度，無論是老人、壯年、幼童，甚至是社會弱勢（矜寡孤獨廢疾者），都能得到妥善的照顧與安排。\n3. **經濟道德（物盡其用，人盡其才）**：人們珍惜物資，但不據為己有；人們樂於貢獻勞力與才華，但不為自私的功利。這種高尚的道德感，徹底消除了犯罪與戰亂的根源。",
             
             rhetoric: [
-                "**轉品 (詞類活用):** 『以其病病』中，第一個『病』從名詞轉為動詞，作『當作毛病、引以為憂』解；第二個『病』是名詞，指『缺點、弊病』。",
-                "**頂真與迴環:** 透過『知不知』、『不知不知』、『病病』等疊字與句式的反覆，營造出迴環往復的節奏感，加深哲理的厚度。",
-                "**對比 (映襯):** 『上』與『病』對比，『知不知』與『不知不知』對比，界定了智者與愚者的根本差異。"
+                "**倒裝 (賓語前置):** 「丘未『之』逮也」，即「未逮之」（沒有來得及趕上那個時代）。",
+                "**轉品 (詞類活用):** 「不獨『親』其『親』，不獨『子』其『子』」。第一個「親/子」為名詞作動詞用（意指：敬愛 / 慈愛）；第二個「親/子」為名詞（意指：父母 / 子女）。",
+                "**排比與錯綜:** 「老有所終，壯有所用，幼有所長」句式整齊，氣勢磅礴，展現出大同社會各個年齡層都有完美歸宿的和諧畫面。",
+                "**借代:** 「矜寡孤獨廢疾者」，「矜」通「鰥」，這幾個字借代了社會上所有無依無靠的弱勢群體。"
             ],
             
             vocabulary: [
-                { word: "知不知", zhuyin: "ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "知道自己有所不知。第一個『知』是動詞，明白、意識到；第二個『知』指知識或知道的內容。" },
-                { word: "上", zhuyin: "ㄕㄤˋ", pos: "形容詞/名詞", meaning: "最好、最高明的境界。" },
-                { word: "不知不知", zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "不知道卻自以為知道；或指沒有意識到自己的無知。" },
-                { word: "病", zhuyin: "ㄅㄧㄥˋ", pos: "名詞", meaning: "缺點、弊病、毛病。" },
-                { word: "是以", zhuyin: "ㄕˋ ㄧˇ", pos: "連詞", meaning: "因此、所以。" },
-                { word: "聖人", zhuyin: "ㄕㄥˋ ㄖㄣˊ", pos: "名詞", meaning: "道家理想中具有最高智慧與修養的人。" },
-                { word: "以其病病", zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", pos: "句型", meaning: "因為他把這個毛病當作毛病。『以』：因為。第一個『病』：動詞，引以為病。第二個『病』：名詞，指不知不知的弊病。" },
-                { word: "不病", zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", pos: "動賓片語", meaning: "沒有這種（不懂裝懂的）毛病。" }
+                { word: "大道之行也", zhuyin: "ㄉㄚˋ ㄉㄠˋ ㄓ ㄒㄧㄥˊ ㄧㄝˇ", pos: "句型", meaning: "施行大道的時代。大道，指最完美的政治與社會制度。" },
+                { word: "三代之英", zhuyin: "ㄙㄢ ㄉㄞˋ ㄓ ㄧㄥ", pos: "名詞", meaning: "夏、商、周三代的英明君王（如禹、湯、文王、武王等）及其治下的盛世。" },
+                { word: "丘未之逮也", zhuyin: "ㄑㄧㄡ ㄨㄟˋ ㄓ ㄉㄞˋ ㄧㄝˇ", pos: "句型", meaning: "我（孔丘）沒有來得及趕上。「逮」：及、趕上。「未之逮」是倒裝句，即「未逮之」。" },
+                { word: "天下為公", zhuyin: "ㄊㄧㄢ ㄒㄧㄚˋ ㄨㄟˊ ㄍㄨㄥ", pos: "句型", meaning: "天下是全人類所共有的，不屬於一間一姓之私。" },
+                { word: "選賢與能", zhuyin: "ㄒㄩㄢˇ ㄒㄧㄢˊ ㄐㄩˇ ㄋㄥˊ", pos: "句型", meaning: "選拔賢德與有能力的人才來治理國家。「與」通「舉」，推舉。" },
+                { word: "講信修睦", zhuyin: "ㄐㄧㄤˇ ㄒㄧㄣˋ ㄒㄧㄡ ㄇㄨˋ", pos: "句型", meaning: "人與人之間講求信用，促進和睦。" },
+                { word: "不獨親其親", zhuyin: "ㄅㄨˋ ㄉㄨˊ ㄑㄧㄣ ㄑㄧㄣˊ ㄑㄧㄣ", pos: "句型", meaning: "不只是孝敬自己的雙親。第一個「親」是動詞（敬愛），第二個「親」是名詞（父母）。" },
+                { word: "不獨子其子", zhuyin: "ㄅㄨˋ ㄉㄨˊ ㄗˇ ㄑㄧˊ ㄗˇ", pos: "句型", meaning: "不只是慈愛自己的子女。第一個「子」是動詞（慈愛），第二個「子」是名詞（子女）。" },
+                { word: "老有所終", zhuyin: "ㄌㄠˇ ㄧㄡˇ ㄙㄨㄛˇ ㄓㄨㄥ", pos: "句型", meaning: "老年人能安享天年，得到妥善的贍養與安頓。" },
+                { word: "壯有所用", zhuyin: "ㄓㄨㄤˋ ㄧㄡˇ ㄙㄨㄛˇ ㄩㄥˋ", pos: "句型", meaning: "壯年人能貢獻才力，為社會所用。" },
+                { word: "幼有所長", zhuyin: "ㄧㄡˋ ㄧㄡˇ ㄙㄨㄛˇ ㄓㄤˇ", pos: "句型", meaning: "幼童能得到良好的教養而順利成長。「長」，ㄓㄤˇ。" },
+                { word: "矜寡孤獨廢疾者", zhuyin: "ㄍㄨㄢ ㄍㄨㄚˇ ㄍㄨ ㄉㄨˊ ㄈㄟˋ ㄐㄧˊ ㄓㄜˇ", pos: "名詞", meaning: "社會弱勢群體。「矜」通「鰥」，老而無妻；寡，老而無夫；孤，幼而無父；獨，老而無子。廢疾，殘障或久病之人。" },
+                { word: "皆有所養", zhuyin: "ㄐㄧㄝ ㄧㄡˇ ㄙㄨㄛˇ ㄧㄤˇ", pos: "句型", meaning: "全都能夠得到社會的供養與照顧。" },
+                { word: "男有分", zhuyin: "ㄋㄢˊ ㄧㄡˇ ㄈㄣˋ", pos: "句型", meaning: "男子都有適當的職分、工作。「分」，ㄈㄣˋ，職分。" },
+                { word: "女有歸", zhuyin: "ㄋㄩˇ ㄧㄡˇ ㄍㄨㄟ", pos: "句型", meaning: "女子都有好的歸宿（出嫁）。「歸」，出嫁、歸宿。" },
+                { word: "貨惡其棄於地也", zhuyin: "ㄏㄨㄛˋ ㄨˋ ㄑㄧˊ ㄑㄧˋ ㄩˊ ㄉㄧˋ ㄧㄝˇ", pos: "句型", meaning: "對於財物資源，厭惡它被丟棄在地上浪費掉。「惡」，ㄨˋ，厭惡。" },
+                { word: "不必藏於己", zhuyin: "ㄅㄨˋ ㄅㄧˋ ㄘㄤˊ ㄩˊ ㄐㄧˇ", pos: "句型", meaning: "（開發資源是為了大家），不一定要私藏為己有。" },
+                { word: "力惡其不出於身也", zhuyin: "ㄌㄧˋ ㄨˋ ㄑㄧˊ ㄅㄨˋ ㄔㄨ ㄩˊ ㄕㄣ ㄧㄝˇ", pos: "句型", meaning: "對於勞力，厭惡自己不能親自出力貢獻。" },
+                { word: "不必為己", zhuyin: "ㄅㄨˋ ㄅㄧˋ ㄨㄟˋ ㄐㄧˇ", pos: "句型", meaning: "（出力奉獻）不一定是為了自己的私利。" },
+                { word: "謀閉而不興", zhuyin: "ㄇㄡˊ ㄅㄧˋ ㄦˊ ㄅㄨˋ ㄒㄧㄥ", pos: "句型", meaning: "圖謀私利與陰謀詭計的心思閉塞而不發生。" },
+                { word: "盜竊亂賊", zhuyin: "ㄉㄠˋ ㄑㄧㄝˋ ㄌㄨㄢˋ ㄗㄟˊ", pos: "名詞", meaning: "偷竊、搶劫、造反作亂以及害人的人。" },
+                { word: "不作", zhuyin: "ㄅㄨˋ ㄗㄨㄛˋ", pos: "動詞", meaning: "不發生、不興起。" },
+                { word: "外戶而不閉", zhuyin: "ㄨㄞˋ ㄏㄨˋ ㄦˊ ㄅㄨˋ ㄅㄧˋ", pos: "句型", meaning: "外面的大門可以不用關閉，形容社會治安極好。「外戶」，大門。" },
+                { word: "是謂大同", zhuyin: "ㄕˋ ㄨㄟˋ ㄉㄚˋ ㄊㄨㄥˊ", pos: "句型", meaning: "這就稱作『大同世界』。" }
             ],
 
             segments: [
                 {
-                    original: "知不知，上；不知不知，病。",
-                    translation: "知道自己有所不知，這是最高明的境界；不知道卻自以為知道，這就是一種嚴重的毛病（缺點）。",
-                    audioText: "知不知，上；，不知不知，病。",
+                    original: "孔子曰：「大道之行也，與三代之英，丘未之逮也，而有志焉。」",
+                    translation: "孔子感嘆地說：「在遠古大道施行的時代，以及夏、商、周三代英明君王治理的盛世，我孔丘是沒有來得及趕上了，但是我的心中依然對那種理想社會充滿了嚮往與志向。」",
+                    audioText: "孔子曰：「大道之行也，，與三代之英，，丘未之帶也，，而有志焉。」",
                     notes: {
-                        "知不知": { zhuyin: "ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "知道自己有所不知。" },
-                        "上": { zhuyin: "ㄕㄤˋ", type: "名詞", def: "最高明。" },
-                        "不知不知": { zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "不知道卻自以為知道。" },
-                        "病": { zhuyin: "ㄅㄧㄥˋ", type: "名詞", def: "缺點、毛病。" }
+                        "大道之行也": { zhuyin: "ㄉㄚˋ ㄉㄠˋ ㄓ ㄒㄧㄥˊ ㄧㄝˇ", type: "句型", def: "施行大道的完美時代。" },
+                        "三代之英": { zhuyin: "ㄙㄢ ㄉㄞˋ ㄓ ㄧㄥ", type: "名詞", def: "夏商周三代英明君王的盛世。" },
+                        "丘未之逮也": { zhuyin: "ㄑㄧㄡ ㄨㄟˋ ㄓ ㄉㄞˋ ㄧㄝˇ", type: "句型", def: "我孔丘沒有來得及趕上。逮：及。未之逮為倒裝句。" }
                     }
                 },
                 {
-                    original: "是以聖人不病。以其病病，是以不病。",
-                    translation: "因此，聖人沒有這種（不懂裝懂的）毛病。正是因為他把這種毛病當作真正的毛病去時刻警惕，所以他才不會有這種毛病。",
-                    audioText: "是以聖人不病。，以其病病，，是以不病。",
+                    original: "「大道之行也，天下為公，選賢與能，講信修睦。」",
+                    translation: "「當大道施行於天下的時候，天下是全人類所共有的。政治上，大家選拔出賢德且有能力的人來治理國家；社會上，人與人之間講求信用，並且促進彼此的和睦關係。」",
+                    audioText: "「大道之行也，，天下為公，，選賢舉能，，講信修睦。」",
                     notes: {
-                        "是以": { zhuyin: "ㄕˋ ㄧˇ", type: "連詞", def: "因此、所以。" },
-                        "聖人": { zhuyin: "ㄕㄥˋ ㄖㄣˊ", type: "名詞", def: "有最高智慧的人。" },
-                        "以其病病": { zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", type: "句型", def: "因為他把這個毛病當作毛病。首字病為動詞，次字病為名詞。" },
-                        "不病": { zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", type: "片語", def: "沒有這種毛病。" }
+                        "天下為公": { zhuyin: "ㄊㄧㄢ ㄒㄧㄚˋ ㄨㄟˊ ㄍㄨㄥ", type: "句型", def: "天下是全人類共有的。" },
+                        "選賢與能": { zhuyin: "ㄒㄩㄢˇ ㄒㄧㄢˊ ㄐㄩˇ ㄋㄥˊ", type: "句型", def: "選拔賢能者。與，通「舉」。" },
+                        "講信修睦": { zhuyin: "ㄐㄧㄤˇ ㄒㄧㄣˋ ㄒㄧㄡ ㄇㄨˋ", type: "句型", def: "講求信用，促進和睦。" }
+                    }
+                },
+                {
+                    original: "「故人不獨親其親，不獨子其子，使老有所終，壯有所用，幼有所長，矜寡孤獨廢疾者，皆有所養。」",
+                    translation: "「所以人們不會只敬愛自己的父母，也不會只慈愛自己的子女。社會的制度能使得老年人安享天年，壯年人能貢獻才力為社會所用，幼童能得到良好的教養而成長。並且，那些老而無妻、老而無夫、幼而無父、老而無子，以及殘障疾病的人，全都能夠得到社會妥善的供養與照顧。」",
+                    audioText: "「故人，不讀親其親，，不讀子其子，，使老有所終，，壯有所用，，幼有所掌，，官寡孤獨廢疾者，，皆有所養。」",
+                    notes: {
+                        "不獨親其親": { zhuyin: "ㄅㄨˋ ㄉㄨˊ ㄑㄧㄣ ㄑㄧㄣˊ ㄑㄧㄣ", type: "句型", def: "不只孝敬自己的雙親。第一字為動詞，第二字為名詞。" },
+                        "不獨子其子": { zhuyin: "ㄅㄨˋ ㄉㄨˊ ㄗˇ ㄑㄧˊ ㄗˇ", type: "句型", def: "不只慈愛自己的子女。第一字為動詞，第二字為名詞。" },
+                        "老有所終": { zhuyin: "ㄌㄠˇ ㄧㄡˇ ㄙㄨㄛˇ ㄓㄨㄥ", type: "句型", def: "老年人能安享天年。" },
+                        "壯有所用": { zhuyin: "ㄓㄨㄤˋ ㄧㄡˇ ㄙㄨㄛˇ ㄩㄥˋ", type: "句型", def: "壯年人能貢獻才力。" },
+                        "幼有所長": { zhuyin: "ㄧㄡˋ ㄧㄡˇ ㄙㄨㄛˇ ㄓㄤˇ", type: "句型", def: "幼童能得到良好教養而成長。" },
+                        "矜寡孤獨廢疾者": { zhuyin: "ㄍㄨㄢ ㄍㄨㄚˇ ㄍㄨ ㄉㄨˊ ㄈㄟˋ ㄐㄧˊ ㄓㄜˇ", type: "名詞", def: "弱勢群體。矜通鰥(老而無妻)，寡(無夫)，孤(無父)，獨(無子)。" },
+                        "皆有所養": { zhuyin: "ㄐㄧㄝ ㄧㄡˇ ㄙㄨㄛˇ ㄧㄤˇ", type: "句型", def: "都能得到妥善供養。" }
+                    }
+                },
+                {
+                    original: "「男有分，女有歸，貨惡其棄於地也，不必藏於己；力惡其不出於身也，不必為己。」",
+                    translation: "「男子都有適當的工作職分，女子都有美好的歸宿。對於物資財富，人們厭惡它被丟棄在地上浪費，但開發出來也不一定要私藏為己有；對於勞力，人們厭惡自己不能親自貢獻出力量，但出力也不一定只為了自己的私利。」",
+                    audioText: "「男有份，，女有歸，，貨務其棄於地也，，不必藏於己；，力務其不出於身也，，不必為己。」",
+                    notes: {
+                        "男有分": { zhuyin: "ㄋㄢˊ ㄧㄡˇ ㄈㄣˋ", type: "句型", def: "男子都有適當的工作職分。" },
+                        "女有歸": { zhuyin: "ㄋㄩˇ ㄧㄡˇ ㄍㄨㄟ", type: "句型", def: "女子都有好的歸宿（出嫁）。" },
+                        "貨惡其棄於地也": { zhuyin: "ㄏㄨㄛˋ ㄨˋ ㄑㄧˊ ㄑㄧˋ ㄩˊ ㄉㄧˋ ㄧㄝˇ", type: "句型", def: "厭惡財物被浪費。惡：厭惡。" },
+                        "不必藏於己": { zhuyin: "ㄅㄨˋ ㄅㄧˋ ㄘㄤˊ ㄩˊ ㄐㄧˇ", type: "句型", def: "不一定要私藏為己有。" },
+                        "力惡其不出於身也": { zhuyin: "ㄌㄧˋ ㄨˋ ㄑㄧˊ ㄅㄨˋ ㄔㄨ ㄩˊ ㄕㄣ ㄧㄝˇ", type: "句型", def: "厭惡自己不能親自出力貢獻。" },
+                        "不必為己": { zhuyin: "ㄅㄨˋ ㄅㄧˋ ㄨㄟˋ ㄐㄧˇ", type: "句型", def: "出力不一定只為私利。" }
+                    }
+                },
+                {
+                    original: "「是故謀閉而不興，盜竊亂賊而不作，故外戶而不閉，是謂大同。」",
+                    translation: "「因為人們大公無私，所以圖謀私利與陰謀詭計的心思都閉塞而不再發生，偷竊、搶劫與造反作亂的人也不再出現。因此，就連外面的大門也可以不用關閉了，這種完美和諧的社會狀態，就稱之為『大同』！」",
+                    audioText: "「是故謀閉而不興，，盜竊亂賊而不作，，故外戶而不閉，，是謂大同。」",
+                    notes: {
+                        "謀閉而不興": { zhuyin: "ㄇㄡˊ ㄅㄧˋ ㄦˊ ㄅㄨˋ ㄒㄧㄥ", type: "句型", def: "圖謀私利的心思閉塞不發生。" },
+                        "盜竊亂賊": { zhuyin: "ㄉㄠˋ ㄑㄧㄝˋ ㄌㄨㄢˋ ㄗㄟˊ", type: "名詞", def: "偷竊與造反害人的人。" },
+                        "不作": { zhuyin: "ㄅㄨˋ ㄗㄨㄛˋ", type: "動詞", def: "不發生、不興起。" },
+                        "外戶而不閉": { zhuyin: "ㄨㄞˋ ㄏㄨˋ ㄦˊ ㄅㄨˋ ㄅㄧˋ", type: "句型", def: "大門不用關閉，形容治安極佳。" },
+                        "是謂大同": { zhuyin: "ㄕˋ ㄨㄟˋ ㄉㄚˋ ㄊㄨㄥˊ", type: "句型", def: "這就稱作『大同世界』。" }
                     }
                 }
             ],
+            
             quiz: [
-                { q: "《道德經》的作者是誰？", opts: ["A. 莊子", "B. 孟子", "C. 老子", "D. 韓非子"], ans: "C", exp: "《道德經》又稱《老子》，是道家哲學的重要經典，相傳為老子所著。" },
-                { q: "關於「知不知，上」，第一個「知」字的意思是？", opts: ["A. 知識", "B. 結交", "C. 明白、意識到", "D. 掌管"], ans: "C", exp: "第一個「知」是動詞，意思是明白、知道自己有所不知。" },
-                { q: "「知不知，上」中的「上」是什麼意思？", opts: ["A. 往上走", "B. 最高明、最好的境界", "C. 皇上", "D. 表面上"], ans: "B", exp: "「上」在此作名詞/形容詞，指上等的、最高明的狀態。" },
-                { q: "「不知不知，病」這句話批判了什麼樣的態度？", opts: ["A. 勤奮好學", "B. 謙虛退讓", "C. 身體虛弱", "D. 不懂裝懂、自以為是"], ans: "D", exp: "「不知不知」是指沒有意識到自己的無知，反而自以為什麼都懂，這是認知上的大病。" },
-                { q: "古文中的「病」通常作何解釋？此處的「病」意指什麼？", opts: ["A. 生理上的疾病", "B. 心理或認知上的缺點、毛病", "C. 疲憊", "D. 悲傷"], ans: "B", exp: "此處的病並非指生病，而是指性格、修養或認知上的弊病與缺陷。" },
-                { q: "「是以聖人不病」的「是以」是什麼意思？", opts: ["A. 這是", "B. 以為", "C. 因此、所以", "D. 憑藉"], ans: "C", exp: "是以，為古文常見連詞，等同於「所以、因此」。" },
-                { q: "「以其病病」的「以」字，用法為何？", opts: ["A. 介詞，把", "B. 連詞，因為", "C. 動詞，認為", "D. 名詞，緣故"], ans: "B", exp: "「以」其病病，意思是「因為」他把這毛病當成毛病。" },
-                { q: "「以其病病」中，兩個「病」字的詞性分別是什麼？", opts: ["A. 名詞；名詞", "B. 動詞；名詞", "C. 名詞；動詞", "D. 動詞；動詞"], ans: "B", exp: "第一個病是動詞（引以為病/當作毛病），第二個病是名詞（缺點/毛病）。" },
-                { q: "承上題，第一個「病」字（動詞）的字義為何？", opts: ["A. 生病", "B. 當作毛病、引以為憂", "C. 傳染", "D. 治療"], ans: "B", exp: "第一個病是轉品（轉類）的動詞用法，意指正視並警惕這個毛病。" },
-                { q: "「以其病病，是以不病」蘊含了道家的什麼思想？", opts: ["A. 順應自然，無為而治", "B. 弱肉強食，適者生存", "C. 反求諸己、時刻自省，居微處下", "D. 嚴刑峻法"], ans: "C", exp: "聖人能隨時自省，看到自己的不足並引以為戒，這正是道家推崇的謙卑自修精神。" },
-                { q: "希臘哲人蘇格拉底曾說：「我唯一知道的，就是我一無所知」，這句話與本課哪一句話含義最相近？", opts: ["A. 知不知，上", "B. 不知不知，病", "C. 是以聖人不病", "D. 以其病病"], ans: "A", exp: "兩者都強調「認知到自己的無知」才是真正的智慧起點。" },
-                { q: "本文在短短數十字中，不斷重複「知」與「病」字，這種修辭技巧產生了什麼效果？", opts: ["A. 顯得詞彙貧乏", "B. 為了湊字數", "C. 層層遞進，迴環往復，加深說理的辯證力道", "D. 製造懸疑感"], ans: "C", exp: "《道德經》常以簡潔且重複的字眼（如道可道非常道），製造出強烈的思辨與哲理感。" },
-                { q: "如果一個人總是喜歡在別人面前「強不知以為知」，老子會用哪個字來形容他的狀態？", opts: ["A. 上", "B. 聖", "C. 病", "D. 賢"], ans: "C", exp: "不懂裝懂，就是老子所謂的「不知不知，病」。" },
-                { q: "下列哪一個成語，最適合用來形容「不知不知」的狀態？", opts: ["A. 虛懷若谷", "B. 夜郎自大 / 井底之蛙", "C. 博學多聞", "D. 不恥下問"], ans: "B", exp: "夜郎自大和井底之蛙都是用來形容人見識淺薄卻自以為是，正是「不知不知」的體現。" },
-                { q: "關於「聖人不病」的原因，老子的解釋是什麼？", opts: ["A. 因為聖人天生聰明，什麼都懂", "B. 因為聖人吃了仙丹，不會生病", "C. 因為聖人能察覺並正視自己的缺點，時刻警惕", "D. 因為聖人不與人來往"], ans: "C", exp: "「以其病病，是以不病」，聖人的偉大不在於不犯錯，而在於能正視自身的缺陷。" },
-                { q: "《道德經》一書又被稱為什麼？", opts: ["A. 《莊子》", "B. 《孟子》", "C. 《老子》", "D. 《列子》"], ans: "C", exp: "《道德經》原名即為《老子》。" },
-                { q: "「知不知」與「不知不知」這兩句話，在句型上構成了何種修辭？", opts: ["A. 譬喻", "B. 對比 (映襯)", "C. 誇飾", "D. 擬人"], ans: "B", exp: "兩者形成強烈的對比，區分了智者與愚者的境界。" },
-                { q: "在道家思想中，「聖人」的形象通常是？", opts: ["A. 高高在上，充滿權力威嚴", "B. 虛心柔弱、順應自然、不自滿", "C. 喜歡與人辯論，爭個輸贏", "D. 穿著華麗，講究排場"], ans: "B", exp: "道家的聖人「居善地，心善淵」，特徵是如水般的謙下與自省。" },
-                { q: "在「以其病病」中，將名詞的「病」轉化為動詞「引以為病」，這種修辭格稱為什麼？", opts: ["A. 借代", "B. 頂真", "C. 轉化 (轉類/轉品)", "D. 鑲嵌"], ans: "C", exp: "將一種詞性當作另一種詞性使用，稱為轉品（轉類）。" },
-                { q: "全文雖然簡短，但充滿了辯證邏輯。這體現了《老子》哪一種寫作特色？", opts: ["A. 辭藻華麗，鋪陳繁複", "B. 大量描寫神話故事", "C. 正言若反、詞約義豐", "D. 專注於記錄歷史事件"], ans: "C", exp: "《老子》的文字極度精簡，卻常使用看似矛盾（正言若反）的語句來表達深邃的哲理。" }
+                { q: "《大同與小康》一文出自於哪一部儒家經典？", opts: ["A. 《論語》", "B. 《孟子》", "C. 《禮記》", "D. 《荀子》"], ans: "C", exp: "本文選自《禮記·禮運》篇，為孔子向弟子言偃闡述理想社會的對話。" },
+                { q: "「丘未『之』逮也」一句中，「之」字的作用為何？", opts: ["A. 代詞，作受詞且前置", "B. 助詞，無義", "C. 介詞，相當於「的」", "D. 動詞，前往"], ans: "A", exp: "這是一個否定句中的代詞賓語前置倒裝句。「未之逮」即「未逮之」，「之」代指大道之行與三代之英的盛世。" },
+                { q: "「選賢『與』能」的「與」字，在此處的讀音與字義為何？", opts: ["A. ㄩˇ，連詞，和", "B. ㄩˋ，動詞，參與", "C. ㄐㄩˇ，通「舉」，推舉", "D. ㄩˊ，助詞，同「歟」"], ans: "C", exp: "此處的「與」通假為「舉」，意為推舉、選拔賢能之人。" },
+                { q: "「不獨親其親」這句話中，兩個「親」字的詞性分別是什麼？", opts: ["A. 都是名詞", "B. 第一個是動詞，第二個是名詞", "C. 第一個是名詞，第二個是動詞", "D. 都是動詞"], ans: "B", exp: "這使用了轉品修辭。第一個「親」作動詞用，意為「以...為親 / 敬愛」；第二個「親」是名詞，指「父母雙親」。" },
+                { q: "同上題，「不獨子其子」傳達了哪一種儒家道德精神？", opts: ["A. 嚴格的階級制度", "B. 將私愛推廣為博愛的推己及人精神", "C. 拋棄親情，只愛外人", "D. 男女平權"], ans: "B", exp: "不只慈愛自己的子女，也慈愛別人的子女，體現了儒家「老吾老以及人之老，幼吾幼以及人之幼」的擴充精神。" },
+                { q: "「矜、寡、孤、獨」分別代表四種社會弱勢群體。其中「矜」字通「鰥」，指的是哪一種人？", opts: ["A. 老而無子者", "B. 幼而無父者", "C. 老而無妻者", "D. 老而無夫者"], ans: "C", exp: "鰥（矜）：老而無妻；寡：老而無夫；孤：幼而無父；獨：老而無子。" },
+                { q: "承上題，「矜寡孤獨廢疾者」運用了哪一種修辭手法？", opts: ["A. 誇飾", "B. 譬喻", "C. 借代", "D. 雙關"], ans: "C", exp: "以「矜寡孤獨廢疾」這幾種特定的人，借代社會上所有無依無靠、需要幫助的弱勢群體。" },
+                { q: "在大同世界中，對待「貨（物資、財富）」的態度是「貨惡其棄於地也，不必藏於己」。這句話的核心精神是？", opts: ["A. 強迫大家把財產全部捐給國家", "B. 厭惡浪費資源，但開發資源是為公眾而非私藏", "C. 覺得錢財太髒，寧可丟在地上", "D. 鼓勵人們大量消費刺激經濟"], ans: "B", exp: "人們珍惜物資不願浪費，但努力開發或獲取物資的出發點是大公無私，而非為了個人私吞。" },
+                { q: "對待「力（勞力、才華）」的態度是「力惡其不出於身也，不必為己」。這展現了什麼樣的勞動觀？", opts: ["A. 懶惰成性，不想工作", "B. 喜歡強迫別人替自己工作", "C. 樂於貢獻自身才力，且不求個人私利", "D. 為了賺錢不擇手段"], ans: "C", exp: "人們厭惡自己不出力，因此樂於貢獻才華，且這份貢獻是基於社會責任，不一定是為了謀求私利。" },
+                { q: "「男有分，女有歸」中，「分」與「歸」的解釋何者正確？", opts: ["A. 分：緣分 / 歸：回家", "B. 分：職分、工作 / 歸：出嫁、歸宿", "C. 分：分數 / 歸：歸還", "D. 分：分離 / 歸：歸附"], ans: "B", exp: "男有適當的職分工作，女有良好的婚姻歸宿。" },
+                { q: "大同世界最終達到的社會治安狀態是「外戶而不閉」。請問其根本原因（前因）是什麼？", opts: ["A. 因為大家都很窮，沒有東西可偷", "B. 因為法律極度嚴苛，抓到就死刑", "C. 因為「謀閉而不興，盜竊亂賊而不作」", "D. 因為城牆蓋得特別高"], ans: "C", exp: "因為人人都大公無私，沒有陰謀與犯罪（謀閉而不興，亂賊而不作），所以大門根本不用關。" },
+                { q: "孔子所描繪的「大同世界」，與後世哪一種政治制度的理念最為接近？", opts: ["A. 君主專制", "B. 封建世襲制", "C. 民主共和與社會福利制度", "D. 寡頭政治"], ans: "C", exp: "「天下為公」、「選賢與能」近於民主共和；「老弱皆有所養」近於社會福利制度。" },
+                { q: "在《禮運》篇的後文中，孔子對比了「大同」與「小康」。大同是「天下為公」，那麼小康社會最主要的特徵是？", opts: ["A. 天下為家 (世襲制與私有制)", "B. 天下大亂", "C. 天下為公", "D. 天下無敵"], ans: "A", exp: "小康社會的特徵是「天下為家，各親其親，各子其子，貨力為己」，也就是退化到了私有與世襲的階級社會。" },
+                { q: "「大道之行也」中的「大道」，在儒家思想中通常指代什麼？", opts: ["A. 寬闊平坦的柏油路", "B. 最完美的政治與道德最高原則", "C. 道家的無為而治", "D. 神仙修煉的方法"], ans: "B", exp: "在儒家語境中，大道指的是上古聖王所推行、最理想完美的政治社會制度與道德法則。" },
+                { q: "下列字詞的讀音，何者標示「錯誤」？", opts: ["A. 矜寡孤獨：ㄐㄧㄣ", "B. 貨「惡」其棄：ㄨˋ", "C. 男有「分」：ㄈㄣˋ", "D. 幼有所「長」：ㄓㄤˇ"], ans: "A", exp: "「矜」在此通「鰥」，必須讀作「ㄍㄨㄢ」。" },
+                { q: "「老有所終，壯有所用，幼有所長」這三句，在修辭上主要使用了何種技巧？", opts: ["A. 擬人", "B. 頂真", "C. 排比", "D. 譬喻"], ans: "C", exp: "三句結構相同、字數相等、意義相關，是標準的排比句，增強了語氣的氣勢與連貫性。" },
+                { q: "下列哪一個成語，最不符合「大同世界」的理想情境？", opts: ["A. 守望相助", "B. 錙銖必較", "C. 夜不閉戶", "D. 矜貧恤獨"], ans: "B", exp: "「錙銖必較」形容對極小的利益也非常計較，這與大同世界「不必為己、不必藏於己」的大公無私精神完全相反。" },
+                { q: "關於《禮記》這本書，下列敘述何者正確？", opts: ["A. 由孔子親筆撰寫", "B. 屬於道家經典", "C. 為西漢戴聖所編纂，又稱《小戴禮記》", "D. 是一部醫學著作"], ans: "C", exp: "《禮記》（小戴禮記）是由西漢學者戴聖編纂的儒家經典，記錄了先秦儒家的禮儀與哲學思想。" },
+                { q: "孔子在感嘆「丘未之逮也」時，他的情緒最可能是？", opts: ["A. 憤怒與嫉妒", "B. 驚恐與害怕", "C. 遺憾與嚮往", "D. 驕傲與自滿"], ans: "C", exp: "孔子感嘆自己生不逢時，沒能親自經歷那個完美的盛世，但內心依然充滿崇高的嚮往（而有志焉）。" },
+                { q: "「謀閉而不興」的「興」字，與下列哪一個詞語中的「興」字意義最接近？", opts: ["A. 興高采烈", "B. 夙興夜寐", "C. 興風作浪", "D. 興會淋漓"], ans: "C", exp: "「謀閉而不興」的興是「發生、發起」之意。「興風作浪」的興也是發起、挑起的意思。" }
             ]
         };
 
+        // 預處理所有關鍵字 (確保能在內文中被高亮並綁定事件)
         const allKeywords = {};
         contentData.segments.forEach((seg, idx) => {
             Object.entries(seg.notes).forEach(([key, note]) => {
@@ -251,6 +300,9 @@
             });
         });
 
+        // ----------------------------------------------------
+        // 2. 全域狀態管理 (靜態版本)
+        // ----------------------------------------------------
         let currentTab = 'overview';
         let userAnswers = {}; 
 
@@ -308,20 +360,27 @@
                         <p class="text-lg text-amber-900 leading-loose text-justify">${contentData.summary}</p>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                          <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-brain text-amber-600 text-2xl"></i>
+                                <i class="fas fa-landmark text-amber-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">真知的起點</h3>
-                            <p class="text-amber-800 font-serif text-lg">承認無知，方能大智</p>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">政治清明</h3>
+                            <p class="text-amber-800 font-serif text-base">天下為公，選賢與能</p>
                         </div>
                         <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-seedling text-orange-600 text-2xl"></i>
+                                <i class="fas fa-hands-helping text-orange-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">聖人之道</h3>
-                            <p class="text-orange-800 font-serif text-lg">以病為病，時刻自省</p>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">社會博愛</h3>
+                            <p class="text-orange-800 font-serif text-base">老幼安頓，推己及人</p>
+                        </div>
+                        <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
+                            <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-door-open text-amber-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">大同境界</h3>
+                            <p class="text-amber-800 font-serif text-base">亂賊不作，外戶不閉</p>
                         </div>
                     </div>
                 </div>
@@ -337,7 +396,8 @@
                      displayHtml = displayHtml.replace(new RegExp(`(?<!<[^>]*)${key}`, 'g'), `<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
                 });
 
-                const localPath = `Chinese-Classical1-1-images/reading_segment_${idx + 1}.jpg`;
+                // 修改為讀取本地靜態圖片
+                const localPath = `Chinese-Classical1-7-images/reading_segment_${idx + 1}.jpg`;
                 let imageSection = `
                     <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
                         <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
@@ -370,8 +430,8 @@
 
             container.innerHTML = `
                 <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-orange-100 shadow-sm">
-                    <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
-                    <p class="text-sm text-amber-700">為您重現老子傳遞哲思的寧靜場景。</p>
+                    <h3 class="font-bold text-amber-900 text-lg">古文圖解</h3>
+                    <p class="text-sm text-amber-700">為您重現孔子描繪的大同世界完美藍圖。</p>
                 </div>
                 <div class="max-w-4xl mx-auto mt-4">
                     ${segmentsHtml}
@@ -387,7 +447,7 @@
             container.innerHTML = `
                 <div class="space-y-12">
                     <section>
-                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">認知境界邏輯圖</h2>
+                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">大同世界架構圖</h2>
                         <div class="bg-white rounded-xl shadow-lg p-8 border border-orange-100 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
                              <svg viewBox="0 0 700 400" class="w-full h-full">
                                 <defs>
@@ -396,43 +456,41 @@
                                     </marker>
                                 </defs>
                                 
-                                <!-- Center Self -->
-                                <rect x="280" y="20" width="140" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
-                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#374151">面對未知的態度</text>
+                                <!-- Center Source: The Great Way -->
+                                <rect x="250" y="20" width="200" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
+                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="18" fill="#374151">大道之行 (大同)</text>
 
-                                <path d="M350,70 L200,100" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                <path d="M350,70 L500,100" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L150,110" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L350,110" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L550,110" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
 
-                                <!-- Left Path: GOOD -->
-                                <rect x="110" y="110" width="180" height="80" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="3" />
-                                <text x="200" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#166534">知不知</text>
-                                <text x="200" y="165" text-anchor="middle" font-size="14" fill="#15803d">(承認自己有所不知)</text>
+                                <!-- Left Path: Politics -->
+                                <rect x="60" y="110" width="180" height="80" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="3" />
+                                <text x="150" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#0369a1">政治清明</text>
+                                <text x="150" y="165" text-anchor="middle" font-size="14" fill="#075985">天下為公，選賢與能</text>
 
-                                <path d="M200,190 L200,240" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow-deep)" />
+                                <!-- Center Path: Society -->
+                                <rect x="260" y="110" width="180" height="80" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="3" />
+                                <text x="350" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#92400e">社會博愛</text>
+                                <text x="350" y="165" text-anchor="middle" font-size="14" fill="#b45309">不獨親其親，老弱皆養</text>
 
-                                <rect x="110" y="250" width="180" height="60" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3" />
-                                <text x="200" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#15803d">上 (最高明)</text>
+                                <!-- Right Path: Economy -->
+                                <rect x="460" y="110" width="180" height="80" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="3" />
+                                <text x="550" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#064e3b">經濟道德</text>
+                                <text x="550" y="165" text-anchor="middle" font-size="14" fill="#065f46">貨惡其棄，力惡不出</text>
 
-                                <!-- Right Path: EVIL -->
-                                <rect x="410" y="110" width="180" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" />
-                                <text x="500" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">不知不知</text>
-                                <text x="500" y="165" text-anchor="middle" font-size="14" fill="#b91c1c">(不懂裝懂 / 盲目自大)</text>
-
-                                <path d="M500,190 L500,240" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" />
-
-                                <rect x="410" y="250" width="180" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
-                                <text x="500" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#b91c1c">病 (毛病缺陷)</text>
-
-                                <!-- Final Synthesis -->
-                                <path d="M200,310 L200,340 L350,340 L350,320" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                                <path d="M500,310 L500,340 L350,340" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <!-- Convergence -->
+                                <path d="M150,190 L150,240 L350,270" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+                                <path d="M350,190 L350,270" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M550,190 L550,240 L350,270" stroke="#8b5cf6" stroke-width="2" fill="none"/>
                                 
-                                <rect x="150" y="340" width="400" height="50" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="3" />
-                                <text x="350" y="370" text-anchor="middle" font-weight="bold" font-size="16" fill="#1e40af">聖人之道：以其病病，是以不病</text>
+                                <rect x="200" y="270" width="300" height="70" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="3" />
+                                <text x="350" y="295" text-anchor="middle" font-weight="bold" font-size="16" fill="#5b21b6">終極境界：和諧太平</text>
+                                <text x="350" y="320" text-anchor="middle" font-size="14" fill="#4c1d95">盜竊亂賊不作，外戶而不閉</text>
                             </svg>
                         </div>
                         <p class="mt-6 text-amber-800 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-100">
-                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學分析：</strong> 老子運用極簡的對比（知不知 vs 不知不知），點破了人類認知的一大盲點。人最大的無知，在於「不知道自己的無知」。聖人並非全知全能的神，而是具備最高自省能力的人。他懂得將「不懂裝懂」視為一種危險的疾病（以其病病），時刻自我警惕，因此才能免於陷入盲目的傲慢之中。
+                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學與哲學分析：</strong> 《大同與小康》是儒家最重要的社會政治文獻之一。孔子透過嚴密的邏輯，建構了一個沒有私有制（天下為公）、沒有階級與血緣壁壘（不獨親其親）、沒有自私貪婪（不必藏於己）的完美烏托邦。這種境界不僅要求制度上的公平（選賢與能、社會福利），更要求人心高度的道德自覺。
                         </p>
                     </section>
                 </div>
@@ -457,7 +515,7 @@
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold text-amber-900 font-serif mb-2">語詞精解</h2>
-                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，精準掌握道家轉品與詞意分析</p>
+                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，並已完全整合於上方「精讀與圖解」中，供您隨時查閱。</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         ${cardsHtml}
@@ -565,13 +623,12 @@
             container.innerHTML = `
                 <div class="max-w-3xl mx-auto pb-24">
                     <div class="text-center mb-10">
-                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高鑑別度題型</span>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高難度與高鑑別度</span>
                         <h2 class="text-3xl font-bold text-amber-900 font-serif">隨堂測驗 (20題)</h2>
-                        <p class="text-amber-700 mt-2">挑戰詞性轉換與道家哲思的深度考題</p>
+                        <p class="text-amber-700 mt-2">挑戰文意理解、修辭轉品與倒裝句型的深度考題</p>
                     </div>
                     ${quizHtml}
                     
-                    <!-- Submit Button Area -->
                     <div class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-orange-200 p-4 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] flex justify-center items-center z-40">
                          <button onclick="submitQuiz()" class="px-10 py-3 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold rounded-full shadow-lg transition transform hover:scale-105 flex items-center text-lg">
                             <i class="fas fa-paper-plane mr-2"></i> 交卷並查看成績
@@ -581,26 +638,34 @@
             `;
         }
 
+        // [Tab Story] 抉擇之路 (RPG)
         const storyNodes = {
             start: {
                 id: 'start',
-                text: "你是齊國稷下學宮的一名年輕學子。今日，各派大師齊聚一堂，探討宇宙的邊界與天象的奧秘。大師突然指著你，問了一個你完全不懂、極其深奧的天文學問題。所有人的目光都集中在你身上。這時，你決定...",
+                text: "身處春秋戰國的亂世，群雄並起，生靈塗炭。你是一位新崛起的國君，孔子來到你的朝廷，向你講述了「大同世界」的美好藍圖。面對內憂外患，你決定採取何種政策來治理國家？",
                 choices: [
-                    { text: "為了面子，憑藉自己讀過的一些零碎知識，硬是胡謅了一套聽起來很厲害的理論。", next: "fake_it" },
-                    { text: "坦然鞠躬：「弟子才疏學淺，確實不知。懇請大師賜教。」", next: "admit_ignorance" }
+                    { text: "實施嚴刑峻法，將天下視為自己的私產，以強權壓制一切反叛（法家/霸道）。", next: "harsh_rule" },
+                    { text: "將王位傳給自己的親兒子，任用親戚，保護私有財產，維持基本穩定（小康之治）。", next: "xiaokang_rule" },
+                    { text: "打破世襲，推舉賢能之人，建立完善的社會福利，與百姓共享天下（大同之道）。", next: "datong_rule" }
                 ]
             },
-            fake_it: {
-                id: 'fake_it',
-                text: "【不知不知，病】你口若懸河地說了一大串，台下卻傳來幾聲輕笑。大師毫不留情地指出了你理論中漏洞百出、自相矛盾的地方。你羞愧得滿臉通紅。你犯了不懂裝懂的毛病，不僅沒有得到尊重，反而失去了學者的誠信。",
-                choices: [{ text: "重來，老子說過，不知不知才是病", next: "start" }],
+            harsh_rule: {
+                id: 'harsh_rule',
+                text: "【暴政必亡】你選擇了強權與極端的私心。雖然短期內國家看似強大，但百姓怨聲載道。你把所有的資源「藏於己」，最終引發了「盜竊亂賊大作」，國家在農民起義中覆滅。",
+                choices: [{ text: "重來，統治者不應將天下據為己有", next: "start" }],
                 isEnding: true
             },
-            admit_ignorance: {
-                id: 'admit_ignorance',
-                text: "【知不知，上】大師聽了你的回答，非但沒有生氣，反而微微頷首：「善。學問浩如煙海，誰能全知？你能坦承自己的無知，不強不知以為知，這正是求學的最高境界啊！」你因此獲得了眾人的敬重，並真正學到了新知識。",
+            xiaokang_rule: {
+                id: 'xiaokang_rule',
+                text: "【天下為家】你實施了「小康」之治。社會雖然有了基本的秩序（禮義以為紀），但人們「各親其親，各子其子」，充滿了私心與防備。為了保護財產，城牆越築越高，戰爭與謀略不斷。這並非孔子心中的最高理想。",
+                choices: [{ text: "這只是次等境界，再次嘗試追求大同", next: "start" }],
+                isEnding: true
+            },
+            datong_rule: {
+                id: 'datong_rule',
+                text: "【天下為公】你成功推行了大道！你廢除了世襲，選拔真正的賢能。社會上老弱婦孺皆有依靠，百姓樂於奉獻而不求私報。最終你的國家達到了「外戶而不閉」的完美境界，萬世流芳！",
                 choices: [
-                    { text: "回到總覽，銘記老子的教誨", next: "start" }
+                    { text: "回到總覽，銘記大同理想", next: "start" }
                 ],
                 isEnding: true,
                 win: true
@@ -611,14 +676,15 @@
             if(!window.currentStoryNode) window.currentStoryNode = 'start';
             const node = storyNodes[window.currentStoryNode];
 
-            const localPath = `Chinese-Classical1-1-images/rpg_${window.currentStoryNode}.jpg`;
+            // 修改為讀取本地靜態圖片
+            const localPath = `Chinese-Classical1-7-images/rpg_${window.currentStoryNode}.jpg`;
             let imageContent = `
                 <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
                     <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
                 </div>
             `;
 
-            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>真知灼見</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>大同之治</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
             if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
         }
 
@@ -737,17 +803,7 @@
             popup.classList.remove('hidden');
         }
 
-        function processTextWithNotes(text) {
-            let processedText = marked.parse(text);
-            const sortedKeys = Object.keys(allKeywords).sort((a, b) => b.length - a.length);
-            
-            sortedKeys.forEach(key => {
-                const regex = new RegExp(`(?<!<[^>]*)${key}`, "g");
-                processedText = processedText.replace(regex, `<span class="interactive-word bg-orange-50 px-1 rounded" onclick="showNote('${key}', undefined, this, event)">${key}</span>`);
-            });
-            return processedText;
-        }
-
+        // 語音播放優化：優先女聲，語速0.9，音調1.05，標點細緻停頓
         async function playAudio(text) {
             if (!('speechSynthesis' in window)) { showError("您的瀏覽器不支援語音朗讀功能。"); return; }
             window.speechSynthesis.cancel();
@@ -762,12 +818,14 @@
                 });
             }
 
+            // 優先尋找高品質女聲
             let targetVoice = voices.find(v => (v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW' || v.lang === 'zh-CN') && 
                 (v.name.includes('Google 國語') || v.name.includes('Mei-Jia') || v.name.includes('Yating') || v.name.includes('Lili') || v.name.includes('Ting-Ting') || v.name.includes('Xiaoxiao')));
             
             if (!targetVoice) targetVoice = voices.find(v => v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW'); 
             if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('zh'));
 
+            // 細緻標點分割與停頓控制
             const chunks = text.split(/([，、。？！；：])/).reduce((acc, curr, i) => {
                 if (i % 2 === 0) { 
                     if (curr.trim()) acc.push({ text: curr, pause: 0 });
@@ -788,8 +846,8 @@
                 if (index >= chunks.length) return;
                 const utterance = new SpeechSynthesisUtterance(chunks[index].text);
                 utterance.lang = 'zh-TW';
-                utterance.rate = 0.9;  
-                utterance.pitch = 1.05; 
+                utterance.rate = 0.9;  // 放慢語速至 0.9
+                utterance.pitch = 1.05; // 提高音調至 1.05
                 if (targetVoice) utterance.voice = targetVoice;
                 
                 utterance.onend = () => { setTimeout(() => playNext(index + 1), chunks[index].pause); };
@@ -806,6 +864,7 @@
             requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
             setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
         }
+
     </script>
 </body>
 </html>

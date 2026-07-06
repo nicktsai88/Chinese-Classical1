@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(吳敏男 - 第三輯) 第1篇 聖人不病 - 互動式古文學習 (AI 旗艦版)</title>
+    <title>(吳敏男 - 第三輯) 第6篇 不為與不能 - 互動式古文學習 (AI 旗艦版)</title>
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 Marked.js -->
@@ -86,7 +86,7 @@
                     <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
                 </div>
                 <div class="hidden md:block text-sm opacity-90 text-amber-100">
-                    深度學習：第1篇 聖人不病
+                    深度學習：第6篇 不為與不能
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="hidden md:block text-right">
                         <span class="inline-block bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-red-200">重要考試文章</span>
-                        <div class="text-xs text-amber-600 font-medium">適合程度：中高階 (道家哲理與詞性轉換)</div>
+                        <div class="text-xs text-amber-600 font-medium">適合程度：高階 (儒家哲理、被動句與轉品修辭)</div>
                     </div>
                 </div>
             </div>
@@ -165,80 +165,103 @@
 
     <script>
         // ----------------------------------------------------
-        // 1. 教材資料結構 (Content Data) - 聖人不病
+        // 1. 教材資料結構 (Content Data) - 不為與不能
         // ----------------------------------------------------
         const contentData = {
             metadata: {
-                title: "(吳敏男 - 第三輯) 第1篇 聖人不病",
-                author: "老子",
-                source: "《道德經》第七十一章"
+                title: "(吳敏男 - 第三輯) 第6篇 不為與不能",
+                author: "孟子",
+                source: "《孟子·梁惠王上》"
             },
-            summary: "本文選自《道德經》第七十一章。老子以極簡的文字，深刻探討了「知識」與「無知」的哲學關係。他認為，能夠認識到自己的無知（知不知），是最高明的智慧；相反地，不懂裝懂、沒有意識到自己的無知（不知不知），則是認知上的嚴重缺陷（病）。聖人之所以能成為聖人，正是因為他能時刻正視並警惕這種無知的弊病，『以其病病』，所以他才不會犯下盲目自大的毛病。",
+            summary: "本文選自《孟子·梁惠王上》，記錄了孟子與齊宣王的一段經典對話。孟子以「舉百鈞而不舉一羽」、「察秋毫而不見輿薪」等生動比喻，直指齊宣王對禽獸有憐憫之心，卻不願保息百姓，這純粹是「不為」（不願意去做），而非「不能」（做不到）。孟子進一步區分「挾太山超北海」與「為長者折枝」的本質差異，勸勉君王應當「推恩」，將愛敬親長之心擴充至天下百姓（老吾老以及人之老），如此一來，實行王道、治理天下將如運轉於掌心般容易。",
             
-            meaning: "1. **真知的起點**：真正的智慧始於承認自己的無知。這與西方哲學家蘇格拉底『我唯一知道的，就是我一無所知』的觀念有異曲同工之妙。\n2. **傲慢的危害**：『不知不知』是一種心理上的『病』（缺陷），不懂裝懂會讓人陷入盲目自大的危險之中。\n3. **聖人的修養**：聖人並非全知全能，而是具備極高的自省能力。把缺點當作缺點來警惕（病病），正是道家『反求諸己、居微處下』的實踐。",
+            meaning: "1. **破除藉口，直指核心**：統治者常以各種理由推託不施仁政，孟子犀利地指出其根本原因只是缺乏意願（不為），而非能力不足（不能）。\n2. **推恩的哲學**：儒家強調「推己及人」，愛是由近而遠擴展的。能愛自己的父母子女，就應當將這份愛延伸到別人的父母子女（老吾老以及人之老）。\n3. **行王道並不難**：只要國君肯用心（如折枝之易），行王道絕非難如登天（非挾太山超北海）。",
             
             rhetoric: [
-                "**轉品 (詞類活用):** 『以其病病』中，第一個『病』從名詞轉為動詞，作『當作毛病、引以為憂』解；第二個『病』是名詞，指『缺點、弊病』。",
-                "**頂真與迴環:** 透過『知不知』、『不知不知』、『病病』等疊字與句式的反覆，營造出迴環往復的節奏感，加深哲理的厚度。",
-                "**對比 (映襯):** 『上』與『病』對比，『知不知』與『不知不知』對比，界定了智者與愚者的根本差異。"
+                "**轉品 (詞類活用):** 「王之不『王』」、「『老』吾老」、「『幼』吾幼」，引號中的字皆由名詞轉為動詞使用。",
+                "**譬喻與對比 (映襯):** 以「舉百鈞／不舉一羽」、「察秋毫／不見輿薪」、「挾太山超北海／為長者折枝」等極端對比，凸顯齊宣王行為的荒謬。",
+                "**被動句型:** 「百姓之不『見』保」，此處的「見」字為被動語氣標誌，意指「被」。",
+                "**倒裝句型:** 「一羽之不舉」、「輿薪之不見」，屬於否定句中代詞賓語提前，或以「之」作為賓語提前的標誌。"
             ],
             
             vocabulary: [
-                { word: "知不知", zhuyin: "ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "知道自己有所不知。第一個『知』是動詞，明白、意識到；第二個『知』指知識或知道的內容。" },
-                { word: "上", zhuyin: "ㄕㄤˋ", pos: "形容詞/名詞", meaning: "最好、最高明的境界。" },
-                { word: "不知不知", zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "不知道卻自以為知道；或指沒有意識到自己的無知。" },
-                { word: "病", zhuyin: "ㄅㄧㄥˋ", pos: "名詞", meaning: "缺點、弊病、毛病。" },
-                { word: "是以", zhuyin: "ㄕˋ ㄧˇ", pos: "連詞", meaning: "因此、所以。" },
-                { word: "聖人", zhuyin: "ㄕㄥˋ ㄖㄣˊ", pos: "名詞", meaning: "道家理想中具有最高智慧與修養的人。" },
-                { word: "以其病病", zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", pos: "句型", meaning: "因為他把這個毛病當作毛病。『以』：因為。第一個『病』：動詞，引以為病。第二個『病』：名詞，指不知不知的弊病。" },
-                { word: "不病", zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", pos: "動賓片語", meaning: "沒有這種（不懂裝懂的）毛病。" }
+                { word: "復於王", zhuyin: "ㄈㄨˋ ㄩˊ ㄨㄤˊ", pos: "動賓", meaning: "向大王稟報。「復」，稟報。" },
+                { word: "鈞", zhuyin: "ㄐㄧㄣ", pos: "名詞", meaning: "古代重量單位，三十斤為一鈞。「百鈞」極言其重。" },
+                { word: "秋毫之末", zhuyin: "ㄑㄧㄡ ㄏㄠˊ ㄓ ㄇㄛˋ", pos: "名詞", meaning: "秋天鳥獸新生出的細毛尖端，比喻極微小的東西。" },
+                { word: "輿薪", zhuyin: "ㄩˊ ㄒㄧㄣ", pos: "名詞", meaning: "一車子的柴火。比喻極大、極顯眼的事物。「輿」，車。" },
+                { word: "許之", zhuyin: "ㄒㄩˇ ㄓ", pos: "動賓", meaning: "相信他、贊同他。「許」，相信、認可。" },
+                { word: "獨何與", zhuyin: "ㄉㄨˊ ㄏㄜˊ ㄩˊ", pos: "句型", meaning: "偏偏是為什麼呢？「獨」，偏偏。「與」，同「歟」，疑問語氣詞。" },
+                { word: "為不用力焉", zhuyin: "ㄨㄟˋ ㄅㄨˊ ㄩㄥˋ ㄌㄧˋ ㄧㄢ", pos: "句型", meaning: "是因為不用力的緣故。「為」，因為。" },
+                { word: "見保", zhuyin: "ㄐㄧㄢˋ ㄅㄠˇ", pos: "動詞", meaning: "被保護、被安撫。「見」，被，表被動。" },
+                { word: "王之不王", zhuyin: "ㄨㄤˊ ㄓ ㄅㄨˊ ㄨㄤˋ", pos: "句型", meaning: "國君沒有實行王道。第一個「王」是名詞（國君），第二個「王」是動詞（行王道，音ㄨㄤˋ）。" },
+                { word: "形", zhuyin: "ㄒㄧㄥˊ", pos: "名詞", meaning: "具體情況、表現狀態。" },
+                { word: "挾太山以超北海", zhuyin: "ㄒㄧㄝˊ ㄊㄞˋ ㄕㄢ ㄧˇ ㄔㄠ ㄅㄟˇ ㄏㄞˇ", pos: "句型", meaning: "夾著泰山跨越北海。比喻絕對不可能做到的事。「太」同「泰」。" },
+                { word: "折枝", zhuyin: "ㄓㄜˊ ㄓ", pos: "動賓", meaning: "彎折樹枝（或解作按摩肢體）。比喻輕而易舉的事。" },
+                { word: "老吾老", zhuyin: "ㄌㄠˇ ㄨˊ ㄌㄠˇ", pos: "動賓", meaning: "尊敬我的長輩。第一個「老」為動詞（尊敬、奉養），第二個「老」為名詞（長輩）。" },
+                { word: "幼吾幼", zhuyin: "ㄧㄡˋ ㄨˊ ㄧㄡˋ", pos: "動賓", meaning: "愛護我的晚輩。第一個「幼」為動詞（愛護），第二個「幼」為名詞（子弟、晚輩）。" },
+                { word: "天下可運於掌", zhuyin: "ㄊㄧㄢ ㄒㄧㄚˋ ㄎㄜˇ ㄩㄣˋ ㄩˊ ㄓㄤˇ", pos: "句型", meaning: "治理天下就像在手掌心運轉東西一樣容易。" }
             ],
 
             segments: [
                 {
-                    original: "知不知，上；不知不知，病。",
-                    translation: "知道自己有所不知，這是最高明的境界；不知道卻自以為知道，這就是一種嚴重的毛病（缺點）。",
-                    audioText: "知不知，上；，不知不知，病。",
+                    original: "孟子曰：「有復於王者曰：『吾力足以舉百鈞，而不足以舉一羽；明足以察秋毫之末，而不見輿薪。』則王許之乎？」曰：「否！」",
+                    translation: "孟子說：「如果有人向大王報告說：『我的力氣足以舉起三千斤的重物，卻舉不起來一根羽毛；我的視力足以看清秋天鳥獸秋毫的尖端，卻看不見一整車的柴火。』那麼，大王您會相信他嗎？」齊宣王說：「不相信！」",
+                    audioText: "孟子曰：「有腹於王者曰：『吾力足以舉百均，而不足以舉一羽；明足以察秋毫之末，而不見於新。』則王許之乎？」曰：「否！」",
                     notes: {
-                        "知不知": { zhuyin: "ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "知道自己有所不知。" },
-                        "上": { zhuyin: "ㄕㄤˋ", type: "名詞", def: "最高明。" },
-                        "不知不知": { zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "不知道卻自以為知道。" },
-                        "病": { zhuyin: "ㄅㄧㄥˋ", type: "名詞", def: "缺點、毛病。" }
+                        "復於王": { zhuyin: "ㄈㄨˋ ㄩˊ ㄨㄤˊ", type: "動賓", def: "稟報大王。" },
+                        "鈞": { zhuyin: "ㄐㄧㄣ", type: "名詞", def: "古代重量單位，三十斤為一鈞。" },
+                        "秋毫之末": { zhuyin: "ㄑㄧㄡ ㄏㄠˊ ㄓ ㄇㄛˋ", type: "名詞", def: "鳥獸秋天新生的細毛，比喻極小之物。" },
+                        "輿薪": { zhuyin: "ㄩˊ ㄒㄧㄣ", type: "名詞", def: "一車的柴火，比喻極大之物。" },
+                        "許之": { zhuyin: "ㄒㄩˇ ㄓ", type: "動賓", def: "相信他、認可他。" }
                     }
                 },
                 {
-                    original: "是以聖人不病。以其病病，是以不病。",
-                    translation: "因此，聖人沒有這種（不懂裝懂的）毛病。正是因為他把這種毛病當作真正的毛病去時刻警惕，所以他才不會有這種毛病。",
-                    audioText: "是以聖人不病。，以其病病，，是以不病。",
+                    original: "「今恩足以及禽獸，而功不至於百姓者，獨何與？然則一羽之不舉，為不用力焉；輿薪之不見，為不用明焉；百姓之不見保，為不用恩焉。故王之不王，不為也。非不能也。」",
+                    translation: "孟子說：「現在大王您的恩惠足以施及禽獸，但功德卻無法庇護百姓，偏偏是為什麼呢？既然如此，一根羽毛舉不起來，是因為不肯用力的緣故；一車柴火看不見，是因為不肯用視力的緣故；百姓沒有受到保護，是因為不肯施加恩惠的緣故。所以大王沒有實行王道，是不願意去做，而不是沒有能力做。」",
+                    audioText: "「今恩足以及禽獸，而功不至於百姓者，獨何魚？然則一羽之不舉，魏不用力焉；於新之不見，魏不用明焉；百姓之不見保，魏不用恩焉。故王之不忘，不為也。非不能也。」",
                     notes: {
-                        "是以": { zhuyin: "ㄕˋ ㄧˇ", type: "連詞", def: "因此、所以。" },
-                        "聖人": { zhuyin: "ㄕㄥˋ ㄖㄣˊ", type: "名詞", def: "有最高智慧的人。" },
-                        "以其病病": { zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", type: "句型", def: "因為他把這個毛病當作毛病。首字病為動詞，次字病為名詞。" },
-                        "不病": { zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", type: "片語", def: "沒有這種毛病。" }
+                        "獨何與": { zhuyin: "ㄉㄨˊ ㄏㄜˊ ㄩˊ", type: "句型", def: "偏偏是為什麼呢？與同歟。" },
+                        "為不用力焉": { zhuyin: "ㄨㄟˋ ㄅㄨˊ ㄩㄥˋ ㄌㄧˋ ㄧㄢ", type: "句型", def: "是因為不用力的緣故。" },
+                        "見保": { zhuyin: "ㄐㄧㄢˋ ㄅㄠˇ", type: "動詞", def: "被保護。「見」表被動。" },
+                        "王之不王": { zhuyin: "ㄨㄤˊ ㄓ ㄅㄨˊ ㄨㄤˋ", type: "句型", def: "國君沒有實行王道（名轉動）。" }
+                    }
+                },
+                {
+                    original: "曰：「不為者與不能者之形，何以異？」曰：「挾太山以超北海，語人曰：『我不能』，是誠不能也。為長者折枝，語人曰：『我不能』，是不為也，非不能也。故王之不王，非挾太山以超北海之類也；王之不王，是折枝之類也。老吾老，以及人之老；幼吾幼，以及人之幼；天下可運於掌。」",
+                    translation: "宣王說：「不願意做和沒有能力做，具體情況有什麼不同呢？」孟子說：「把泰山夾在腋下跳過北海，告訴別人說：『我做不到』，這才是真的做不到。為長輩彎腰折下樹枝，告訴別人說：『我做不到』，這是不願意做，而不是做不到。大王沒有實行王道，不屬於『挾泰山跨越北海』那一類；大王沒有實行王道，是屬於『為長者折枝』那一類。尊敬自己的長輩，進而推廣到尊敬別人的長輩；愛護自己的晚輩，進而推廣到愛護別人的晚輩；只要這樣推恩，治理天下就像在手掌心裡運轉東西一樣容易。」",
+                    audioText: "曰：「不為者與不能者之型，何以異？」曰：「挾泰山以超北海，語人曰：『我不能』，是誠不能也。為長者折枝，語人曰：『我不能』，是不為也，非不能也。故王之不忘，非挾泰山以超北海之類也；王之不忘，是折枝之類也。老吳老，以及人之老；幼吳幼，以及人之幼；天下可運於掌。」",
+                    notes: {
+                        "形": { zhuyin: "ㄒㄧㄥˊ", type: "名詞", def: "具體情況、表現狀態。" },
+                        "挾太山以超北海": { zhuyin: "ㄒㄧㄝˊ ㄊㄞˋ ㄕㄢ ㄧˇ ㄔㄠ ㄅㄟˇ ㄏㄞˇ", type: "句型", def: "比喻絕對不可能做到的事。" },
+                        "折枝": { zhuyin: "ㄓㄜˊ ㄓ", type: "動賓", def: "彎折樹枝，比喻輕而易舉的事。" },
+                        "老吾老": { zhuyin: "ㄌㄠˇ ㄨˊ ㄌㄠˇ", type: "動賓", def: "尊敬我的長輩（動轉名）。" },
+                        "幼吾幼": { zhuyin: "ㄧㄡˋ ㄨˊ ㄧㄡˋ", type: "動賓", def: "愛護我的晚輩（動轉名）。" },
+                        "天下可運於掌": { zhuyin: "ㄊㄧㄢ ㄒㄧㄚˋ ㄎㄜˇ ㄩㄣˋ ㄩˊ ㄓㄤˇ", type: "句型", def: "治理天下極其容易。" }
                     }
                 }
             ],
+            
             quiz: [
-                { q: "《道德經》的作者是誰？", opts: ["A. 莊子", "B. 孟子", "C. 老子", "D. 韓非子"], ans: "C", exp: "《道德經》又稱《老子》，是道家哲學的重要經典，相傳為老子所著。" },
-                { q: "關於「知不知，上」，第一個「知」字的意思是？", opts: ["A. 知識", "B. 結交", "C. 明白、意識到", "D. 掌管"], ans: "C", exp: "第一個「知」是動詞，意思是明白、知道自己有所不知。" },
-                { q: "「知不知，上」中的「上」是什麼意思？", opts: ["A. 往上走", "B. 最高明、最好的境界", "C. 皇上", "D. 表面上"], ans: "B", exp: "「上」在此作名詞/形容詞，指上等的、最高明的狀態。" },
-                { q: "「不知不知，病」這句話批判了什麼樣的態度？", opts: ["A. 勤奮好學", "B. 謙虛退讓", "C. 身體虛弱", "D. 不懂裝懂、自以為是"], ans: "D", exp: "「不知不知」是指沒有意識到自己的無知，反而自以為什麼都懂，這是認知上的大病。" },
-                { q: "古文中的「病」通常作何解釋？此處的「病」意指什麼？", opts: ["A. 生理上的疾病", "B. 心理或認知上的缺點、毛病", "C. 疲憊", "D. 悲傷"], ans: "B", exp: "此處的病並非指生病，而是指性格、修養或認知上的弊病與缺陷。" },
-                { q: "「是以聖人不病」的「是以」是什麼意思？", opts: ["A. 這是", "B. 以為", "C. 因此、所以", "D. 憑藉"], ans: "C", exp: "是以，為古文常見連詞，等同於「所以、因此」。" },
-                { q: "「以其病病」的「以」字，用法為何？", opts: ["A. 介詞，把", "B. 連詞，因為", "C. 動詞，認為", "D. 名詞，緣故"], ans: "B", exp: "「以」其病病，意思是「因為」他把這毛病當成毛病。" },
-                { q: "「以其病病」中，兩個「病」字的詞性分別是什麼？", opts: ["A. 名詞；名詞", "B. 動詞；名詞", "C. 名詞；動詞", "D. 動詞；動詞"], ans: "B", exp: "第一個病是動詞（引以為病/當作毛病），第二個病是名詞（缺點/毛病）。" },
-                { q: "承上題，第一個「病」字（動詞）的字義為何？", opts: ["A. 生病", "B. 當作毛病、引以為憂", "C. 傳染", "D. 治療"], ans: "B", exp: "第一個病是轉品（轉類）的動詞用法，意指正視並警惕這個毛病。" },
-                { q: "「以其病病，是以不病」蘊含了道家的什麼思想？", opts: ["A. 順應自然，無為而治", "B. 弱肉強食，適者生存", "C. 反求諸己、時刻自省，居微處下", "D. 嚴刑峻法"], ans: "C", exp: "聖人能隨時自省，看到自己的不足並引以為戒，這正是道家推崇的謙卑自修精神。" },
-                { q: "希臘哲人蘇格拉底曾說：「我唯一知道的，就是我一無所知」，這句話與本課哪一句話含義最相近？", opts: ["A. 知不知，上", "B. 不知不知，病", "C. 是以聖人不病", "D. 以其病病"], ans: "A", exp: "兩者都強調「認知到自己的無知」才是真正的智慧起點。" },
-                { q: "本文在短短數十字中，不斷重複「知」與「病」字，這種修辭技巧產生了什麼效果？", opts: ["A. 顯得詞彙貧乏", "B. 為了湊字數", "C. 層層遞進，迴環往復，加深說理的辯證力道", "D. 製造懸疑感"], ans: "C", exp: "《道德經》常以簡潔且重複的字眼（如道可道非常道），製造出強烈的思辨與哲理感。" },
-                { q: "如果一個人總是喜歡在別人面前「強不知以為知」，老子會用哪個字來形容他的狀態？", opts: ["A. 上", "B. 聖", "C. 病", "D. 賢"], ans: "C", exp: "不懂裝懂，就是老子所謂的「不知不知，病」。" },
-                { q: "下列哪一個成語，最適合用來形容「不知不知」的狀態？", opts: ["A. 虛懷若谷", "B. 夜郎自大 / 井底之蛙", "C. 博學多聞", "D. 不恥下問"], ans: "B", exp: "夜郎自大和井底之蛙都是用來形容人見識淺薄卻自以為是，正是「不知不知」的體現。" },
-                { q: "關於「聖人不病」的原因，老子的解釋是什麼？", opts: ["A. 因為聖人天生聰明，什麼都懂", "B. 因為聖人吃了仙丹，不會生病", "C. 因為聖人能察覺並正視自己的缺點，時刻警惕", "D. 因為聖人不與人來往"], ans: "C", exp: "「以其病病，是以不病」，聖人的偉大不在於不犯錯，而在於能正視自身的缺陷。" },
-                { q: "《道德經》一書又被稱為什麼？", opts: ["A. 《莊子》", "B. 《孟子》", "C. 《老子》", "D. 《列子》"], ans: "C", exp: "《道德經》原名即為《老子》。" },
-                { q: "「知不知」與「不知不知」這兩句話，在句型上構成了何種修辭？", opts: ["A. 譬喻", "B. 對比 (映襯)", "C. 誇飾", "D. 擬人"], ans: "B", exp: "兩者形成強烈的對比，區分了智者與愚者的境界。" },
-                { q: "在道家思想中，「聖人」的形象通常是？", opts: ["A. 高高在上，充滿權力威嚴", "B. 虛心柔弱、順應自然、不自滿", "C. 喜歡與人辯論，爭個輸贏", "D. 穿著華麗，講究排場"], ans: "B", exp: "道家的聖人「居善地，心善淵」，特徵是如水般的謙下與自省。" },
-                { q: "在「以其病病」中，將名詞的「病」轉化為動詞「引以為病」，這種修辭格稱為什麼？", opts: ["A. 借代", "B. 頂真", "C. 轉化 (轉類/轉品)", "D. 鑲嵌"], ans: "C", exp: "將一種詞性當作另一種詞性使用，稱為轉品（轉類）。" },
-                { q: "全文雖然簡短，但充滿了辯證邏輯。這體現了《老子》哪一種寫作特色？", opts: ["A. 辭藻華麗，鋪陳繁複", "B. 大量描寫神話故事", "C. 正言若反、詞約義豐", "D. 專注於記錄歷史事件"], ans: "C", exp: "《老子》的文字極度精簡，卻常使用看似矛盾（正言若反）的語句來表達深邃的哲理。" }
+                { q: "《孟子》一書主要記載了孟子的思想與言行，其核心政治思想為？", opts: ["A. 嚴刑峻法，富國強兵", "B. 順應自然，無為而治", "C. 民貴君輕，施仁政行王道", "D. 兼愛非攻，節用明鬼"], ans: "C", exp: "孟子是儒家代表人物，其核心政治理念為「民貴君輕」與「王道仁政」。" },
+                { q: "「有復於王者」的「復」字，字義為何？", opts: ["A. 恢復", "B. 報復", "C. 重複", "D. 稟報、回覆"], ans: "D", exp: "「復」在此作動詞，意為向君王報告、稟報。" },
+                { q: "「吾力足以舉百鈞」中，「鈞」是古代的重量單位，請問一鈞等於多少？", opts: ["A. 十斤", "B. 三十斤", "C. 五十斤", "D. 一百斤"], ans: "B", exp: "古代三十斤為一鈞，百鈞即三千斤，極言其重。" },
+                { q: "「明足以察秋毫之末」的「明」字，詞性與字義為何？", opts: ["A. 名詞，光明", "B. 名詞，視力、眼力", "C. 動詞，明白", "D. 形容詞，聰明的"], ans: "B", exp: "「明」在此指眼睛的視力。" },
+                { q: "「輿薪」一詞用來比喻什麼？", opts: ["A. 國家的棟樑之材", "B. 極大、極顯眼的事物", "C. 難以解決的重擔", "D. 貧窮困苦的生活"], ans: "B", exp: "「輿」是車，「輿薪」即一車柴火，極為巨大顯眼，與極微小的「秋毫」形成對比。" },
+                { q: "「獨何與」中的「與」字，字義與下列何者相同？", opts: ["A. 參與", "B. 給予", "C. 通「歟」，疑問語氣詞", "D. 和、同"], ans: "C", exp: "「與」通「歟」，放在句末表示疑問語氣，「獨何與」意為「偏偏是為什麼呢？」。" },
+                { q: "「一羽之不舉，為不用力焉」的「為」字，讀音與字義為何？", opts: ["A. ㄨㄟˊ，做", "B. ㄨㄟˋ，因為", "C. ㄨㄟˊ，是", "D. ㄨㄟˋ，替"], ans: "B", exp: "「為」讀作ㄨㄟˋ，意思是「因為」。是因為不用力的緣故。" },
+                { q: "「百姓之不見保」中，「見」字的文法作用為何？", opts: ["A. 動詞，看見", "B. 名詞，見解", "C. 助詞，表被動（被保護）", "D. 代詞，代指百姓"], ans: "C", exp: "「見」在古文中常作被動語氣的標誌，如「見笑於大方之家」。「見保」即「被保護」。" },
+                { q: "「故王之不王，不為也，非不能也」一句中，兩個「王」字的詞性分別是？", opts: ["A. 名詞 / 名詞", "B. 動詞 / 動詞", "C. 名詞 / 動詞", "D. 動詞 / 名詞"], ans: "C", exp: "第一個「王」是國君（名詞）；第二個「王」是實行王道（轉品為動詞，讀ㄨㄤˋ）。" },
+                { q: "孟子用「挾太山以超北海」來比喻什麼樣的情況？", opts: ["A. 輕而易舉的事（不為）", "B. 絕對不可能做到的事（誠不能也）", "C. 統一天下的雄心壯志", "D. 荒謬可笑的行為"], ans: "B", exp: "把泰山夾在腋下跳過北海，是人力絕對無法達成的，這是真正的「不能」。" },
+                { q: "孟子用「為長者折枝」來比喻什麼樣的情況？", opts: ["A. 絕對不可能做到的事", "B. 對長輩不孝順的行為", "C. 輕而易舉、只要願意就能做到的事（不為）", "D. 破壞大自然"], ans: "C", exp: "為長輩彎腰折樹枝（或按摩），是非常容易做到的事，如果不做，純粹是「不為」（不願意做）。" },
+                { q: "「老吾老，以及人之老」中，四個「老」字的詞性排列順序為何？", opts: ["A. 動、名、動、名", "B. 名、動、名、動", "C. 形、名、形、名", "D. 動、動、名、名"], ans: "A", exp: "第一、三個「老」是動詞（尊敬、奉養）；第二、四個「老」是名詞（長輩、老人）。" },
+                { q: "承上題，「老吾老，以及人之老」體現了儒家哪一種核心修養方法？", opts: ["A. 兼愛天下", "B. 推恩（由近及遠，推己及人）", "C. 克己復禮", "D. 絕聖棄智"], ans: "B", exp: "將對自己親人的愛，推廣延伸到其他人的親人身上，這正是儒家「推恩」的具體實踐。" },
+                { q: "「天下可運於掌」使用了哪一種修辭手法？", opts: ["A. 擬人", "B. 譬喻", "C. 排比", "D. 借代"], ans: "B", exp: "將治理天下「比喻」成在手掌心運轉東西一樣容易。" },
+                { q: "關於本文的寫作技巧，下列敘述何者「錯誤」？", opts: ["A. 善用譬喻，將抽象的道理具象化", "B. 運用對比，凸顯齊宣王行為的不合理", "C. 步步緊逼，邏輯嚴密，展現孟子雄辯的風格", "D. 大量引用古代神話故事來佐證"], ans: "D", exp: "本文並未使用神話故事，而是使用生活中的具體比喻（舉羽、見薪、折枝）來說理。" },
+                { q: "下列哪一個選項「沒有」使用「名詞轉動詞」的轉品修辭？", opts: ["A. 「老」吾老", "B. 王之不「王」", "C. 「幼」吾幼", "D. 挾太山以「超」北海"], ans: "D", exp: "A(尊敬)、B(行王道)、C(愛護)皆為名轉動。D的「超」原本就是動詞（跨越）。" },
+                { q: "「一羽之不舉」、「輿薪之不見」屬於何種特殊句型？", opts: ["A. 判斷句", "B. 倒裝句（賓語提前）", "C. 被動句", "D. 省略句"], ans: "B", exp: "原句應為「不舉一羽」、「不見輿薪」，在否定句中，將賓語提前並以「之」作為標誌以強調。" },
+                { q: "孟子認為齊宣王目前對待百姓的態度，屬於下列哪一種？", opts: ["A. 誠不能也", "B. 挾太山以超北海", "C. 是不為也", "D. 不知不知，病"], ans: "C", exp: "孟子指出齊宣王不庇護百姓，就像不肯舉羽毛、不肯折枝一樣，純粹是「不為」（不願意做）。" },
+                { q: "「不為者與不能者之形」的「形」字，意義最接近下列何者？", opts: ["A. 形狀", "B. 具體表現、情況", "C. 容貌", "D. 陣型"], ans: "B", exp: "「形」在此指這兩種情況在具體表現上的差異。" },
+                { q: "本篇對話中，孟子最終希望齊宣王能達到什麼樣的境界？", opts: ["A. 成為天下第一大力士", "B. 隱居山林，獨善其身", "C. 推恩及於百姓，輕鬆實行王道", "D. 擊敗所有敵國，稱霸中原"], ans: "C", exp: "孟子的最終目的是勸導君王「推恩」，只要願意推廣仁愛之心，實行王道（天下運於掌）是非常容易的。" }
             ]
         };
 
@@ -251,6 +274,9 @@
             });
         });
 
+        // ----------------------------------------------------
+        // 2. 全域狀態管理 (靜態版本)
+        // ----------------------------------------------------
         let currentTab = 'overview';
         let userAnswers = {}; 
 
@@ -311,17 +337,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-brain text-amber-600 text-2xl"></i>
+                                <i class="fas fa-balance-scale text-amber-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">真知的起點</h3>
-                            <p class="text-amber-800 font-serif text-lg">承認無知，方能大智</p>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">不為與不能</h3>
+                            <p class="text-amber-800 font-serif text-lg">折枝之易，非超海之難</p>
                         </div>
                         <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-seedling text-orange-600 text-2xl"></i>
+                                <i class="fas fa-hands-helping text-orange-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">聖人之道</h3>
-                            <p class="text-orange-800 font-serif text-lg">以病為病，時刻自省</p>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">推己及人</h3>
+                            <p class="text-orange-800 font-serif text-lg">老吾老，以及人之老</p>
                         </div>
                     </div>
                 </div>
@@ -337,7 +363,8 @@
                      displayHtml = displayHtml.replace(new RegExp(`(?<!<[^>]*)${key}`, 'g'), `<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
                 });
 
-                const localPath = `Chinese-Classical1-1-images/reading_segment_${idx + 1}.jpg`;
+                // 修改為直接讀取本地靜態圖片
+                const localPath = `Chinese-Classical-565-images/reading_segment_${idx + 1}.jpg`;
                 let imageSection = `
                     <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
                         <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
@@ -371,7 +398,7 @@
             container.innerHTML = `
                 <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-orange-100 shadow-sm">
                     <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
-                    <p class="text-sm text-amber-700">為您重現老子傳遞哲思的寧靜場景。</p>
+                    <p class="text-sm text-amber-700">為您重現孟子雄辯與王者覺醒的場景。</p>
                 </div>
                 <div class="max-w-4xl mx-auto mt-4">
                     ${segmentsHtml}
@@ -387,7 +414,7 @@
             container.innerHTML = `
                 <div class="space-y-12">
                     <section>
-                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">認知境界邏輯圖</h2>
+                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">推恩邏輯辯證圖</h2>
                         <div class="bg-white rounded-xl shadow-lg p-8 border border-orange-100 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
                              <svg viewBox="0 0 700 400" class="w-full h-full">
                                 <defs>
@@ -396,43 +423,40 @@
                                     </marker>
                                 </defs>
                                 
-                                <!-- Center Self -->
-                                <rect x="280" y="20" width="140" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
-                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#374151">面對未知的態度</text>
+                                <!-- Center Source: Ruler's Choice -->
+                                <rect x="250" y="20" width="200" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
+                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="18" fill="#374151">統治者的選擇</text>
 
-                                <path d="M350,70 L200,100" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                <path d="M350,70 L500,100" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L150,110" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L550,110" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
 
-                                <!-- Left Path: GOOD -->
-                                <rect x="110" y="110" width="180" height="80" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="3" />
-                                <text x="200" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#166534">知不知</text>
-                                <text x="200" y="165" text-anchor="middle" font-size="14" fill="#15803d">(承認自己有所不知)</text>
+                                <!-- Left Path: Not Doing -->
+                                <rect x="60" y="110" width="180" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" />
+                                <text x="150" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#b91c1c">不為 (不願意)</text>
+                                <text x="150" y="165" text-anchor="middle" font-size="14" fill="#991b1b">如：折枝之易而不為</text>
 
-                                <path d="M200,190 L200,240" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow-deep)" />
+                                <path d="M150,190 L150,230" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" />
 
-                                <rect x="110" y="250" width="180" height="60" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3" />
-                                <text x="200" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#15803d">上 (最高明)</text>
+                                <rect x="60" y="230" width="180" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
+                                <text x="150" y="265" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">百姓不見保 (王之不王)</text>
 
-                                <!-- Right Path: EVIL -->
-                                <rect x="410" y="110" width="180" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" />
-                                <text x="500" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">不知不知</text>
-                                <text x="500" y="165" text-anchor="middle" font-size="14" fill="#b91c1c">(不懂裝懂 / 盲目自大)</text>
+                                <!-- Right Path: 推恩 -->
+                                <rect x="460" y="110" width="180" height="80" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="3" />
+                                <text x="550" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#047857">能為 (推恩)</text>
+                                <text x="550" y="165" text-anchor="middle" font-size="14" fill="#065f46">老吾老，以及人之老</text>
 
-                                <path d="M500,190 L500,240" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" />
+                                <path d="M550,190 L550,230" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-deep)" />
 
-                                <rect x="410" y="250" width="180" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
-                                <text x="500" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#b91c1c">病 (毛病缺陷)</text>
+                                <rect x="460" y="230" width="180" height="60" rx="10" fill="#d1fae5" stroke="#059669" stroke-width="3" />
+                                <text x="550" y="265" text-anchor="middle" font-weight="bold" font-size="16" fill="#065f46">實行王道 (天下運於掌)</text>
 
-                                <!-- Final Synthesis -->
-                                <path d="M200,310 L200,340 L350,340 L350,320" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                                <path d="M500,310 L500,340 L350,340" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                
-                                <rect x="150" y="340" width="400" height="50" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="3" />
-                                <text x="350" y="370" text-anchor="middle" font-weight="bold" font-size="16" fill="#1e40af">聖人之道：以其病病，是以不病</text>
+                                <!-- Final Synthesis text below -->
+                                <rect x="200" y="320" width="300" height="50" rx="10" fill="#fffbeb" stroke="#f59e0b" stroke-width="3" />
+                                <text x="350" y="350" text-anchor="middle" font-weight="bold" font-size="16" fill="#b45309">核心：打破「不能」的藉口，喚醒仁心</text>
                             </svg>
                         </div>
                         <p class="mt-6 text-amber-800 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-100">
-                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學分析：</strong> 老子運用極簡的對比（知不知 vs 不知不知），點破了人類認知的一大盲點。人最大的無知，在於「不知道自己的無知」。聖人並非全知全能的神，而是具備最高自省能力的人。他懂得將「不懂裝懂」視為一種危險的疾病（以其病病），時刻自我警惕，因此才能免於陷入盲目的傲慢之中。
+                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>哲理分析：</strong> 孟子深知統治者常以「能力不足」來逃避實行仁政的責任。因此，他巧妙地將「挾太山」與「折枝」並列，逼迫齊宣王承認自己是「不為」而非「不能」。只要國君願意將對自己親屬的愛（老吾老）向外擴張（以及人之老），這種「推恩」的過程就如同折枝般自然，治理天下便能水到渠成。
                         </p>
                     </section>
                 </div>
@@ -457,7 +481,7 @@
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold text-amber-900 font-serif mb-2">語詞精解</h2>
-                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，精準掌握道家轉品與詞意分析</p>
+                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，並已完全整合於上方「精讀與圖解」中，供您隨時查閱。</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         ${cardsHtml}
@@ -565,13 +589,12 @@
             container.innerHTML = `
                 <div class="max-w-3xl mx-auto pb-24">
                     <div class="text-center mb-10">
-                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高鑑別度題型</span>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高難度與高鑑別度</span>
                         <h2 class="text-3xl font-bold text-amber-900 font-serif">隨堂測驗 (20題)</h2>
-                        <p class="text-amber-700 mt-2">挑戰詞性轉換與道家哲思的深度考題</p>
+                        <p class="text-amber-700 mt-2">挑戰詞性轉換、倒裝句與推恩哲理的深度考題</p>
                     </div>
                     ${quizHtml}
                     
-                    <!-- Submit Button Area -->
                     <div class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-orange-200 p-4 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] flex justify-center items-center z-40">
                          <button onclick="submitQuiz()" class="px-10 py-3 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold rounded-full shadow-lg transition transform hover:scale-105 flex items-center text-lg">
                             <i class="fas fa-paper-plane mr-2"></i> 交卷並查看成績
@@ -581,26 +604,27 @@
             `;
         }
 
+        // [Tab Story] 抉擇之路 (RPG)
         const storyNodes = {
             start: {
                 id: 'start',
-                text: "你是齊國稷下學宮的一名年輕學子。今日，各派大師齊聚一堂，探討宇宙的邊界與天象的奧秘。大師突然指著你，問了一個你完全不懂、極其深奧的天文學問題。所有人的目光都集中在你身上。這時，你決定...",
+                text: "你是齊宣王，剛剛為了不忍心看到一頭牛被殺去祭鐘，而下令用羊替換牠。這時，孟子前來覲見，他毫不客氣地指出：大王您對禽獸都有憐憫之心，但為何這份恩澤卻庇護不了受苦的百姓呢？面對孟子的質問，你決定回答：",
                 choices: [
-                    { text: "為了面子，憑藉自己讀過的一些零碎知識，硬是胡謅了一套聽起來很厲害的理論。", next: "fake_it" },
-                    { text: "坦然鞠躬：「弟子才疏學淺，確實不知。懇請大師賜教。」", next: "admit_ignorance" }
+                    { text: "「治理國家太難了！寡人實在是能力不足，『不能』做到啊！」", next: "excuse_king" },
+                    { text: "陷入沉思，虛心求教：「那先生您說，不願意做（不為）和做不到（不能），具體有什麼差別？」", next: "learn_king" }
                 ]
             },
-            fake_it: {
-                id: 'fake_it',
-                text: "【不知不知，病】你口若懸河地說了一大串，台下卻傳來幾聲輕笑。大師毫不留情地指出了你理論中漏洞百出、自相矛盾的地方。你羞愧得滿臉通紅。你犯了不懂裝懂的毛病，不僅沒有得到尊重，反而失去了學者的誠信。",
-                choices: [{ text: "重來，老子說過，不知不知才是病", next: "start" }],
+            excuse_king: {
+                id: 'excuse_king',
+                text: "【是誠不為也】孟子聽後搖了搖頭，嘆息道：「大王，把泰山夾在腋下跳過北海，那是真的『不能』；但為長輩折下一根樹枝，您若說不能，那純粹是『不為』！庇護百姓，不過是折枝之易，您卻以此推託，國家危矣！」你滿面羞愧，無言以對。",
+                choices: [{ text: "重來，王者不該逃避責任", next: "start" }],
                 isEnding: true
             },
-            admit_ignorance: {
-                id: 'admit_ignorance',
-                text: "【知不知，上】大師聽了你的回答，非但沒有生氣，反而微微頷首：「善。學問浩如煙海，誰能全知？你能坦承自己的無知，不強不知以為知，這正是求學的最高境界啊！」你因此獲得了眾人的敬重，並真正學到了新知識。",
+            learn_king: {
+                id: 'learn_king',
+                text: "【天下可運於掌】孟子欣慰地笑了，他告訴你：「王之不王，是折枝之類也。您只需要把愛護自己長輩與晚輩的心，推廣到全天下的長輩與晚輩身上（老吾老以及人之老）。只要肯『推恩』，治理天下將如在掌心運轉般容易！」你豁然開朗，決心施行王道。",
                 choices: [
-                    { text: "回到總覽，銘記老子的教誨", next: "start" }
+                    { text: "回到總覽，銘記推恩之道", next: "start" }
                 ],
                 isEnding: true,
                 win: true
@@ -611,14 +635,15 @@
             if(!window.currentStoryNode) window.currentStoryNode = 'start';
             const node = storyNodes[window.currentStoryNode];
 
-            const localPath = `Chinese-Classical1-1-images/rpg_${window.currentStoryNode}.jpg`;
+            // 修改為直接讀取本地靜態圖片
+            const localPath = `Chinese-Classical-565-images/rpg_${window.currentStoryNode}.jpg`;
             let imageContent = `
                 <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
                     <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
                 </div>
             `;
 
-            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>真知灼見</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>王道之始</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
             if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
         }
 
@@ -737,17 +762,7 @@
             popup.classList.remove('hidden');
         }
 
-        function processTextWithNotes(text) {
-            let processedText = marked.parse(text);
-            const sortedKeys = Object.keys(allKeywords).sort((a, b) => b.length - a.length);
-            
-            sortedKeys.forEach(key => {
-                const regex = new RegExp(`(?<!<[^>]*)${key}`, "g");
-                processedText = processedText.replace(regex, `<span class="interactive-word bg-orange-50 px-1 rounded" onclick="showNote('${key}', undefined, this, event)">${key}</span>`);
-            });
-            return processedText;
-        }
-
+        // 語音播放優化：優先女聲，語速0.9，音調1.05，標點細緻停頓
         async function playAudio(text) {
             if (!('speechSynthesis' in window)) { showError("您的瀏覽器不支援語音朗讀功能。"); return; }
             window.speechSynthesis.cancel();
@@ -762,12 +777,14 @@
                 });
             }
 
+            // 優先尋找高品質女聲
             let targetVoice = voices.find(v => (v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW' || v.lang === 'zh-CN') && 
                 (v.name.includes('Google 國語') || v.name.includes('Mei-Jia') || v.name.includes('Yating') || v.name.includes('Lili') || v.name.includes('Ting-Ting') || v.name.includes('Xiaoxiao')));
             
             if (!targetVoice) targetVoice = voices.find(v => v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW'); 
             if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('zh'));
 
+            // 細緻標點分割與停頓控制
             const chunks = text.split(/([，、。？！；：])/).reduce((acc, curr, i) => {
                 if (i % 2 === 0) { 
                     if (curr.trim()) acc.push({ text: curr, pause: 0 });
@@ -788,8 +805,8 @@
                 if (index >= chunks.length) return;
                 const utterance = new SpeechSynthesisUtterance(chunks[index].text);
                 utterance.lang = 'zh-TW';
-                utterance.rate = 0.9;  
-                utterance.pitch = 1.05; 
+                utterance.rate = 0.9;  // 放慢語速至 0.9
+                utterance.pitch = 1.05; // 提高音調至 1.05
                 if (targetVoice) utterance.voice = targetVoice;
                 
                 utterance.onend = () => { setTimeout(() => playNext(index + 1), chunks[index].pause); };
@@ -806,6 +823,7 @@
             requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
             setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
         }
+
     </script>
 </body>
 </html>

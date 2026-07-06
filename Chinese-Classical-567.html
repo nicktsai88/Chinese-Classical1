@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(吳敏男 - 第三輯) 第1篇 聖人不病 - 互動式古文學習 (AI 旗艦版)</title>
+    <title>(吳敏男 - 第三輯) 第7篇 舍生取義 - 互動式古文學習 (AI 旗艦版)</title>
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 Marked.js -->
@@ -22,9 +22,7 @@
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fcd34d' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        .font-serif {
-            font-family: 'Noto Serif TC', serif;
-        }
+        .font-serif { font-family: 'Noto Serif TC', serif; }
 
         /* 自定義滾動條 */
         ::-webkit-scrollbar { width: 8px; }
@@ -77,7 +75,6 @@
 </head>
 <body class="text-stone-800 min-h-screen flex flex-col">
 
-    <!-- 頂部導航欄 -->
     <nav class="bg-amber-900 text-amber-50 shadow-lg sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -86,7 +83,7 @@
                     <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
                 </div>
                 <div class="hidden md:block text-sm opacity-90 text-amber-100">
-                    深度學習：第1篇 聖人不病
+                    深度學習：第7篇 舍生取義
                 </div>
             </div>
         </div>
@@ -94,7 +91,6 @@
 
     <div id="app" class="max-w-6xl mx-auto p-4 sm:p-6 w-full flex-grow flex flex-col">
         
-        <!-- 課程標題卡片 -->
         <header class="bg-white rounded-2xl shadow-md overflow-hidden mb-6 border border-amber-100 relative">
             <div class="absolute top-0 right-0 w-40 h-40 bg-amber-50 rounded-bl-full opacity-60 z-0"></div>
             <div class="bg-gradient-to-r from-amber-50/50 to-white p-6 sm:p-8 relative z-10">
@@ -108,13 +104,12 @@
                     </div>
                     <div class="hidden md:block text-right">
                         <span class="inline-block bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-red-200">重要考試文章</span>
-                        <div class="text-xs text-amber-600 font-medium">適合程度：中高階 (道家哲理與詞性轉換)</div>
+                        <div class="text-xs text-amber-600 font-medium">適合程度：高階 (孟子性善論與邏輯辯證)</div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- 功能標籤 (無 AI 對話) -->
         <div class="flex flex-wrap justify-center bg-white rounded-xl shadow-sm mb-6 border border-amber-100 sticky top-20 z-40 overflow-x-auto">
             <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('overview')"><i class="fas fa-info-circle mr-2"></i>總覽</button>
             <button id="tab-reading" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('reading')"><i class="fas fa-glasses mr-2"></i>精讀與圖解</button>
@@ -125,20 +120,17 @@
             <button id="tab-quiz" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('quiz')"><i class="fas fa-pen-nib mr-2"></i>隨堂測驗</button>
         </div>
 
-        <!-- 主要內容區 -->
         <main id="content-display" class="flex-grow bg-white rounded-2xl shadow-lg p-6 sm:p-8 min-h-[500px] transition-all duration-300 relative border border-orange-50">
-            <!-- 內容動態載入 -->
+            <!-- 內容動態載入區 -->
         </main>
         
     </div>
 
-    <!-- 註釋彈出框模板 -->
     <div id="note-template" class="note-popup absolute bg-white border-l-4 border-amber-500 rounded-r-lg shadow-2xl p-4 z-50 hidden w-72" onclick="event.stopPropagation()">
         <button onclick="closeNote()" class="absolute top-2 right-2 text-amber-400 hover:text-amber-600 transition"><i class="fas fa-times"></i></button>
         <div id="note-content"></div>
     </div>
 
-    <!-- 結果模態框 -->
     <div id="score-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl transform transition-all scale-100 border-2 border-amber-100">
             <div class="text-center">
@@ -154,7 +146,6 @@
         </div>
     </div>
 
-    <!-- 錯誤提示 -->
     <div id="error-toast" class="fixed bottom-6 right-6 bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg shadow-xl hidden z-50 flex items-center transition-all transform translate-y-10 opacity-0">
         <i class="fas fa-exclamation-circle mr-3 text-xl"></i>
         <div>
@@ -165,83 +156,109 @@
 
     <script>
         // ----------------------------------------------------
-        // 1. 教材資料結構 (Content Data) - 聖人不病
+        // 1. 教材資料結構 (Content Data) - 舍生取義
+        // 嚴格依照台灣教育部辭典與課綱標準校對
         // ----------------------------------------------------
         const contentData = {
             metadata: {
-                title: "(吳敏男 - 第三輯) 第1篇 聖人不病",
-                author: "老子",
-                source: "《道德經》第七十一章"
+                title: "(吳敏男 - 第三輯) 第7篇 舍生取義",
+                author: "孟子",
+                source: "《孟子·告子上》"
             },
-            summary: "本文選自《道德經》第七十一章。老子以極簡的文字，深刻探討了「知識」與「無知」的哲學關係。他認為，能夠認識到自己的無知（知不知），是最高明的智慧；相反地，不懂裝懂、沒有意識到自己的無知（不知不知），則是認知上的嚴重缺陷（病）。聖人之所以能成為聖人，正是因為他能時刻正視並警惕這種無知的弊病，『以其病病』，所以他才不會犯下盲目自大的毛病。",
+            summary: "本文選自《孟子·告子上》。孟子以「魚與熊掌」的抉擇為譬喻，生動地引出「生與義」的終極道德兩難。他指出，雖然生命是人所珍惜的，但當生命與道義發生衝突時，君子會選擇「舍生取義」。因為人心中有比生命更渴望的（義），也有比死亡更厭惡的（不義）。這種道德本心並非聖賢獨有，而是人人皆有，只是聖賢能夠持守不失（勿喪）罷了。這展現了儒家對道德主體性的絕對堅持與性善論的核心觀點。",
             
-            meaning: "1. **真知的起點**：真正的智慧始於承認自己的無知。這與西方哲學家蘇格拉底『我唯一知道的，就是我一無所知』的觀念有異曲同工之妙。\n2. **傲慢的危害**：『不知不知』是一種心理上的『病』（缺陷），不懂裝懂會讓人陷入盲目自大的危險之中。\n3. **聖人的修養**：聖人並非全知全能，而是具備極高的自省能力。把缺點當作缺點來警惕（病病），正是道家『反求諸己、居微處下』的實踐。",
+            meaning: "1. **譬喻說理，淺入深出**：以日常生活中的飲食選擇（魚與熊掌）巧妙引入嚴肅的道德抉擇（生與義），使深奧的哲理淺顯易懂。\n2. **義重於生，絕不苟得**：生命誠可貴，但儒家認為「義」（道德正當性）的價值超越了生物性的生存。苟且偷生是可恥的，為義犧牲是高尚的。\n3. **本心論與性善論**：這種「所欲有甚於生者，所惡有甚於死者」的道德自覺，不是外在強加的，而是人內在固有的「本心」（羞惡之心）。賢者與凡人的差別僅在於是否能「勿喪」（不喪失）這份本心。",
             
             rhetoric: [
-                "**轉品 (詞類活用):** 『以其病病』中，第一個『病』從名詞轉為動詞，作『當作毛病、引以為憂』解；第二個『病』是名詞，指『缺點、弊病』。",
-                "**頂真與迴環:** 透過『知不知』、『不知不知』、『病病』等疊字與句式的反覆，營造出迴環往復的節奏感，加深哲理的厚度。",
-                "**對比 (映襯):** 『上』與『病』對比，『知不知』與『不知不知』對比，界定了智者與愚者的根本差異。"
+                "**譬喻 (喻體、喻依):** 以具體的「魚與熊掌」作為喻依，比喻抽象的「生與義」（喻體）。",
+                "**對比 (映襯):** 全文充滿強烈的對比，如「生」與「義」、「生」與「死」、「欲」與「惡」、「賢者」與「眾人」。",
+                "**層遞與排比:** 「生亦我所欲...死亦我所惡...」句式工整，邏輯層層推導，氣勢磅礴。",
+                "**假設語氣:** 「如使人之所欲莫甚於生...使人之所惡莫甚於死者...」以反面假設來論證正面觀點，藉由「推謬」來證明本心的存在。"
             ],
             
             vocabulary: [
-                { word: "知不知", zhuyin: "ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "知道自己有所不知。第一個『知』是動詞，明白、意識到；第二個『知』指知識或知道的內容。" },
-                { word: "上", zhuyin: "ㄕㄤˋ", pos: "形容詞/名詞", meaning: "最好、最高明的境界。" },
-                { word: "不知不知", zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "不知道卻自以為知道；或指沒有意識到自己的無知。" },
-                { word: "病", zhuyin: "ㄅㄧㄥˋ", pos: "名詞", meaning: "缺點、弊病、毛病。" },
-                { word: "是以", zhuyin: "ㄕˋ ㄧˇ", pos: "連詞", meaning: "因此、所以。" },
-                { word: "聖人", zhuyin: "ㄕㄥˋ ㄖㄣˊ", pos: "名詞", meaning: "道家理想中具有最高智慧與修養的人。" },
-                { word: "以其病病", zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", pos: "句型", meaning: "因為他把這個毛病當作毛病。『以』：因為。第一個『病』：動詞，引以為病。第二個『病』：名詞，指不知不知的弊病。" },
-                { word: "不病", zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", pos: "動賓片語", meaning: "沒有這種（不懂裝懂的）毛病。" }
+                { word: "舍", zhuyin: "ㄕㄜˇ", pos: "動詞", meaning: "同「捨」，放棄、捨棄。" },
+                { word: "得兼", zhuyin: "ㄉㄜˊ ㄐㄧㄢ", pos: "動詞片語", meaning: "同時得到。「兼」，同時。" },
+                { word: "甚於", zhuyin: "ㄕㄣˋ ㄩˊ", pos: "介詞片語", meaning: "超過、比...更重要。「於」為介詞，表比較。" },
+                { word: "苟得", zhuyin: "ㄍㄡˇ ㄉㄜˊ", pos: "動賓片語", meaning: "苟且取得。此處指不擇手段地苟且偷生。" },
+                { word: "惡", zhuyin: "ㄨˋ", pos: "動詞", meaning: "厭惡、憎恨。與「欲」相對。" },
+                { word: "患", zhuyin: "ㄏㄨㄢˋ", pos: "名詞", meaning: "禍患、災禍。在此篇特指「死亡」的災難。" },
+                { word: "辟", zhuyin: "ㄅㄧˋ", pos: "動詞", meaning: "通假字，同「避」，躲開、迴避。" },
+                { word: "如使", zhuyin: "ㄖㄨˊ ㄕˇ", pos: "連詞", meaning: "如果、假使。表示假設語氣。" },
+                { word: "莫甚於", zhuyin: "ㄇㄛˋ ㄕㄣˋ ㄩˊ", pos: "片語", meaning: "沒有比...更強烈（更超過）的。" },
+                { word: "由是", zhuyin: "ㄧㄡˊ ㄕˋ", pos: "片語", meaning: "經由這種方法（指不擇手段求生或避患的方法）。" },
+                { word: "是心", zhuyin: "ㄕˋ ㄒㄧㄣ", pos: "名詞片語", meaning: "指這種「捨生取義」的本心（即孟子四端中的『羞惡之心』）。" },
+                { word: "喪", zhuyin: "ㄙㄤˋ", pos: "動詞", meaning: "失去、丟失、淪喪。" }
             ],
 
             segments: [
                 {
-                    original: "知不知，上；不知不知，病。",
-                    translation: "知道自己有所不知，這是最高明的境界；不知道卻自以為知道，這就是一種嚴重的毛病（缺點）。",
-                    audioText: "知不知，上；，不知不知，病。",
+                    original: "孟子曰︰「魚，我所欲也，熊掌，亦我所欲也，二者不可得兼，舍魚而取熊掌也。生，亦我所欲也，義，亦我所欲也，二者不可得兼，舍生而取義者也。」",
+                    translation: "孟子說：「魚，是我所喜愛的；熊掌，也是我所喜愛的；如果這兩樣東西不能同時得到，我就會放棄魚而選擇熊掌。生命，也是我所珍惜的；道義，也是我所珍惜的；如果這兩者不能同時保全，我就會犧牲生命而選擇道義。」",
+                    audioText: "孟子曰︰「魚，我所欲也，熊掌，亦我所欲也，二者不可得兼，捨魚而取熊掌也。生，亦我所欲也，義，亦我所欲也，二者不可得兼，捨生而取義者也。」",
                     notes: {
-                        "知不知": { zhuyin: "ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "知道自己有所不知。" },
-                        "上": { zhuyin: "ㄕㄤˋ", type: "名詞", def: "最高明。" },
-                        "不知不知": { zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "不知道卻自以為知道。" },
-                        "病": { zhuyin: "ㄅㄧㄥˋ", type: "名詞", def: "缺點、毛病。" }
+                        "得兼": { zhuyin: "ㄉㄜˊ ㄐㄧㄢ", type: "動詞", def: "同時得到。" },
+                        "舍": { zhuyin: "ㄕㄜˇ", type: "動詞", def: "同「捨」，放棄。" }
                     }
                 },
                 {
-                    original: "是以聖人不病。以其病病，是以不病。",
-                    translation: "因此，聖人沒有這種（不懂裝懂的）毛病。正是因為他把這種毛病當作真正的毛病去時刻警惕，所以他才不會有這種毛病。",
-                    audioText: "是以聖人不病。，以其病病，，是以不病。",
+                    original: "「生亦我所欲，所欲有甚於生者，故不為苟得也。死亦我所惡，所惡有甚於死者，故患有不辟也。」",
+                    translation: "「生命固然是我所珍惜的，但因為我還有比生命更渴望的東西（道義），所以我不會去做苟且偷生的事。死亡固然是我所厭惡的，但因為我還有比死亡更厭惡的東西（不義），所以有些禍患（死亡），我是不願躲避的。」",
+                    audioText: "「生亦我所欲，所欲有甚於生者，故不為苟得也。死亦我所務，所務有甚於死者，故患有不必也。」",
                     notes: {
-                        "是以": { zhuyin: "ㄕˋ ㄧˇ", type: "連詞", def: "因此、所以。" },
-                        "聖人": { zhuyin: "ㄕㄥˋ ㄖㄣˊ", type: "名詞", def: "有最高智慧的人。" },
-                        "以其病病": { zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", type: "句型", def: "因為他把這個毛病當作毛病。首字病為動詞，次字病為名詞。" },
-                        "不病": { zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", type: "片語", def: "沒有這種毛病。" }
+                        "甚於": { zhuyin: "ㄕㄣˋ ㄩˊ", type: "片語", def: "超過、比...更重要。" },
+                        "苟得": { zhuyin: "ㄍㄡˇ ㄉㄜˊ", type: "動賓", def: "苟且偷生。" },
+                        "惡": { zhuyin: "ㄨˋ", type: "動詞", def: "厭惡、憎恨。" },
+                        "患": { zhuyin: "ㄏㄨㄢˋ", type: "名詞", def: "災難，此指死亡。" },
+                        "辟": { zhuyin: "ㄅㄧˋ", type: "動詞", def: "同「避」，躲避。" }
+                    }
+                },
+                {
+                    original: "「如使人之所欲莫甚於生，則凡可以得生者，何不用也？使人之所惡莫甚於死者，則凡可以辟患者，何不為也？由是則生而有不用也；由是則可以辟患而有不為也。」",
+                    translation: "「如果人們所渴望的東西沒有比生命更重要的，那麼只要是可以保全生命的方法，有什麼手段不能用呢？如果人們所厭惡的東西沒有比死亡更可怕的，那麼只要是可以躲避死亡禍患的方法，有什麼事情不能做呢？然而，經由某些方法雖然能求得生存，但有人卻不願採用；經由某些方法雖然能躲避死亡，但有人卻不肯去做。」",
+                    audioText: "「如使人之所欲莫甚於生，則凡可以得生者，何不用也？使人之所務莫甚於死者，則凡可以必患者，何不為也？由是則生而有不用也；由是則可以必患而有不為也。」",
+                    notes: {
+                        "如使": { zhuyin: "ㄖㄨˊ ㄕˇ", type: "連詞", def: "如果、假使。" },
+                        "莫甚於": { zhuyin: "ㄇㄛˋ ㄕㄣˋ ㄩˊ", type: "片語", def: "沒有比...更強烈的。" },
+                        "由是": { zhuyin: "ㄧㄡˊ ㄕˋ", type: "片語", def: "經由這種方法。" }
+                    }
+                },
+                {
+                    original: "「是故所欲有甚於生者，所惡有甚於死者，非獨賢者有是心也，人皆有之，賢者能勿喪耳。」",
+                    translation: "「由此可知，人們確實有比生命更渴望的東西，也有比死亡更厭惡的東西。這種『捨生取義』的本心，並不是只有賢能的人才有，而是人人皆有，只是賢能的人能夠持守而不會喪失罷了。」",
+                    audioText: "「是故所欲有甚於生者，所務有甚於死者，非獨賢者有是心也，人皆有之，賢者能勿喪耳。」",
+                    notes: {
+                        "是心": { zhuyin: "ㄕˋ ㄒㄧㄣ", type: "名詞", def: "捨生取義的本心（羞惡之心）。" },
+                        "喪": { zhuyin: "ㄙㄤˋ", type: "動詞", def: "失去、淪喪。" }
                     }
                 }
             ],
+            
             quiz: [
-                { q: "《道德經》的作者是誰？", opts: ["A. 莊子", "B. 孟子", "C. 老子", "D. 韓非子"], ans: "C", exp: "《道德經》又稱《老子》，是道家哲學的重要經典，相傳為老子所著。" },
-                { q: "關於「知不知，上」，第一個「知」字的意思是？", opts: ["A. 知識", "B. 結交", "C. 明白、意識到", "D. 掌管"], ans: "C", exp: "第一個「知」是動詞，意思是明白、知道自己有所不知。" },
-                { q: "「知不知，上」中的「上」是什麼意思？", opts: ["A. 往上走", "B. 最高明、最好的境界", "C. 皇上", "D. 表面上"], ans: "B", exp: "「上」在此作名詞/形容詞，指上等的、最高明的狀態。" },
-                { q: "「不知不知，病」這句話批判了什麼樣的態度？", opts: ["A. 勤奮好學", "B. 謙虛退讓", "C. 身體虛弱", "D. 不懂裝懂、自以為是"], ans: "D", exp: "「不知不知」是指沒有意識到自己的無知，反而自以為什麼都懂，這是認知上的大病。" },
-                { q: "古文中的「病」通常作何解釋？此處的「病」意指什麼？", opts: ["A. 生理上的疾病", "B. 心理或認知上的缺點、毛病", "C. 疲憊", "D. 悲傷"], ans: "B", exp: "此處的病並非指生病，而是指性格、修養或認知上的弊病與缺陷。" },
-                { q: "「是以聖人不病」的「是以」是什麼意思？", opts: ["A. 這是", "B. 以為", "C. 因此、所以", "D. 憑藉"], ans: "C", exp: "是以，為古文常見連詞，等同於「所以、因此」。" },
-                { q: "「以其病病」的「以」字，用法為何？", opts: ["A. 介詞，把", "B. 連詞，因為", "C. 動詞，認為", "D. 名詞，緣故"], ans: "B", exp: "「以」其病病，意思是「因為」他把這毛病當成毛病。" },
-                { q: "「以其病病」中，兩個「病」字的詞性分別是什麼？", opts: ["A. 名詞；名詞", "B. 動詞；名詞", "C. 名詞；動詞", "D. 動詞；動詞"], ans: "B", exp: "第一個病是動詞（引以為病/當作毛病），第二個病是名詞（缺點/毛病）。" },
-                { q: "承上題，第一個「病」字（動詞）的字義為何？", opts: ["A. 生病", "B. 當作毛病、引以為憂", "C. 傳染", "D. 治療"], ans: "B", exp: "第一個病是轉品（轉類）的動詞用法，意指正視並警惕這個毛病。" },
-                { q: "「以其病病，是以不病」蘊含了道家的什麼思想？", opts: ["A. 順應自然，無為而治", "B. 弱肉強食，適者生存", "C. 反求諸己、時刻自省，居微處下", "D. 嚴刑峻法"], ans: "C", exp: "聖人能隨時自省，看到自己的不足並引以為戒，這正是道家推崇的謙卑自修精神。" },
-                { q: "希臘哲人蘇格拉底曾說：「我唯一知道的，就是我一無所知」，這句話與本課哪一句話含義最相近？", opts: ["A. 知不知，上", "B. 不知不知，病", "C. 是以聖人不病", "D. 以其病病"], ans: "A", exp: "兩者都強調「認知到自己的無知」才是真正的智慧起點。" },
-                { q: "本文在短短數十字中，不斷重複「知」與「病」字，這種修辭技巧產生了什麼效果？", opts: ["A. 顯得詞彙貧乏", "B. 為了湊字數", "C. 層層遞進，迴環往復，加深說理的辯證力道", "D. 製造懸疑感"], ans: "C", exp: "《道德經》常以簡潔且重複的字眼（如道可道非常道），製造出強烈的思辨與哲理感。" },
-                { q: "如果一個人總是喜歡在別人面前「強不知以為知」，老子會用哪個字來形容他的狀態？", opts: ["A. 上", "B. 聖", "C. 病", "D. 賢"], ans: "C", exp: "不懂裝懂，就是老子所謂的「不知不知，病」。" },
-                { q: "下列哪一個成語，最適合用來形容「不知不知」的狀態？", opts: ["A. 虛懷若谷", "B. 夜郎自大 / 井底之蛙", "C. 博學多聞", "D. 不恥下問"], ans: "B", exp: "夜郎自大和井底之蛙都是用來形容人見識淺薄卻自以為是，正是「不知不知」的體現。" },
-                { q: "關於「聖人不病」的原因，老子的解釋是什麼？", opts: ["A. 因為聖人天生聰明，什麼都懂", "B. 因為聖人吃了仙丹，不會生病", "C. 因為聖人能察覺並正視自己的缺點，時刻警惕", "D. 因為聖人不與人來往"], ans: "C", exp: "「以其病病，是以不病」，聖人的偉大不在於不犯錯，而在於能正視自身的缺陷。" },
-                { q: "《道德經》一書又被稱為什麼？", opts: ["A. 《莊子》", "B. 《孟子》", "C. 《老子》", "D. 《列子》"], ans: "C", exp: "《道德經》原名即為《老子》。" },
-                { q: "「知不知」與「不知不知」這兩句話，在句型上構成了何種修辭？", opts: ["A. 譬喻", "B. 對比 (映襯)", "C. 誇飾", "D. 擬人"], ans: "B", exp: "兩者形成強烈的對比，區分了智者與愚者的境界。" },
-                { q: "在道家思想中，「聖人」的形象通常是？", opts: ["A. 高高在上，充滿權力威嚴", "B. 虛心柔弱、順應自然、不自滿", "C. 喜歡與人辯論，爭個輸贏", "D. 穿著華麗，講究排場"], ans: "B", exp: "道家的聖人「居善地，心善淵」，特徵是如水般的謙下與自省。" },
-                { q: "在「以其病病」中，將名詞的「病」轉化為動詞「引以為病」，這種修辭格稱為什麼？", opts: ["A. 借代", "B. 頂真", "C. 轉化 (轉類/轉品)", "D. 鑲嵌"], ans: "C", exp: "將一種詞性當作另一種詞性使用，稱為轉品（轉類）。" },
-                { q: "全文雖然簡短，但充滿了辯證邏輯。這體現了《老子》哪一種寫作特色？", opts: ["A. 辭藻華麗，鋪陳繁複", "B. 大量描寫神話故事", "C. 正言若反、詞約義豐", "D. 專注於記錄歷史事件"], ans: "C", exp: "《老子》的文字極度精簡，卻常使用看似矛盾（正言若反）的語句來表達深邃的哲理。" }
+                { q: "「舍生取義」的「舍」字，字義與讀音為何？", opts: ["A. 房屋，ㄕㄜˋ", "B. 施捨，ㄕㄜˇ", "C. 同「捨」，放棄，ㄕㄜˇ", "D. 停止，ㄕㄜˋ"], ans: "C", exp: "「舍」在此通「捨」，動詞，讀作ㄕㄜˇ，意為放棄、捨棄。" },
+                { q: "「死亦我所惡」的「惡」字，詞性與讀音為何？", opts: ["A. 名詞，罪惡，ㄜˋ", "B. 形容詞，醜陋的，ㄜˋ", "C. 動詞，厭惡，ㄨˋ", "D. 疑問詞，怎麼，ㄨ"], ans: "C", exp: "「惡」作動詞，讀作ㄨˋ，意思是厭惡、憎恨，與前面的「欲」字相對。" },
+                { q: "「故患有不辟也」的「辟」字，是哪一個字的通假字？讀音為何？", opts: ["A. 避，躲避，ㄅㄧˋ", "B. 闢，開闢，ㄆㄧˋ", "C. 僻，偏僻，ㄆㄧˋ", "D. 譬，譬喻，ㄆㄧˋ"], ans: "A", exp: "「辟」在此通「避」，讀作ㄅㄧˋ，意思是躲避災禍（患）。" },
+                { q: "本文開頭，孟子以「魚與熊掌」的選擇為譬喻，其中「熊掌」是用來比喻什麼？", opts: ["A. 財富", "B. 權力", "C. 生命 (生)", "D. 道義 (義)"], ans: "D", exp: "孟子以較普通的「魚」喻「生」，以較珍貴的「熊掌」喻「義」，兩者不可得兼時，取熊掌（取義）。" },
+                { q: "「二者不可得兼」的「兼」字，在此處的解釋為何？", opts: ["A. 兼職", "B. 兩倍", "C. 同時得到", "D. 吞併"], ans: "C", exp: "「兼」是副詞，意為同時。不可得兼即無法同時擁有。" },
+                { q: "「所欲有甚於生者」的「於」字，其用法與意義與下列何者相同？", opts: ["A. 己所不欲，勿施「於」人", "B. 苛政猛「於」虎也", "C. 舟行「於」海", "D. 得之「於」人者太多"], ans: "B", exp: "題幹的「於」表比較（比...更甚）。A為給予，C為在，D為從。B的「猛於虎」也是表比較（比老虎更猛）。" },
+                { q: "「故不為苟得也」中的「苟得」，在本文脈絡下最精確的意涵是？", opts: ["A. 隨便拿取別人的東西", "B. 貪圖不義之財", "C. 為了求生而不擇手段，苟且偷生", "D. 輕易獲得成功"], ans: "C", exp: "在「生與義」的抉擇中，「苟得」指的是違背道義去苟延殘喘、苟且偷生。" },
+                { q: "「如使人之所欲莫甚於生」的「如使」，可以替換為下列哪一個詞語而不改變句意？", opts: ["A. 如果、假使", "B. 使命", "C. 即使、縱然", "D. 既然"], ans: "A", exp: "「如使」是連詞，表示假設語氣，意為如果、假使。" },
+                { q: "「何不用也？」與「何不為也？」這兩句中的「用」與「為」，在論證中暗示了什麼樣的行為？", opts: ["A. 善用資源以造福人群", "B. 為了求生與避死，不擇手段、無所不用其極", "C. 展現個人的才華與能力", "D. 遵守國家的法令規範"], ans: "B", exp: "孟子以此反問：如果人最看重生命、最怕死亡，那為了活命，難道不是什麼卑鄙手段都會用盡嗎？" },
+                { q: "承上題，孟子觀察到「由是則生而有不用也」，他認為這種現象證明了什麼？", opts: ["A. 人們其實並不怕死", "B. 生存的方法太過困難", "C. 人們心中有比「生存」更強烈的渴望（即道義）", "D. 社會法律過於嚴苛"], ans: "C", exp: "既然有求生之法卻不願意用，證明人的心中存在著超越生物本能的道德價值（義）。" },
+                { q: "「非獨賢者有是心也」中的「是心」，具體指的是孟子「四端之心」中的哪一種？", opts: ["A. 惻隱之心 (仁之端)", "B. 羞惡之心 (義之端)", "C. 辭讓之心 (禮之端)", "D. 是非之心 (智之端)"], ans: "B", exp: "「舍生取義」的核心在於不願苟且偷生的羞恥感與對道義的堅持，這正是「羞惡之心，義之端也」。" },
+                { q: "文末提到「賢者能勿喪耳」，此處的「喪」字作何解釋？", opts: ["A. 辦理喪事", "B. 悲傷痛哭", "C. 死亡", "D. 失去、丟失、淪喪"], ans: "D", exp: "「勿喪」即不喪失。孟子認為這份本心人人皆有，只是凡人容易因物慾而「喪失」，賢者能持守不失。" },
+                { q: "整篇文章的推論邏輯基礎，是建立在孟子的哪一個核心哲學主張上？", opts: ["A. 性善論", "B. 性惡論", "C. 民貴君輕", "D. 尊王攘夷"], ans: "A", exp: "「人皆有之，賢者能勿喪耳」明確指出道德本心是與生俱來的，此即孟子「性善論」的核心。" },
+                { q: "本文運用了豐富的修辭技巧，下列哪一種修辭「沒有」出現在本文中？", opts: ["A. 譬喻", "B. 映襯", "C. 排比", "D. 誇飾"], ans: "D", exp: "A(魚與熊掌)、B(生與死、欲與惡)、C(生亦我所欲...死亦我所惡...)皆有。文中並無誇大不實的誇飾修辭。" },
+                { q: "「使人之所惡莫甚於死者」是一句什麼語氣的句子？", opts: ["A. 祈使語氣", "B. 假設語氣", "C. 讚嘆語氣", "D. 斥責語氣"], ans: "B", exp: "「使」同「如使」，表假設。假使人們最討厭的沒有超過死亡的..." },
+                { q: "下列哪一個成語的意涵，與孟子「舍生取義」的理念最為「相反」？", opts: ["A. 殺身成仁", "B. 視死如歸", "C. 明哲保身 / 苟且偷安", "D. 大義滅親"], ans: "C", exp: "明哲保身與苟且偷安，都是為了保全自身生命利益而放棄原則，正是孟子所批評的「苟得」。" },
+                { q: "「生亦我所欲，所欲有甚於生者」這兩句話，在句型結構上使用了哪一種修辭？", opts: ["A. 頂真", "B. 借代", "C. 雙關", "D. 回文"], ans: "A", exp: "上一句的結尾「所欲」，作為下一句的開頭「所欲」，首尾相接，屬於頂真修辭。" },
+                { q: "「賢者能勿喪耳」的「耳」字，作為句末助詞，表達了何種語氣？", opts: ["A. 疑問語氣（呢）", "B. 驚嘆語氣（啊）", "C. 限止語氣（罷了、而已）", "D. 祈使語氣（吧）"], ans: "C", exp: "「耳」在此同「爾」，表示限止語氣，翻譯為「罷了」、「而已」。" },
+                { q: "本文論證「人皆有是心」的邏輯手法為何？", opts: ["A. 大量引用《詩經》、《尚書》來證明", "B. 以反面假設推導出荒謬結果（推謬），再以現實行為反證正面觀點", "C. 以孔子的權威言論作為唯一依據", "D. 講述古代聖王的故事來感化讀者"], ans: "B", exp: "孟子先假設「如果人最怕死，那不就什麼都會做嗎？」，再點出現實中「有人不願做」，藉此推導出人心必有高於生命的追求。" },
+                { q: "下列引號中的字詞，何者詞性與其他三者「不同」？", opts: ["A. 「舍」生取義", "B. 故「患」有不辟也", "C. 生亦我所「欲」", "D. 賢者能勿「喪」耳"], ans: "B", exp: "A(放棄)、C(喜愛)、D(失去)皆為動詞。B的「患」為名詞（災禍）。" }
             ]
         };
 
+        // 預處理所有關鍵字 (確保能在內文中被高亮並綁定事件)
         const allKeywords = {};
         contentData.segments.forEach((seg, idx) => {
             Object.entries(seg.notes).forEach(([key, note]) => {
@@ -251,6 +268,9 @@
             });
         });
 
+        // ----------------------------------------------------
+        // 2. 全域狀態管理 (靜態版本)
+        // ----------------------------------------------------
         let currentTab = 'overview';
         let userAnswers = {}; 
 
@@ -311,17 +331,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-brain text-amber-600 text-2xl"></i>
+                                <i class="fas fa-balance-scale text-amber-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">真知的起點</h3>
-                            <p class="text-amber-800 font-serif text-lg">承認無知，方能大智</p>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">道德抉擇</h3>
+                            <p class="text-amber-800 font-serif text-lg">魚與熊掌，生與義的終極天平</p>
                         </div>
                         <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-seedling text-orange-600 text-2xl"></i>
+                                <i class="fas fa-heart text-orange-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">聖人之道</h3>
-                            <p class="text-orange-800 font-serif text-lg">以病為病，時刻自省</p>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">性善本心</h3>
+                            <p class="text-orange-800 font-serif text-lg">羞惡之心，人皆有之勿喪耳</p>
                         </div>
                     </div>
                 </div>
@@ -337,7 +357,8 @@
                      displayHtml = displayHtml.replace(new RegExp(`(?<!<[^>]*)${key}`, 'g'), `<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
                 });
 
-                const localPath = `Chinese-Classical1-1-images/reading_segment_${idx + 1}.jpg`;
+                // 修改為直接讀取本地靜態圖片
+                const localPath = `Chinese-Classical-567-images/reading_segment_${idx + 1}.jpg`;
                 let imageSection = `
                     <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
                         <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
@@ -371,7 +392,7 @@
             container.innerHTML = `
                 <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-orange-100 shadow-sm">
                     <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
-                    <p class="text-sm text-amber-700">為您重現老子傳遞哲思的寧靜場景。</p>
+                    <p class="text-sm text-amber-700">為您重現孟子雄辯與生義抉擇的深刻場景。</p>
                 </div>
                 <div class="max-w-4xl mx-auto mt-4">
                     ${segmentsHtml}
@@ -387,7 +408,7 @@
             container.innerHTML = `
                 <div class="space-y-12">
                     <section>
-                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">認知境界邏輯圖</h2>
+                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">孟子邏輯推論圖 (假設與反證)</h2>
                         <div class="bg-white rounded-xl shadow-lg p-8 border border-orange-100 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
                              <svg viewBox="0 0 700 400" class="w-full h-full">
                                 <defs>
@@ -396,43 +417,34 @@
                                     </marker>
                                 </defs>
                                 
-                                <!-- Center Self -->
-                                <rect x="280" y="20" width="140" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
-                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#374151">面對未知的態度</text>
+                                <!-- Center Source: False Assumption -->
+                                <rect x="200" y="20" width="300" height="50" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5"/>
+                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#b91c1c">反面假設：人最貪生怕死</text>
 
-                                <path d="M350,70 L200,100" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                <path d="M350,70 L500,100" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L350,110" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
 
-                                <!-- Left Path: GOOD -->
-                                <rect x="110" y="110" width="180" height="80" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="3" />
-                                <text x="200" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#166534">知不知</text>
-                                <text x="200" y="165" text-anchor="middle" font-size="14" fill="#15803d">(承認自己有所不知)</text>
+                                <!-- Consequence of False Assumption -->
+                                <rect x="200" y="110" width="300" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
+                                <text x="350" y="135" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">推論：為了求生避死</text>
+                                <text x="350" y="155" text-anchor="middle" font-size="14" fill="#7f1d1d">必無所不用其極 (何不用也？)</text>
 
-                                <path d="M200,190 L200,240" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow-deep)" />
+                                <path d="M350,170 L350,210" stroke="#374151" stroke-width="2" marker-end="url(#arrow-deep)" />
 
-                                <rect x="110" y="250" width="180" height="60" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3" />
-                                <text x="200" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#15803d">上 (最高明)</text>
+                                <!-- The Reality (Contradiction) -->
+                                <rect x="200" y="210" width="300" height="60" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="3" />
+                                <text x="350" y="235" text-anchor="middle" font-weight="bold" font-size="16" fill="#b45309">現實矛盾：有人不願苟得</text>
+                                <text x="350" y="255" text-anchor="middle" font-size="14" fill="#92400e">(生而有不用，辟患而有不為)</text>
 
-                                <!-- Right Path: EVIL -->
-                                <rect x="410" y="110" width="180" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" />
-                                <text x="500" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">不知不知</text>
-                                <text x="500" y="165" text-anchor="middle" font-size="14" fill="#b91c1c">(不懂裝懂 / 盲目自大)</text>
+                                <path d="M350,270 L350,310" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-deep)" />
 
-                                <path d="M500,190 L500,240" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" />
-
-                                <rect x="410" y="250" width="180" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
-                                <text x="500" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#b91c1c">病 (毛病缺陷)</text>
-
-                                <!-- Final Synthesis -->
-                                <path d="M200,310 L200,340 L350,340 L350,320" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                                <path d="M500,310 L500,340 L350,340" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                
-                                <rect x="150" y="340" width="400" height="50" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="3" />
-                                <text x="350" y="370" text-anchor="middle" font-weight="bold" font-size="16" fill="#1e40af">聖人之道：以其病病，是以不病</text>
+                                <!-- The True Conclusion -->
+                                <rect x="150" y="310" width="400" height="60" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="4" />
+                                <text x="350" y="335" text-anchor="middle" font-weight="bold" font-size="18" fill="#047857">正面結論：本心存在</text>
+                                <text x="350" y="355" text-anchor="middle" font-size="14" fill="#065f46">人有甚於生之所欲 (義)，甚於死之所惡 (不義)</text>
                             </svg>
                         </div>
                         <p class="mt-6 text-amber-800 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-100">
-                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學分析：</strong> 老子運用極簡的對比（知不知 vs 不知不知），點破了人類認知的一大盲點。人最大的無知，在於「不知道自己的無知」。聖人並非全知全能的神，而是具備最高自省能力的人。他懂得將「不懂裝懂」視為一種危險的疾病（以其病病），時刻自我警惕，因此才能免於陷入盲目的傲慢之中。
+                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>哲理分析：</strong> 孟子在此展現了極為嚴密的邏輯推論。他先用「歸謬法」，假設人如果真的是生物性本能（貪生怕死）至上，那必定會為了活命不擇手段。然而，現實中我們看到許多人寧死也不願做苟且之事，這個「矛盾」完美地證明了：在人的內心深處，一定有一種價值（義）是超越了生物性生存（生）的。
                         </p>
                     </section>
                 </div>
@@ -457,7 +469,7 @@
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold text-amber-900 font-serif mb-2">語詞精解</h2>
-                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，精準掌握道家轉品與詞意分析</p>
+                        <p class="text-amber-700">依據教育部辭典嚴格校對，收錄 ${contentData.vocabulary.length} 個高頻字音與字義考點</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         ${cardsHtml}
@@ -565,13 +577,12 @@
             container.innerHTML = `
                 <div class="max-w-3xl mx-auto pb-24">
                     <div class="text-center mb-10">
-                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高鑑別度題型</span>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高難度與高鑑別度</span>
                         <h2 class="text-3xl font-bold text-amber-900 font-serif">隨堂測驗 (20題)</h2>
-                        <p class="text-amber-700 mt-2">挑戰詞性轉換與道家哲思的深度考題</p>
+                        <p class="text-amber-700 mt-2">挑戰詞性轉換、倒裝句與推恩哲理的深度考題</p>
                     </div>
                     ${quizHtml}
                     
-                    <!-- Submit Button Area -->
                     <div class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-orange-200 p-4 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] flex justify-center items-center z-40">
                          <button onclick="submitQuiz()" class="px-10 py-3 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold rounded-full shadow-lg transition transform hover:scale-105 flex items-center text-lg">
                             <i class="fas fa-paper-plane mr-2"></i> 交卷並查看成績
@@ -581,26 +592,27 @@
             `;
         }
 
+        // [Tab Story] 抉擇之路 (RPG)
         const storyNodes = {
             start: {
                 id: 'start',
-                text: "你是齊國稷下學宮的一名年輕學子。今日，各派大師齊聚一堂，探討宇宙的邊界與天象的奧秘。大師突然指著你，問了一個你完全不懂、極其深奧的天文學問題。所有人的目光都集中在你身上。這時，你決定...",
+                text: "你是戰國時代的一名地方官吏。今年大旱，百姓飢荒。然而，你的頂头上司（一位貪官）卻將救災的糧食私吞。他私下拿出一大筆黃金給你，並威脅道：「收下黃金，保你一生榮華富貴（生）；若敢向上舉發，明日便讓你身首異處（死）。」面對威逼利誘，你決定：",
                 choices: [
-                    { text: "為了面子，憑藉自己讀過的一些零碎知識，硬是胡謅了一套聽起來很厲害的理論。", next: "fake_it" },
-                    { text: "坦然鞠躬：「弟子才疏學淺，確實不知。懇請大師賜教。」", next: "admit_ignorance" }
+                    { text: "收下黃金並保持沉默。生命和財富最重要，不值得白白送死。", next: "take_gold" },
+                    { text: "拍案而起，大聲斥責。寧可犧牲生命，也絕不與貪官同流合汙！", next: "reject_gold" }
                 ]
             },
-            fake_it: {
-                id: 'fake_it',
-                text: "【不知不知，病】你口若懸河地說了一大串，台下卻傳來幾聲輕笑。大師毫不留情地指出了你理論中漏洞百出、自相矛盾的地方。你羞愧得滿臉通紅。你犯了不懂裝懂的毛病，不僅沒有得到尊重，反而失去了學者的誠信。",
-                choices: [{ text: "重來，老子說過，不知不知才是病", next: "start" }],
+            take_gold: {
+                id: 'take_gold',
+                text: "【喪失本心，苟得求生】你收下了黃金，雖然得以保全性命，甚至升官發財。但每當夜半無人時，想起那些餓死的百姓，你的良心便備受煎熬。孟子嘆息道：「這便是為了苟得生命，而喪失了人之所以為人的『羞惡之心』啊！」",
+                choices: [{ text: "重來，君子不為苟得", next: "start" }],
                 isEnding: true
             },
-            admit_ignorance: {
-                id: 'admit_ignorance',
-                text: "【知不知，上】大師聽了你的回答，非但沒有生氣，反而微微頷首：「善。學問浩如煙海，誰能全知？你能坦承自己的無知，不強不知以為知，這正是求學的最高境界啊！」你因此獲得了眾人的敬重，並真正學到了新知識。",
+            reject_gold: {
+                id: 'reject_gold',
+                text: "【舍生取義，勿喪是心】你拒絕了黃金，並將貪官的罪證公之於世。貪官最終被法辦，無數飢民得到了救贖。雖然你因此遭到了貪官殘黨的報復而犧牲，但你的義舉名垂青史。孟子讚賞道：「此真君子也！所欲有甚於生者，所惡有甚於死者，你成功守住了這份本心！」",
                 choices: [
-                    { text: "回到總覽，銘記老子的教誨", next: "start" }
+                    { text: "回到總覽，銘記生與義的抉擇", next: "start" }
                 ],
                 isEnding: true,
                 win: true
@@ -611,14 +623,15 @@
             if(!window.currentStoryNode) window.currentStoryNode = 'start';
             const node = storyNodes[window.currentStoryNode];
 
-            const localPath = `Chinese-Classical1-1-images/rpg_${window.currentStoryNode}.jpg`;
+            // 修改為直接讀取本地靜態圖片
+            const localPath = `Chinese-Classical-567-images/rpg_${window.currentStoryNode}.jpg`;
             let imageContent = `
                 <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
                     <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
                 </div>
             `;
 
-            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>真知灼見</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>浩然正氣</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
             if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
         }
 
@@ -737,17 +750,7 @@
             popup.classList.remove('hidden');
         }
 
-        function processTextWithNotes(text) {
-            let processedText = marked.parse(text);
-            const sortedKeys = Object.keys(allKeywords).sort((a, b) => b.length - a.length);
-            
-            sortedKeys.forEach(key => {
-                const regex = new RegExp(`(?<!<[^>]*)${key}`, "g");
-                processedText = processedText.replace(regex, `<span class="interactive-word bg-orange-50 px-1 rounded" onclick="showNote('${key}', undefined, this, event)">${key}</span>`);
-            });
-            return processedText;
-        }
-
+        // 語音播放優化：優先女聲，語速0.9，音調1.05，標點細緻停頓
         async function playAudio(text) {
             if (!('speechSynthesis' in window)) { showError("您的瀏覽器不支援語音朗讀功能。"); return; }
             window.speechSynthesis.cancel();
@@ -762,12 +765,14 @@
                 });
             }
 
+            // 優先尋找高品質女聲
             let targetVoice = voices.find(v => (v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW' || v.lang === 'zh-CN') && 
                 (v.name.includes('Google 國語') || v.name.includes('Mei-Jia') || v.name.includes('Yating') || v.name.includes('Lili') || v.name.includes('Ting-Ting') || v.name.includes('Xiaoxiao')));
             
             if (!targetVoice) targetVoice = voices.find(v => v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW'); 
             if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('zh'));
 
+            // 細緻標點分割與停頓控制
             const chunks = text.split(/([，、。？！；：])/).reduce((acc, curr, i) => {
                 if (i % 2 === 0) { 
                     if (curr.trim()) acc.push({ text: curr, pause: 0 });
@@ -788,8 +793,8 @@
                 if (index >= chunks.length) return;
                 const utterance = new SpeechSynthesisUtterance(chunks[index].text);
                 utterance.lang = 'zh-TW';
-                utterance.rate = 0.9;  
-                utterance.pitch = 1.05; 
+                utterance.rate = 0.9;  // 放慢語速至 0.9
+                utterance.pitch = 1.05; // 提高音調至 1.05
                 if (targetVoice) utterance.voice = targetVoice;
                 
                 utterance.onend = () => { setTimeout(() => playNext(index + 1), chunks[index].pause); };
@@ -806,6 +811,7 @@
             requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
             setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
         }
+
     </script>
 </body>
 </html>

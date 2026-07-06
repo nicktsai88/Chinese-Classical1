@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(吳敏男 - 第三輯) 第1篇 聖人不病 - 互動式古文學習 (AI 旗艦版)</title>
+    <title>(吳敏男 - 第三輯) 第3篇 山木 - 互動式古文學習 (AI 旗艦版)</title>
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 載入 Marked.js -->
@@ -22,9 +22,7 @@
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fcd34d' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        .font-serif {
-            font-family: 'Noto Serif TC', serif;
-        }
+        .font-serif { font-family: 'Noto Serif TC', serif; }
 
         /* 自定義滾動條 */
         ::-webkit-scrollbar { width: 8px; }
@@ -86,7 +84,7 @@
                     <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
                 </div>
                 <div class="hidden md:block text-sm opacity-90 text-amber-100">
-                    深度學習：第1篇 聖人不病
+                    深度學習：第3篇 山木
                 </div>
             </div>
         </div>
@@ -108,13 +106,13 @@
                     </div>
                     <div class="hidden md:block text-right">
                         <span class="inline-block bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-red-200">重要考試文章</span>
-                        <div class="text-xs text-amber-600 font-medium">適合程度：中高階 (道家哲理與詞性轉換)</div>
+                        <div class="text-xs text-amber-600 font-medium">適合程度：高階 (哲理辯證與道家逍遙)</div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- 功能標籤 (無 AI 對話) -->
+        <!-- 功能標籤 -->
         <div class="flex flex-wrap justify-center bg-white rounded-xl shadow-sm mb-6 border border-amber-100 sticky top-20 z-40 overflow-x-auto">
             <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('overview')"><i class="fas fa-info-circle mr-2"></i>總覽</button>
             <button id="tab-reading" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-700 hover:text-amber-900" onclick="switchTab('reading')"><i class="fas fa-glasses mr-2"></i>精讀與圖解</button>
@@ -165,83 +163,117 @@
 
     <script>
         // ----------------------------------------------------
-        // 1. 教材資料結構 (Content Data) - 聖人不病
+        // 1. 教材資料結構 (Content Data) - 山木
         // ----------------------------------------------------
         const contentData = {
             metadata: {
-                title: "(吳敏男 - 第三輯) 第1篇 聖人不病",
-                author: "老子",
-                source: "《道德經》第七十一章"
+                title: "(吳敏男 - 第三輯) 第3篇 山木",
+                author: "莊子",
+                source: "《莊子·山木》"
             },
-            summary: "本文選自《道德經》第七十一章。老子以極簡的文字，深刻探討了「知識」與「無知」的哲學關係。他認為，能夠認識到自己的無知（知不知），是最高明的智慧；相反地，不懂裝懂、沒有意識到自己的無知（不知不知），則是認知上的嚴重缺陷（病）。聖人之所以能成為聖人，正是因為他能時刻正視並警惕這種無知的弊病，『以其病病』，所以他才不會犯下盲目自大的毛病。",
+            summary: "本文選自《莊子·山木》。透過兩個截然相反的寓言故事，探討了世俗中「有用（材）」與「無用（不材）」的兩難困境。山中的大樹因為「沒有用處」而不被砍伐，得以保全性命；但朋友家的雁（鵝）卻因為「沒有用處（不會啼叫）」而首當其衝被宰殺。弟子因此困惑，向莊子請教自處之道。莊子藉此點出，即使巧妙周旋於有用與無用之間，依然無法逃脫世俗的牽累。唯有超越世俗的價值評判，『乘道德而浮遊』，與自然大道合而為一，才能獲得真正的逍遙與自由。",
             
-            meaning: "1. **真知的起點**：真正的智慧始於承認自己的無知。這與西方哲學家蘇格拉底『我唯一知道的，就是我一無所知』的觀念有異曲同工之妙。\n2. **傲慢的危害**：『不知不知』是一種心理上的『病』（缺陷），不懂裝懂會讓人陷入盲目自大的危險之中。\n3. **聖人的修養**：聖人並非全知全能，而是具備極高的自省能力。把缺點當作缺點來警惕（病病），正是道家『反求諸己、居微處下』的實踐。",
+            meaning: "1. **價值的相對性**：世俗的價值標準（有用/無用）是非常荒謬且相對的。有時『無用』能保命（如山木），有時『無用』卻招致殺身之禍（如家雁）。\n2. **材與不材的侷限**：莊子認為，單純想依靠『處於有用與無用之間』來避禍，依然是一種算計，依然會被世俗社會的框架所束縛（未免乎累）。\n3. **逍遙的最高境界**：要徹底免於牽累，就必須『乘道德而浮遊』。這裡的『道德』不是指世俗的倫理規範，而是指『宇宙自然的根本規律與本性』。只有超越功利計算，順應自然，才能達到無待的自由境界。",
             
             rhetoric: [
-                "**轉品 (詞類活用):** 『以其病病』中，第一個『病』從名詞轉為動詞，作『當作毛病、引以為憂』解；第二個『病』是名詞，指『缺點、弊病』。",
-                "**頂真與迴環:** 透過『知不知』、『不知不知』、『病病』等疊字與句式的反覆，營造出迴環往復的節奏感，加深哲理的厚度。",
-                "**對比 (映襯):** 『上』與『病』對比，『知不知』與『不知不知』對比，界定了智者與愚者的根本差異。"
+                "**對比 (映襯):** 以『山木因不材得終其天年』對比『家雁因不材而死』，強烈凸顯出事物處境的矛盾與世俗標準的荒謬。",
+                "**設問:** 弟子提問『先生將何處？』作為承先啟後的關鍵，引出莊子的核心哲理。",
+                "**借代 / 轉化:** 『乘道德而浮遊』，將抽象的『道（自然規律）』具象化為可以乘駕、遨遊的載體，充滿道家文學的浪漫與奇幻色彩。"
             ],
             
             vocabulary: [
-                { word: "知不知", zhuyin: "ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "知道自己有所不知。第一個『知』是動詞，明白、意識到；第二個『知』指知識或知道的內容。" },
-                { word: "上", zhuyin: "ㄕㄤˋ", pos: "形容詞/名詞", meaning: "最好、最高明的境界。" },
-                { word: "不知不知", zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", pos: "片語", meaning: "不知道卻自以為知道；或指沒有意識到自己的無知。" },
-                { word: "病", zhuyin: "ㄅㄧㄥˋ", pos: "名詞", meaning: "缺點、弊病、毛病。" },
-                { word: "是以", zhuyin: "ㄕˋ ㄧˇ", pos: "連詞", meaning: "因此、所以。" },
-                { word: "聖人", zhuyin: "ㄕㄥˋ ㄖㄣˊ", pos: "名詞", meaning: "道家理想中具有最高智慧與修養的人。" },
-                { word: "以其病病", zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", pos: "句型", meaning: "因為他把這個毛病當作毛病。『以』：因為。第一個『病』：動詞，引以為病。第二個『病』：名詞，指不知不知的弊病。" },
-                { word: "不病", zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", pos: "動賓片語", meaning: "沒有這種（不懂裝懂的）毛病。" }
+                { word: "行於山中", zhuyin: "ㄒㄧㄥˊ ㄩˊ ㄕㄢ ㄓㄨㄥ", pos: "片語", meaning: "在山中行走。" },
+                { word: "大木", zhuyin: "ㄉㄚˋ ㄇㄨˋ", pos: "名詞", meaning: "巨大的樹木。" },
+                { word: "伐木者", zhuyin: "ㄈㄚ ㄇㄨˋ ㄓㄜˇ", pos: "名詞", meaning: "砍伐樹木的人。" },
+                { word: "止其旁而不取", zhuyin: "ㄓˇ ㄑㄧˊ ㄆㄤˊ ㄦˊ ㄅㄨˋ ㄑㄩˇ", pos: "句型", meaning: "停在樹旁卻不砍伐它。" },
+                { word: "无所可用", zhuyin: "ㄨˊ ㄙㄨㄛˇ ㄎㄜˇ ㄩㄥˋ", pos: "句型", meaning: "沒有什麼用處。『无』通『無』。" },
+                { word: "以不材得終其天年", zhuyin: "ㄧˇ ㄅㄨˋ ㄘㄞˊ ㄉㄜˊ ㄓㄨㄥ ㄑㄧˊ ㄊㄧㄢ ㄋㄧㄢˊ", pos: "句型", meaning: "因為『不成材（沒有用處）』而得以度過牠自然的壽命。『以』：因為。" },
+                { word: "舍於故人之家", zhuyin: "ㄕㄜˋ ㄩˊ ㄍㄨˋ ㄖㄣˊ ㄓ ㄐㄧㄚ", pos: "句型", meaning: "投宿在老朋友的家裡。『舍』：名詞作動詞，投宿。" },
+                { word: "故人", zhuyin: "ㄍㄨˋ ㄖㄣˊ", pos: "名詞", meaning: "老朋友。" },
+                { word: "豎子", zhuyin: "ㄕㄨˋ ㄗˇ", pos: "名詞", meaning: "童僕、僕役。" },
+                { word: "殺雁而烹之", zhuyin: "ㄕㄚ ㄧㄢˋ ㄦˊ ㄆㄥ ㄓ", pos: "句型", meaning: "殺鵝來煮。『雁』此處指家鵝。『烹』：煮。" },
+                { word: "其一能鳴", zhuyin: "ㄑㄧˊ ㄧ ㄋㄥˊ ㄇㄧㄥˊ", pos: "句型", meaning: "其中一隻會叫。" },
+                { word: "請奚殺", zhuyin: "ㄑㄧㄥˇ ㄒㄧ ㄕㄚ", pos: "句型", meaning: "請問要殺哪一隻？『奚』：疑問代詞，何、哪裡，此指『哪一隻』。" },
+                { word: "先生將何處", zhuyin: "ㄒㄧㄢ ㄕㄥ ㄐㄧㄤ ㄏㄜˊ ㄔㄨˇ", pos: "句型", meaning: "老師您將要自處於什麼位置（有用還是無用）？『處』：動詞，自處、立身。" },
+                { word: "周", zhuyin: "ㄓㄡ", pos: "名詞", meaning: "莊子自稱（莊周）。" },
+                { word: "周將處乎材與不材之間", zhuyin: "ㄓㄡ ㄐㄧㄤ ㄔㄨˇ 乎 ㄘㄞˊ ㄩˇ ㄅㄨˋ ㄘㄞˊ ㄓ ㄐㄧㄢ", pos: "句型", meaning: "我（莊周）將要處在『有用』與『無用』之間。" },
+                { word: "似之而非也", zhuyin: "ㄙˋ ㄓ ㄦˊ ㄈㄟ ㄧㄝˇ", pos: "句型", meaning: "（處在兩者之間）雖然看起來像是能避禍，但實際上並非絕對安全。" },
+                { word: "未免乎累", zhuyin: "ㄨㄟˋ ㄇㄧㄢˇ 乎 ㄌㄟˇ", pos: "句型", meaning: "還是難免會受到牽連與危害。『累』：名詞，禍患、牽累。" },
+                { word: "若夫", zhuyin: "ㄖㄨㄛˋ ㄈㄨˊ", pos: "連詞", meaning: "至於說。用於引起下文的發語詞。" },
+                { word: "乘道德而浮遊", zhuyin: "ㄔㄥˊ ㄉㄠˋ ㄉㄜˊ ㄦˊ ㄈㄨˊ ㄧㄡˊ", pos: "句型", meaning: "順應著自然大道而逍遙自在地生活。『乘』：駕馭、順應。『道德』：指自然規律與萬物之本性。『浮遊』：逍遙無拘無束。" },
+                { word: "不然", zhuyin: "ㄅㄨˋ ㄖㄢˊ", pos: "片語", meaning: "不是這樣（指不會受到禍患牽累）。" }
             ],
 
             segments: [
                 {
-                    original: "知不知，上；不知不知，病。",
-                    translation: "知道自己有所不知，這是最高明的境界；不知道卻自以為知道，這就是一種嚴重的毛病（缺點）。",
-                    audioText: "知不知，上；，不知不知，病。",
+                    original: "莊子行於山中，見大木，枝葉盛茂，伐木者止其旁而不取也。問其故，曰：「无所可用。」莊子曰：「此木以不材得終其天年夫！」",
+                    translation: "莊子在山裡行走，看見一棵巨大的樹木，枝葉生長得非常茂盛。伐木的人停在樹旁卻不砍伐它。莊子問他原因，伐木者說：「這棵樹沒有什麼用處。」莊子感慨地說：「這棵樹正是因為不成材（無用），才能夠安然度過牠自然的壽命啊！」",
+                    audioText: "莊子行於山中，，見大木，，枝葉盛茂，，伐木者止其旁而不取也。，問其故，，曰：「無所可用。」，莊子曰：「此木，以不材得終其天年夫！」",
                     notes: {
-                        "知不知": { zhuyin: "ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "知道自己有所不知。" },
-                        "上": { zhuyin: "ㄕㄤˋ", type: "名詞", def: "最高明。" },
-                        "不知不知": { zhuyin: "ㄅㄨˋ ㄓ ㄅㄨˋ ㄓ", type: "片語", def: "不知道卻自以為知道。" },
-                        "病": { zhuyin: "ㄅㄧㄥˋ", type: "名詞", def: "缺點、毛病。" }
+                        "伐木者": { zhuyin: "ㄈㄚ ㄇㄨˋ ㄓㄜˇ", type: "名詞", def: "砍伐樹木的人。" },
+                        "无所可用": { zhuyin: "ㄨˊ ㄙㄨㄛˇ ㄎㄜˇ ㄩㄥˋ", type: "句型", def: "沒有用處。『无』通『無』。" },
+                        "以不材得終其天年": { zhuyin: "ㄧˇ ㄅㄨˋ ㄘㄞˊ ㄉㄜˊ ㄓㄨㄥ ㄑㄧˊ ㄊㄧㄢ ㄋㄧㄢˊ", type: "句型", def: "因為無用而得保全自然壽命。" }
                     }
                 },
                 {
-                    original: "是以聖人不病。以其病病，是以不病。",
-                    translation: "因此，聖人沒有這種（不懂裝懂的）毛病。正是因為他把這種毛病當作真正的毛病去時刻警惕，所以他才不會有這種毛病。",
-                    audioText: "是以聖人不病。，以其病病，，是以不病。",
+                    original: "出於山，舍於故人之家。故人喜，命豎子殺雁而烹之。豎子請曰：「其一能鳴，其一不能鳴，請奚殺？」主人曰：「殺不能鳴者。」",
+                    translation: "莊子走出山林後，投宿在老朋友的家裡。老朋友非常高興，吩咐僕役殺鵝來煮。僕役請示說：「其中一隻鵝會叫，另一隻鵝不會叫，請問要殺哪一隻？」主人回答：「殺那隻不會叫的。」",
+                    audioText: "出於山，，社於故人之家。，故人喜，，命樹子殺燕而朋之。，樹子請曰：「其一能鳴，，其一不能鳴，，請西殺？」，主人曰：「殺不能鳴者。」",
                     notes: {
-                        "是以": { zhuyin: "ㄕˋ ㄧˇ", type: "連詞", def: "因此、所以。" },
-                        "聖人": { zhuyin: "ㄕㄥˋ ㄖㄣˊ", type: "名詞", def: "有最高智慧的人。" },
-                        "以其病病": { zhuyin: "ㄧˇ ㄑㄧˊ ㄅㄧㄥˋ ㄅㄧㄥˋ", type: "句型", def: "因為他把這個毛病當作毛病。首字病為動詞，次字病為名詞。" },
-                        "不病": { zhuyin: "ㄅㄨˋ ㄅㄧㄥˋ", type: "片語", def: "沒有這種毛病。" }
+                        "舍於故人之家": { zhuyin: "ㄕㄜˋ ㄩˊ ㄍㄨˋ ㄖㄣˊ ㄓ ㄐㄧㄚ", type: "句型", def: "投宿在老朋友家。舍：投宿。" },
+                        "豎子": { zhuyin: "ㄕㄨˋ ㄗˇ", type: "名詞", def: "童僕、僕役。" },
+                        "殺雁而烹之": { zhuyin: "ㄕㄚ ㄧㄢˋ ㄦˊ ㄆㄥ ㄓ", type: "句型", def: "殺鵝來煮。雁：家鵝。" },
+                        "請奚殺": { zhuyin: "ㄑㄧㄥˇ ㄒㄧ ㄕㄚ", type: "句型", def: "請問要殺哪一隻？奚：哪裡、哪一隻。" }
+                    }
+                },
+                {
+                    original: "明日，弟子問於莊子曰：「昨山中之木，以不材得終其天年；今主人之雁，以不材死；先生將何處？」",
+                    translation: "到了第二天，弟子滿腹疑惑地問莊子：「昨天山裡的那棵巨樹，因為『沒有用』而得以保全壽命；今天主人家的鵝，卻因為『沒有用（不會叫）』而被殺死。請問老師，面對這種情況，您將要如何自處呢？」",
+                    audioText: "明日，，弟子問於莊子曰：「昨山中之木，，以不材得終其天年；，今主人之燕，，以不材死；，先生將何楚？」",
+                    notes: {
+                        "弟子": { zhuyin: "ㄉㄧˋ ㄗˇ", type: "名詞", def: "莊子的學生。" },
+                        "先生將何處": { zhuyin: "ㄒㄧㄢ ㄕㄥ ㄐㄧㄤ ㄏㄜˊ ㄔㄨˇ", type: "句型", def: "老師您將要自處於什麼位置（有用還是無用）？處：立身、自處。" }
+                    }
+                },
+                {
+                    original: "莊子笑曰：「周將處乎材與不材之間。材與不材之間，似之而非也，故未免乎累。若夫乘道德而浮遊則不然。」",
+                    translation: "莊子笑著回答：「我莊周大概會選擇處於『有用』與『無用』之間吧。然而，處在有用與無用之間，看似能避禍，其實未必絕對安全，所以依然難免會受到世俗的牽累。至於說那些能順應自然大道、無拘無束逍遙浮遊的人，就不會這樣被牽累了。」",
+                    audioText: "莊子笑曰：「洲將楚乎材與不材之間。，材與不材之間，，似之而非也，，故未免乎壘。，若夫成道德而浮遊則不然。」",
+                    notes: {
+                        "周": { zhuyin: "ㄓㄡ", type: "名詞", def: "莊子自稱（莊周）。" },
+                        "似之而非也": { zhuyin: "ㄙˋ ㄓ ㄦˊ ㄈㄟ ㄧㄝˇ", type: "句型", def: "看似安全，其實並非絕對安全。" },
+                        "未免乎累": { zhuyin: "ㄨㄟˋ ㄇㄧㄢˇ 乎 ㄌㄟˇ", type: "句型", def: "難免受到牽連與禍患。累：禍患。" },
+                        "若夫": { zhuyin: "ㄖㄨㄛˋ ㄈㄨˊ", type: "連詞", def: "至於說。" },
+                        "乘道德而浮遊": { zhuyin: "ㄔㄥˊ ㄉㄠˋ ㄉㄜˊ ㄦˊ ㄈㄨˊ ㄧㄡˊ", type: "句型", def: "順應著自然大道而逍遙自在地生活。" }
                     }
                 }
             ],
+            
             quiz: [
-                { q: "《道德經》的作者是誰？", opts: ["A. 莊子", "B. 孟子", "C. 老子", "D. 韓非子"], ans: "C", exp: "《道德經》又稱《老子》，是道家哲學的重要經典，相傳為老子所著。" },
-                { q: "關於「知不知，上」，第一個「知」字的意思是？", opts: ["A. 知識", "B. 結交", "C. 明白、意識到", "D. 掌管"], ans: "C", exp: "第一個「知」是動詞，意思是明白、知道自己有所不知。" },
-                { q: "「知不知，上」中的「上」是什麼意思？", opts: ["A. 往上走", "B. 最高明、最好的境界", "C. 皇上", "D. 表面上"], ans: "B", exp: "「上」在此作名詞/形容詞，指上等的、最高明的狀態。" },
-                { q: "「不知不知，病」這句話批判了什麼樣的態度？", opts: ["A. 勤奮好學", "B. 謙虛退讓", "C. 身體虛弱", "D. 不懂裝懂、自以為是"], ans: "D", exp: "「不知不知」是指沒有意識到自己的無知，反而自以為什麼都懂，這是認知上的大病。" },
-                { q: "古文中的「病」通常作何解釋？此處的「病」意指什麼？", opts: ["A. 生理上的疾病", "B. 心理或認知上的缺點、毛病", "C. 疲憊", "D. 悲傷"], ans: "B", exp: "此處的病並非指生病，而是指性格、修養或認知上的弊病與缺陷。" },
-                { q: "「是以聖人不病」的「是以」是什麼意思？", opts: ["A. 這是", "B. 以為", "C. 因此、所以", "D. 憑藉"], ans: "C", exp: "是以，為古文常見連詞，等同於「所以、因此」。" },
-                { q: "「以其病病」的「以」字，用法為何？", opts: ["A. 介詞，把", "B. 連詞，因為", "C. 動詞，認為", "D. 名詞，緣故"], ans: "B", exp: "「以」其病病，意思是「因為」他把這毛病當成毛病。" },
-                { q: "「以其病病」中，兩個「病」字的詞性分別是什麼？", opts: ["A. 名詞；名詞", "B. 動詞；名詞", "C. 名詞；動詞", "D. 動詞；動詞"], ans: "B", exp: "第一個病是動詞（引以為病/當作毛病），第二個病是名詞（缺點/毛病）。" },
-                { q: "承上題，第一個「病」字（動詞）的字義為何？", opts: ["A. 生病", "B. 當作毛病、引以為憂", "C. 傳染", "D. 治療"], ans: "B", exp: "第一個病是轉品（轉類）的動詞用法，意指正視並警惕這個毛病。" },
-                { q: "「以其病病，是以不病」蘊含了道家的什麼思想？", opts: ["A. 順應自然，無為而治", "B. 弱肉強食，適者生存", "C. 反求諸己、時刻自省，居微處下", "D. 嚴刑峻法"], ans: "C", exp: "聖人能隨時自省，看到自己的不足並引以為戒，這正是道家推崇的謙卑自修精神。" },
-                { q: "希臘哲人蘇格拉底曾說：「我唯一知道的，就是我一無所知」，這句話與本課哪一句話含義最相近？", opts: ["A. 知不知，上", "B. 不知不知，病", "C. 是以聖人不病", "D. 以其病病"], ans: "A", exp: "兩者都強調「認知到自己的無知」才是真正的智慧起點。" },
-                { q: "本文在短短數十字中，不斷重複「知」與「病」字，這種修辭技巧產生了什麼效果？", opts: ["A. 顯得詞彙貧乏", "B. 為了湊字數", "C. 層層遞進，迴環往復，加深說理的辯證力道", "D. 製造懸疑感"], ans: "C", exp: "《道德經》常以簡潔且重複的字眼（如道可道非常道），製造出強烈的思辨與哲理感。" },
-                { q: "如果一個人總是喜歡在別人面前「強不知以為知」，老子會用哪個字來形容他的狀態？", opts: ["A. 上", "B. 聖", "C. 病", "D. 賢"], ans: "C", exp: "不懂裝懂，就是老子所謂的「不知不知，病」。" },
-                { q: "下列哪一個成語，最適合用來形容「不知不知」的狀態？", opts: ["A. 虛懷若谷", "B. 夜郎自大 / 井底之蛙", "C. 博學多聞", "D. 不恥下問"], ans: "B", exp: "夜郎自大和井底之蛙都是用來形容人見識淺薄卻自以為是，正是「不知不知」的體現。" },
-                { q: "關於「聖人不病」的原因，老子的解釋是什麼？", opts: ["A. 因為聖人天生聰明，什麼都懂", "B. 因為聖人吃了仙丹，不會生病", "C. 因為聖人能察覺並正視自己的缺點，時刻警惕", "D. 因為聖人不與人來往"], ans: "C", exp: "「以其病病，是以不病」，聖人的偉大不在於不犯錯，而在於能正視自身的缺陷。" },
-                { q: "《道德經》一書又被稱為什麼？", opts: ["A. 《莊子》", "B. 《孟子》", "C. 《老子》", "D. 《列子》"], ans: "C", exp: "《道德經》原名即為《老子》。" },
-                { q: "「知不知」與「不知不知」這兩句話，在句型上構成了何種修辭？", opts: ["A. 譬喻", "B. 對比 (映襯)", "C. 誇飾", "D. 擬人"], ans: "B", exp: "兩者形成強烈的對比，區分了智者與愚者的境界。" },
-                { q: "在道家思想中，「聖人」的形象通常是？", opts: ["A. 高高在上，充滿權力威嚴", "B. 虛心柔弱、順應自然、不自滿", "C. 喜歡與人辯論，爭個輸贏", "D. 穿著華麗，講究排場"], ans: "B", exp: "道家的聖人「居善地，心善淵」，特徵是如水般的謙下與自省。" },
-                { q: "在「以其病病」中，將名詞的「病」轉化為動詞「引以為病」，這種修辭格稱為什麼？", opts: ["A. 借代", "B. 頂真", "C. 轉化 (轉類/轉品)", "D. 鑲嵌"], ans: "C", exp: "將一種詞性當作另一種詞性使用，稱為轉品（轉類）。" },
-                { q: "全文雖然簡短，但充滿了辯證邏輯。這體現了《老子》哪一種寫作特色？", opts: ["A. 辭藻華麗，鋪陳繁複", "B. 大量描寫神話故事", "C. 正言若反、詞約義豐", "D. 專注於記錄歷史事件"], ans: "C", exp: "《老子》的文字極度精簡，卻常使用看似矛盾（正言若反）的語句來表達深邃的哲理。" }
+                { q: "《山木》一文出自於莊子哪一個篇章類別？", opts: ["A. 內篇", "B. 外篇", "C. 雜篇", "D. 說林篇"], ans: "B", exp: "《山木》屬於莊子《外篇》，探討了在亂世中保全身心、逍遙無待的哲學。" },
+                { q: "「舍於故人之家」中的「舍」字，其詞性與字義為何？", opts: ["A. 名詞，房屋", "B. 動詞，投宿", "C. 動詞，捨棄", "D. 介詞，除了"], ans: "B", exp: "此處為轉品修辭（名詞作動詞用），意指「投宿、留宿」在老朋友家。" },
+                { q: "「『无』所可用」中的「无」字，屬於哪一種修辭或文字現象？", opts: ["A. 避諱字", "B. 轉注", "C. 假借 (通假字)", "D. 會意"], ans: "C", exp: "「无」通「無」，是古文常見的通假字現象。" },
+                { q: "山中的巨樹因為什麼原因而得以「終其天年」？", opts: ["A. 木質堅硬無比", "B. 受到當地神明保護", "C. 長得太高無法砍伐", "D. 對伐木者而言沒有用處 (不材)"], ans: "D", exp: "因為樹木「无所可用（不成材）」，伐木者才不去砍它，它因此保全了壽命。" },
+                { q: "「豎子請曰：『請奚殺？』」中的「奚」是什麼意思？", opts: ["A. 為什麼", "B. 如何", "C. 哪一隻", "D. 什麼時候"], ans: "C", exp: "「奚」是疑問代詞，在此處詢問主人「要殺哪一隻（鵝）」。" },
+                { q: "為什麼朋友家的家雁（鵝）會被殺掉？", opts: ["A. 因為牠太肥美", "B. 因為牠不會啼叫 (不材)", "C. 因為牠會咬人", "D. 因為牠生病了"], ans: "B", exp: "主人說「殺不能鳴者」，因為這隻鵝連叫（守夜防盜）的作用都沒有，屬於「不材」，因此被殺。" },
+                { q: "弟子問「先生將何『處』」，「處」字在文中的意思為何？", opts: ["A. 居住的地方", "B. 懲罰", "C. 自處、立身", "D. 結束"], ans: "C", exp: "弟子問莊子：面對有用與無用的矛盾，老師您將要如何「自處（立身處世）」？" },
+                { q: "「『周』將處乎材與不材之間」中的「周」指的是誰？", opts: ["A. 周文王", "B. 周圍的人", "C. 莊子自稱 (莊周)", "D. 國名"], ans: "C", exp: "莊子名周，此處是他的自稱。" },
+                { q: "莊子初步回答自己要處在「材與不材之間」，但他認為這是一個完美的方法嗎？", opts: ["A. 是，這能保證絕對安全", "B. 是，這是儒家中庸之道", "C. 不是，這仍然難免會受到世俗牽累", "D. 不是，因為這會得罪皇帝"], ans: "C", exp: "莊子說「似之而非也，故未免乎累」，代表這只是權宜之計，依然受制於世俗價值，無法真正解脫。" },
+                { q: "「若夫乘『道德』而浮遊則不然」中的「道德」，在道家語境中最準確的解釋是？", opts: ["A. 儒家提倡的仁義禮智", "B. 社會善良風俗", "C. 宇宙萬物的自然本性與規律", "D. 個人修養的品德"], ans: "C", exp: "道家的「道德」指的是「道（宇宙本源）」與「德（事物得自於道的自然稟賦）」，完全超脫了世俗的倫理道德範疇。" },
+                { q: "「乘道德而浮遊」運用了哪一種修辭技巧，將抽象的規律化為具象的動作？", opts: ["A. 誇飾", "B. 借代 / 轉化 (形象化)", "C. 頂真", "D. 雙關"], ans: "B", exp: "將抽象的「道」與「德」當作可以「乘駕」的載體，是將抽象概念具象化（形象化）的寫作手法。" },
+                { q: "從這兩則寓言可以看出，世俗對於「有用（材）」與「無用（不材）」的評價具有什麼特性？", opts: ["A. 絕對不變", "B. 客觀公正", "C. 荒謬且相對，隨情境改變", "D. 具有科學依據"], ans: "C", exp: "山木因無用而活，家雁卻因無用而死，證明了世俗評價標準的矛盾與相對性。" },
+                { q: "若將《山木》與莊子另一名篇《逍遙遊》中的「樗樹（無用之大樹）」相比，兩棵樹的命運有何共同點？", opts: ["A. 都被做成了神桌", "B. 都因為「無用」而得以保全天年", "C. 都被工匠嫌棄並砍去當柴燒", "D. 都結滿了甜美的果實"], ans: "B", exp: "《逍遙遊》中的樗樹與本篇的山木，都體現了莊子「無用之用，方為大用」的保身哲理。" },
+                { q: "「似之而非也，故『未免乎累』」中，「累」字的意思是？", opts: ["A. 疲勞", "B. 積累", "C. 禍患、牽連", "D. 眼淚"], ans: "C", exp: "累，名詞，指牽累、禍患。代表只要還在世俗價值裡打轉，就會有危險。" },
+                { q: "根據莊子的哲學，要達到「不然（不被牽累）」的境界，核心關鍵是什麼？", opts: ["A. 拚命展現自己的才華", "B. 裝聾作啞，逃避人群", "C. 超越世俗價值觀，順應自然大道", "D. 建立龐大的勢力保護自己"], ans: "C", exp: "唯有超越世俗「有用/無用」的二元對立，達到「乘道德而浮遊」的無待境界，才是真正的逍遙保身之道。" },
+                { q: "「若夫」一詞在古文中的作用通常是？", opts: ["A. 表示反問", "B. 表示總結", "C. 引起下文，表示「至於說...」", "D. 表示感嘆"], ans: "C", exp: "若夫是發語詞，用來轉換話題或引出另一層次的論述。" },
+                { q: "下列哪一句成語的意境，與「乘道德而浮遊」最不相關？", opts: ["A. 逍遙法外", "B. 順其自然", "C. 隨遇而安", "D. 超然物外"], ans: "A", exp: "逍遙法外是指犯法者沒有受到法律制裁，為貶義詞；而莊子的浮遊是指精神境界的超脫。" },
+                { q: "在《山木》的故事中，弟子為何會產生困惑？", opts: ["A. 因為他聽不懂莊子的方言", "B. 因為他不知道鵝肉怎麼煮", "C. 因為前一天的經驗（不材則生）與今天的經驗（不材則死）產生了邏輯衝突", "D. 因為他想成為伐木工人"], ans: "C", exp: "弟子敏銳地察覺到，同樣是「不材（無用）」，卻導致了完全相反的生死結果，因而感到迷惘。" },
+                { q: "莊子回答「處乎材與不材之間」，這與儒家的「中庸之道」有何本質上的不同？", opts: ["A. 完全相同，都是教人不要極端", "B. 莊子是為了避世保身（權宜之計），儒家是為了積極行道（最高道德標準）", "C. 莊子的要求比儒家更嚴格", "D. 莊子認為這能解決所有問題，儒家不認為"], ans: "B", exp: "莊子的「材與不材之間」只是保命的妥協，且他自己也承認這「未免乎累」；儒家的中庸則是不可偏廢的道德極致。" },
+                { q: "綜觀全文，莊子認為最理想的生命狀態應該具有什麼特質？", opts: ["A. 成為對社會最有貢獻的人", "B. 功利算盡，永遠立於不敗之地", "C. 無拘無束，不依賴外物，與道同體", "D. 悲觀厭世，隨時準備赴死"], ans: "C", exp: "乘道德而浮遊，展現了道家「無己、無功、無名」的最高自由境界。" }
             ]
         };
 
+        // 預處理所有關鍵字 (確保能在內文中被高亮並綁定事件)
         const allKeywords = {};
         contentData.segments.forEach((seg, idx) => {
             Object.entries(seg.notes).forEach(([key, note]) => {
@@ -251,6 +283,9 @@
             });
         });
 
+        // ----------------------------------------------------
+        // 2. 全域狀態管理 (靜態版本)
+        // ----------------------------------------------------
         let currentTab = 'overview';
         let userAnswers = {}; 
 
@@ -311,17 +346,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-brain text-amber-600 text-2xl"></i>
+                                <i class="fas fa-balance-scale text-amber-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">真知的起點</h3>
-                            <p class="text-amber-800 font-serif text-lg">承認無知，方能大智</p>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">價值的矛盾</h3>
+                            <p class="text-amber-800 font-serif text-lg">不材則生，不材則死</p>
                         </div>
                         <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
                             <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-seedling text-orange-600 text-2xl"></i>
+                                <i class="fas fa-wind text-orange-600 text-2xl"></i>
                             </div>
-                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">聖人之道</h3>
-                            <p class="text-orange-800 font-serif text-lg">以病為病，時刻自省</p>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">逍遙的境界</h3>
+                            <p class="text-orange-800 font-serif text-lg">乘道德而浮遊，超然物外</p>
                         </div>
                     </div>
                 </div>
@@ -337,7 +372,8 @@
                      displayHtml = displayHtml.replace(new RegExp(`(?<!<[^>]*)${key}`, 'g'), `<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
                 });
 
-                const localPath = `Chinese-Classical1-1-images/reading_segment_${idx + 1}.jpg`;
+                // 修改為讀取本地靜態圖片
+                const localPath = `Chinese-Classical1-5-images/reading_segment_${idx + 1}.jpg`;
                 let imageSection = `
                     <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
                         <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
@@ -371,7 +407,7 @@
             container.innerHTML = `
                 <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-orange-100 shadow-sm">
                     <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
-                    <p class="text-sm text-amber-700">為您重現老子傳遞哲思的寧靜場景。</p>
+                    <p class="text-sm text-amber-700">運用寫實風格，為您重現莊子遊歷山林的哲思場景。</p>
                 </div>
                 <div class="max-w-4xl mx-auto mt-4">
                     ${segmentsHtml}
@@ -387,7 +423,7 @@
             container.innerHTML = `
                 <div class="space-y-12">
                     <section>
-                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">認知境界邏輯圖</h2>
+                        <h2 class="text-2xl font-bold text-amber-900 mb-6 font-serif border-l-4 border-amber-600 pl-4">世俗評價與逍遙境界圖</h2>
                         <div class="bg-white rounded-xl shadow-lg p-8 border border-orange-100 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
                              <svg viewBox="0 0 700 400" class="w-full h-full">
                                 <defs>
@@ -396,43 +432,44 @@
                                     </marker>
                                 </defs>
                                 
-                                <!-- Center Self -->
-                                <rect x="280" y="20" width="140" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
-                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#374151">面對未知的態度</text>
+                                <!-- Center Source: Secural Standard -->
+                                <rect x="250" y="20" width="200" height="50" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="3" />
+                                <text x="350" y="50" text-anchor="middle" font-weight="bold" font-size="16" fill="#374151">世俗價值標準</text>
 
-                                <path d="M350,70 L200,100" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
-                                <path d="M350,70 L500,100" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L200,100" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <path d="M350,70 L500,100" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
 
-                                <!-- Left Path: GOOD -->
-                                <rect x="110" y="110" width="180" height="80" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="3" />
-                                <text x="200" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#166534">知不知</text>
-                                <text x="200" y="165" text-anchor="middle" font-size="14" fill="#15803d">(承認自己有所不知)</text>
+                                <!-- Left Path: Tree -->
+                                <rect x="110" y="110" width="180" height="80" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="3" />
+                                <text x="200" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#0369a1">山木不材 (無用)</text>
+                                <text x="200" y="165" text-anchor="middle" font-size="14" fill="#075985">無所可用，免於砍伐</text>
 
-                                <path d="M200,190 L200,240" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow-deep)" />
+                                <path d="M200,190 L200,240" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow-deep)" />
 
-                                <rect x="110" y="250" width="180" height="60" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3" />
-                                <text x="200" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#15803d">上 (最高明)</text>
+                                <rect x="110" y="250" width="180" height="40" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" />
+                                <text x="200" y="275" text-anchor="middle" font-weight="bold" font-size="16" fill="#075985">得終天年 (生)</text>
 
-                                <!-- Right Path: EVIL -->
-                                <rect x="410" y="110" width="180" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="3" />
-                                <text x="500" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#991b1b">不知不知</text>
-                                <text x="500" y="165" text-anchor="middle" font-size="14" fill="#b91c1c">(不懂裝懂 / 盲目自大)</text>
+                                <!-- Right Path: Goose -->
+                                <rect x="410" y="110" width="180" height="80" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="3" />
+                                <text x="500" y="140" text-anchor="middle" font-weight="bold" font-size="16" fill="#92400e">家雁不材 (不能鳴)</text>
+                                <text x="500" y="165" text-anchor="middle" font-size="14" fill="#b45309">無法守夜，首先被宰</text>
 
-                                <path d="M500,190 L500,240" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-deep)" />
+                                <path d="M500,190 L500,240" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-deep)" />
 
-                                <rect x="410" y="250" width="180" height="60" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="3" />
-                                <text x="500" y="285" text-anchor="middle" font-weight="bold" font-size="20" fill="#b91c1c">病 (毛病缺陷)</text>
+                                <rect x="410" y="250" width="180" height="40" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="3" />
+                                <text x="500" y="275" text-anchor="middle" font-weight="bold" font-size="16" fill="#92400e">被殺而烹 (死)</text>
 
-                                <!-- Final Synthesis -->
-                                <path d="M200,310 L200,340 L350,340 L350,320" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                                <path d="M500,310 L500,340 L350,340" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+                                <!-- Middle Conflict & Synthesis -->
+                                <path d="M200,290 L200,310 L350,310 L350,330" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+                                <path d="M500,290 L500,310 L350,310" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
                                 
-                                <rect x="150" y="340" width="400" height="50" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="3" />
-                                <text x="350" y="370" text-anchor="middle" font-weight="bold" font-size="16" fill="#1e40af">聖人之道：以其病病，是以不病</text>
+                                <rect x="150" y="330" width="400" height="60" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="3" />
+                                <text x="350" y="355" text-anchor="middle" font-weight="bold" font-size="14" fill="#5b21b6">妥協：材與不材之間 (未免乎累)</text>
+                                <text x="350" y="375" text-anchor="middle" font-weight="bold" font-size="16" fill="#4c1d95">解脫：乘道德而浮遊 (逍遙無待)</text>
                             </svg>
                         </div>
                         <p class="mt-6 text-amber-800 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-100">
-                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學分析：</strong> 老子運用極簡的對比（知不知 vs 不知不知），點破了人類認知的一大盲點。人最大的無知，在於「不知道自己的無知」。聖人並非全知全能的神，而是具備最高自省能力的人。他懂得將「不懂裝懂」視為一種危險的疾病（以其病病），時刻自我警惕，因此才能免於陷入盲目的傲慢之中。
+                            <strong><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>文學分析：</strong> 《山木》精準地點出了社會世俗標準的荒謬。同一種「無用（不材）」，在山木身上是保命符，在鵝身上卻是催命符。弟子因此困惑。莊子指出，如果只是在世俗的框架中計算利害，試圖處於「有用與無用」之間，依然是一種機心，終究會受牽累。唯有放棄這些算計，回歸自然本性（乘道德而浮遊），才能獲得真正的自由。
                         </p>
                     </section>
                 </div>
@@ -457,7 +494,7 @@
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold text-amber-900 font-serif mb-2">語詞精解</h2>
-                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，精準掌握道家轉品與詞意分析</p>
+                        <p class="text-amber-700">共收錄 ${contentData.vocabulary.length} 個重點詞彙，並已完全整合於上方「精讀與圖解」中</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         ${cardsHtml}
@@ -565,9 +602,9 @@
             container.innerHTML = `
                 <div class="max-w-3xl mx-auto pb-24">
                     <div class="text-center mb-10">
-                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高鑑別度題型</span>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-red-200">高難度與高鑑別度</span>
                         <h2 class="text-3xl font-bold text-amber-900 font-serif">隨堂測驗 (20題)</h2>
-                        <p class="text-amber-700 mt-2">挑戰詞性轉換與道家哲思的深度考題</p>
+                        <p class="text-amber-700 mt-2">挑戰文意理解與邏輯辯證的深度考題</p>
                     </div>
                     ${quizHtml}
                     
@@ -581,26 +618,34 @@
             `;
         }
 
+        // [Tab Story] 抉擇之路 (RPG)
         const storyNodes = {
             start: {
                 id: 'start',
-                text: "你是齊國稷下學宮的一名年輕學子。今日，各派大師齊聚一堂，探討宇宙的邊界與天象的奧秘。大師突然指著你，問了一個你完全不懂、極其深奧的天文學問題。所有人的目光都集中在你身上。這時，你決定...",
+                text: "你是跟隨莊子雲遊的弟子。今天，你見證了山中巨木因『無用』而活，卻又看到老友家的鵝因『無用』而被殺。亂世之中，君王正在招募人才，朋友勸你入仕。面對這荒謬的世界與矛盾的標準，你決定如何自處？",
                 choices: [
-                    { text: "為了面子，憑藉自己讀過的一些零碎知識，硬是胡謅了一套聽起來很厲害的理論。", next: "fake_it" },
-                    { text: "坦然鞠躬：「弟子才疏學淺，確實不知。懇請大師賜教。」", next: "admit_ignorance" }
+                    { text: "努力成為極致的『有用之才』，全心為君王效力，博取功名。", next: "useful_path" },
+                    { text: "見風轉舵，在『有用』與『無用』之間巧妙周旋，明哲保身。", next: "middle_path" },
+                    { text: "放下對世俗價值的執著，順應自然大道，不求功名，逍遙度日。", next: "dao_path" }
                 ]
             },
-            fake_it: {
-                id: 'fake_it',
-                text: "【不知不知，病】你口若懸河地說了一大串，台下卻傳來幾聲輕笑。大師毫不留情地指出了你理論中漏洞百出、自相矛盾的地方。你羞愧得滿臉通紅。你犯了不懂裝懂的毛病，不僅沒有得到尊重，反而失去了學者的誠信。",
-                choices: [{ text: "重來，老子說過，不知不知才是病", next: "start" }],
+            useful_path: {
+                id: 'useful_path',
+                text: "【未免乎累】你入朝為官，展現極高才華。然而，『直木先伐，甘井先竭』，你的才華招來了同僚的嫉妒與君王的猜忌。最終，你在一場政治鬥爭中遭到陷害，心力交瘁而死。你因『材』而招致了殺身之禍。",
+                choices: [{ text: "重來，世俗的評價太過危險", next: "start" }],
                 isEnding: true
             },
-            admit_ignorance: {
-                id: 'admit_ignorance',
-                text: "【知不知，上】大師聽了你的回答，非但沒有生氣，反而微微頷首：「善。學問浩如煙海，誰能全知？你能坦承自己的無知，不強不知以為知，這正是求學的最高境界啊！」你因此獲得了眾人的敬重，並真正學到了新知識。",
+            middle_path: {
+                id: 'middle_path',
+                text: "【似之而非也】你試圖八面玲瓏，有時展現才華，有時裝傻充愣。雖然一時間避開了災禍，但你每天都要戰戰兢兢地計算利害，內心充滿焦慮，一生都活在世俗的框架與別人的眼光中。這不是真正的自由。",
+                choices: [{ text: "重來，這依然是一種精神上的牽累", next: "start" }],
+                isEnding: true
+            },
+            dao_path: {
+                id: 'dao_path',
+                text: "【乘道德而浮遊】你領悟了莊子的教誨，不再被世俗『有用/無用』的標籤所綁架。你退隱山林，順應萬物自然的規律，內心無欲無求。你真正達到了與道同體、無待逍遙的最高精神境界！",
                 choices: [
-                    { text: "回到總覽，銘記老子的教誨", next: "start" }
+                    { text: "回到總覽，銘記大師的教誨", next: "start" }
                 ],
                 isEnding: true,
                 win: true
@@ -611,14 +656,15 @@
             if(!window.currentStoryNode) window.currentStoryNode = 'start';
             const node = storyNodes[window.currentStoryNode];
 
-            const localPath = `Chinese-Classical1-1-images/rpg_${window.currentStoryNode}.jpg`;
+            // 修改為讀取本地靜態圖片
+            const localPath = `Chinese-Classica1-5-images/rpg_${window.currentStoryNode}.jpg`;
             let imageContent = `
                 <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
                     <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
                 </div>
             `;
 
-            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>真知灼見</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-amber-800 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-amber-900 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>逍遙無待</div>` : `<div class="text-center mb-8 text-orange-700 font-bold text-2xl p-6 bg-orange-50 rounded-xl border border-orange-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-amber-500 rounded-xl text-amber-900 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-300 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
             if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
         }
 
@@ -737,17 +783,7 @@
             popup.classList.remove('hidden');
         }
 
-        function processTextWithNotes(text) {
-            let processedText = marked.parse(text);
-            const sortedKeys = Object.keys(allKeywords).sort((a, b) => b.length - a.length);
-            
-            sortedKeys.forEach(key => {
-                const regex = new RegExp(`(?<!<[^>]*)${key}`, "g");
-                processedText = processedText.replace(regex, `<span class="interactive-word bg-orange-50 px-1 rounded" onclick="showNote('${key}', undefined, this, event)">${key}</span>`);
-            });
-            return processedText;
-        }
-
+        // 語音播放優化：優先女聲，語速0.9，音調1.05，標點細緻停頓
         async function playAudio(text) {
             if (!('speechSynthesis' in window)) { showError("您的瀏覽器不支援語音朗讀功能。"); return; }
             window.speechSynthesis.cancel();
@@ -762,12 +798,14 @@
                 });
             }
 
+            // 優先尋找高品質女聲
             let targetVoice = voices.find(v => (v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW' || v.lang === 'zh-CN') && 
                 (v.name.includes('Google 國語') || v.name.includes('Mei-Jia') || v.name.includes('Yating') || v.name.includes('Lili') || v.name.includes('Ting-Ting') || v.name.includes('Xiaoxiao')));
             
             if (!targetVoice) targetVoice = voices.find(v => v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW'); 
             if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('zh'));
 
+            // 細緻標點分割與停頓控制
             const chunks = text.split(/([，、。？！；：])/).reduce((acc, curr, i) => {
                 if (i % 2 === 0) { 
                     if (curr.trim()) acc.push({ text: curr, pause: 0 });
@@ -788,8 +826,8 @@
                 if (index >= chunks.length) return;
                 const utterance = new SpeechSynthesisUtterance(chunks[index].text);
                 utterance.lang = 'zh-TW';
-                utterance.rate = 0.9;  
-                utterance.pitch = 1.05; 
+                utterance.rate = 0.9;  // 放慢語速至 0.9
+                utterance.pitch = 1.05; // 提高音調至 1.05
                 if (targetVoice) utterance.voice = targetVoice;
                 
                 utterance.onend = () => { setTimeout(() => playNext(index + 1), chunks[index].pause); };
@@ -806,6 +844,7 @@
             requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
             setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
         }
+
     </script>
 </body>
 </html>
