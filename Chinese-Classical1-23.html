@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(吳敏男 - 第三輯) 第12篇 子產不毀鄉校頌 - 互動式古文學習 (AI 旗艦版)</title>
+    
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 載入 FontAwesome 圖標 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 載入 Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fffbf0; /* 暖色象牙白底色 */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fcd34d' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* 自定義滾動條 (暖橘/琥珀配色) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fff7ed; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 4px; }
+
+        /* 標籤樣式 */
+        .tab-btn { position: relative; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 3px; background-color: #ea580c; transition: width 0.3s ease; }
+        .tab-btn.active { color: #78350f; background-color: #fef3c7; font-weight: bold; }
+        .tab-btn.active::after { width: 100%; }
+
+        /* 互動文字樣式 */
+        .interactive-word {
+            cursor: pointer;
+            border-bottom: 2px dotted #f59e0b; 
+            transition: all 0.2s;
+            padding-bottom: 1px;
+            position: relative;
+            z-index: 20;
+            color: #b45309; 
+            font-weight: 600;
+        }
+        .interactive-word:hover { background-color: #fde68a; color: #78350f; border-bottom-style: solid; }
+
+        /* 彈出註釋 */
+        .note-popup {
+            animation: fadeIn 0.2s ease-out;
+            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.15), 0 8px 10px -6px rgba(217, 119, 6, 0.1);
+            border-left-color: #f59e0b !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+            to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+
+        /* 懸停翻譯效果 */
+        .hover-trans-container:hover .hover-translation { display: block; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 故事模式樣式與通用狀態 */
+        .story-choice:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(217, 119, 6, 0.15), 0 2px 4px -1px rgba(217, 119, 6, 0.1); }
+        .fade-in-image { animation: fadeInImg 0.8s ease-out forwards; }
+        @keyframes fadeInImg { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        input[type="radio"]:disabled { cursor: not-allowed; opacity: 0.6; }
+        .disabled-label { cursor: not-allowed !important; opacity: 0.7; }
+    </style>
+</head>
+<body class="text-stone-800 min-h-screen flex flex-col">
+
+    <nav class="bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 shadow-lg sticky top-0 z-50 border-b border-amber-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-landmark text-2xl mr-3 text-amber-300"></i>
+                    <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
+                </div>
+                <div class="hidden md:block text-sm opacity-90 text-amber-200 font-medium">
+                    深度學習：第12篇 子產不毀鄉校頌 (韓愈)
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" class="max-w-6xl mx-auto p-4 sm:p-6 w-full flex-grow flex flex-col">
+        
+        <header class="bg-white rounded-2xl shadow-md overflow-hidden mb-6 border border-amber-200 relative">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-amber-100 rounded-bl-full opacity-60 z-0"></div>
+            <div class="bg-gradient-to-r from-amber-50 to-white p-6 sm:p-8 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 id="main-title" class="text-3xl sm:text-4xl font-serif font-bold text-amber-950 mb-2"></h1>
+                        <div class="flex items-center text-amber-900 space-x-4 text-sm sm:text-base">
+                            <span class="flex items-center bg-amber-100 px-3 py-1 rounded-full border border-amber-200"><i class="fas fa-user-edit mr-2 text-amber-600"></i><span id="author-name"></span></span>
+                            <span class="flex items-center bg-amber-100 px-3 py-1 rounded-full border border-amber-200"><i class="fas fa-book mr-2 text-amber-600"></i><span id="source-name"></span></span>
+                        </div>
+                    </div>
+                    <div class="hidden md:block text-right">
+                        <span class="inline-block bg-orange-100 text-orange-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-orange-300">重要考試文章</span>
+                        <div class="text-xs text-amber-700 font-medium">適合程度：中高階 (廣開言路與修辭辨析)</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-wrap justify-center bg-white rounded-xl shadow-sm mb-6 border border-amber-200 sticky top-20 z-40 overflow-x-auto">
+            <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('overview')"><i class="fas fa-info-circle mr-2"></i>總覽</button>
+            <button id="tab-reading" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('reading')"><i class="fas fa-glasses mr-2"></i>精讀與圖解</button>
+            <button id="tab-deep" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('deep')"><i class="fas fa-project-diagram mr-2"></i>深度理解</button>
+            <button id="tab-story" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('story')"><i class="fas fa-theater-masks mr-2"></i>抉擇 RPG</button>
+            <button id="tab-vocabulary" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('vocabulary')"><i class="fas fa-spell-check mr-2"></i>語詞精解</button>
+            <button id="tab-analysis" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('analysis')"><i class="fas fa-feather-alt mr-2"></i>修辭分析</button>
+            <button id="tab-quiz" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('quiz')"><i class="fas fa-pen-nib mr-2"></i>隨堂測驗</button>
+        </div>
+
+        <main id="content-display" class="flex-grow bg-white rounded-2xl shadow-lg p-6 sm:p-8 min-h-[500px] transition-all duration-300 relative border border-amber-100">
+            <!-- Content will be injected here -->
+        </main>
+        
+    </div>
+
+    <div id="note-template" class="note-popup absolute bg-white border-l-4 rounded-r-lg shadow-2xl p-4 z-50 hidden w-72" onclick="event.stopPropagation()">
+        <button onclick="closeNote()" class="absolute top-2 right-2 text-amber-400 hover:text-amber-700 transition"><i class="fas fa-times"></i></button>
+        <div id="note-content"></div>
+    </div>
+
+    <div id="score-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl transform transition-all scale-100 border-2 border-amber-200">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-amber-100 to-orange-200 mb-6 shadow-inner">
+                    <i class="fas fa-award text-3xl text-amber-800"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-stone-900 mb-2 font-serif">測驗結果</h3>
+                <p class="text-amber-700 mb-6" id="score-text">你的得分是...</p>
+                <button onclick="closeScoreModal()" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-md px-4 py-3 bg-amber-500 text-white font-bold hover:bg-amber-600 focus:outline-none transition">
+                    查看詳細解析
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="error-toast" class="fixed bottom-6 right-6 bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg shadow-xl hidden z-50 flex items-center transition-all transform translate-y-10 opacity-0">
+        <i class="fas fa-exclamation-circle mr-3 text-xl"></i>
+        <div>
+            <p class="font-bold">系統提示</p>
+            <p id="error-msg" class="text-sm"></p>
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 1. 教材資料結構 (Content Data) - 子產不毀鄉校頌
+        // ----------------------------------------------------
+        const contentData = {
+            metadata: {
+                title: "(吳敏男 - 第三輯) 第12篇 子產不毀鄉校頌",
+                author: "韓愈",
+                source: "《韓昌黎文集》"
+            },
+            summary: "本文為唐代文學家韓愈的名篇，藉由讚頌春秋時期鄭國大夫子產「不毀鄉校」（不關閉民眾議論政事的地方）的開明作風，強烈表達了對言論自由的重視，以及對廣開言路、虛心納諫政治理念的推崇。文章通過「防民之口，甚於防川」的深刻道理，指出統治者應聽取民意，將鄉校作為獲取施政反饋的途徑，並在結尾感嘆當代缺乏像子產這樣能輔佐君王的賢臣。",
+            
+            meaning: "1. **言論自由的先驅思想**：「善也吾行，不善吾避」，子產認為民眾的議論不是禍害，而是幫助施政的明鏡，展現了極其開明的政治胸襟。\n2. **防民之口，甚於防川**：「川不可防，言不可弭」，強行壓制民意就如同堵塞洪水，最終必將導致潰堤與國家傾覆（下塞上聾，邦其傾矣）。\n3. **借古諷今，呼喚賢臣**：韓愈以周朝興衰的歷史（養老乞言 vs. 謗者使監）作為對比，並在文末發出「有君無臣」的沉痛感嘆，諷刺當時朝政封閉，期盼能有像子產一樣的賢能之士出來輔佐君王。",
+            
+            rhetoric: [
+                "**首尾呼應:** 首句「我思古人」與末句「我思古人」遙相呼應，使文章結構完整，且深化了對子產的景仰與對現實的無奈。",
+                "**譬喻法 (借喻):** 「川不可防，言不可弭」，以河流不可強行堵塞，生動地比喻民意不可強制壓抑，極具說服力。",
+                "**對比 (映襯):** 將周朝興盛時的「養老乞言」與衰敗時的「謗者使監」並列，形成強烈對比，突顯廣開言路與國家興亡的絕對關係。",
+                "**設問 (激問):** 「夫豈多言」、「誰其嗣之？」用疑問語氣強烈表達了不容置疑的肯定與深深的感嘆。"
+            ],
+            
+            vocabulary: [
+                { word: "伊", zhuyin: "ㄧ", pos: "代詞/發語詞", meaning: "發語詞，無義；一說為代詞，這、那。" },
+                { word: "鄭之僑", zhuyin: "ㄓㄥˋ ㄓ ㄑㄧㄠˊ", pos: "名詞", meaning: "指春秋時鄭國大夫公孫僑，字子產。以開明理政著稱。" },
+                { word: "相國", zhuyin: "ㄒㄧㄤˋ ㄍㄨㄛˊ", pos: "動賓片語", meaning: "治理國政。相，音ㄒㄧㄤˋ，輔佐、治理。" },
+                { word: "安其教", zhuyin: "ㄢ ㄑㄧˊ ㄐㄧㄠˋ", pos: "動賓片語", meaning: "習慣、安於他的政教法令。安，習慣、適應。" },
+                { word: "鄉之校", zhuyin: "ㄒㄧㄤ ㄓ ㄒㄧㄠˋ", pos: "名詞", meaning: "鄉間的學校，為古代鄉人聚會、議論政事的地方。" },
+                { word: "囂囂", zhuyin: "ㄒㄧㄠ ㄒㄧㄠ", pos: "形容詞", meaning: "喧嘩、議論紛紛的樣子。（依教育部多音字典也可讀 ㄠˊ ㄠˊ，現代多讀 ㄒㄧㄠ ㄒㄧㄠ）" },
+                { word: "何患焉", zhuyin: "ㄏㄜˊ ㄏㄨㄢˋ ㄧㄢ", pos: "句型", meaning: "有什麼好擔心的呢？焉，代詞兼語氣詞，於此。" },
+                { word: "成美", zhuyin: "ㄔㄥˊ ㄇㄟˇ", pos: "動賓片語", meaning: "成就美善的政績。" },
+                { word: "夫豈多言", zhuyin: "ㄈㄨˊ ㄑㄧˇ ㄉㄨㄛ ㄧㄢ", pos: "句型", meaning: "難道只是多嘴愛說話嗎？夫，音ㄈㄨˊ，發語詞。" },
+                { word: "亦各其志", zhuyin: "ㄧˋ ㄍㄜˋ ㄑㄧˊ ㄓˋ", pos: "句型", meaning: "也是各自表達他們的心志。" },
+                { word: "善也吾行", zhuyin: "ㄕㄢˋ ㄧㄝˇ ㄨˊ ㄒㄧㄥˊ", pos: "句型", meaning: "(民眾說得)好的，我就推行。" },
+                { word: "不善吾避", zhuyin: "ㄅㄨˊ ㄕㄢˋ ㄨˊ ㄅㄧˋ", pos: "句型", meaning: "(民眾說得)不好的，我就防備、改正。" },
+                { word: "維善維否", zhuyin: "ㄨㄟˊ ㄕㄢˋ ㄨㄟˊ ㄈㄡˇ", pos: "句型", meaning: "是好還是不好。維，發語詞，同「唯」。" },
+                { word: "川不可防", zhuyin: "ㄔㄨㄢ ㄅㄨˋ ㄎㄜˇ ㄈㄤˊ", pos: "句型", meaning: "河流不能強行堵塞。比喻民意不可強制壓抑。" },
+                { word: "言不可弭", zhuyin: "ㄧㄢˊ ㄅㄨˋ ㄎㄜˇ ㄇㄧˇ", pos: "句型", meaning: "言論不能強行消除、禁止。弭，音ㄇㄧˇ，消除、平息。" },
+                { word: "下塞上聾", zhuyin: "ㄒㄧㄚˋ ㄙㄜˋ ㄕㄤˋ ㄌㄨㄥˊ", pos: "成語", meaning: "下層民眾的言路被堵塞，上層統治者的耳朵就如聾了一般聽不到真實情況。塞，音ㄙㄜˋ。" },
+                { word: "邦其傾矣", zhuyin: "ㄅㄤ ㄑㄧˊ ㄑㄧㄥ ㄧˇ", pos: "句型", meaning: "國家大概就要傾覆了。其，副詞，表推測，大概、恐怕。" },
+                { word: "以理", zhuyin: "ㄧˇ ㄌㄧˇ", pos: "副詞片語", meaning: "得到大治、治理得很好。理，治理。" },
+                { word: "養老乞言", zhuyin: "ㄧㄤˇ ㄌㄠˇ ㄑㄧˇ ㄧㄢˊ", pos: "成語", meaning: "尊敬奉養老人，並向他們求取善言(施政建議)。" },
+                { word: "已衰", zhuyin: "ㄧˇ ㄕㄨㄞ", pos: "動詞", meaning: "已經衰敗(指周厲王時期)。" },
+                { word: "謗者使監", zhuyin: "ㄅㄤˋ ㄓㄜˇ ㄕˇ ㄐㄧㄢ", pos: "句型", meaning: "派人監視批評朝政的人。謗，批評、議論。監，監視。" },
+                { word: "成敗之迹", zhuyin: "ㄔㄥˊ ㄅㄞˋ ㄓ ㄐㄧ", pos: "名詞", meaning: "國家興衰成敗的歷史軌跡。迹，同「跡」。" },
+                { word: "昭然", zhuyin: "ㄓㄠ ㄖㄢˊ", pos: "形容詞", meaning: "清楚明白的樣子。" },
+                { word: "式", zhuyin: "ㄕˋ", pos: "名詞", meaning: "法度、榜樣、典範。" },
+                { word: "維其不遇", zhuyin: "ㄨㄟˊ ㄑㄧˊ ㄅㄨˋ ㄩˋ", pos: "句型", meaning: "只可惜他(子產)沒有遇到(統一天下的明君)。" },
+                { word: "止化一國", zhuyin: "ㄓˇ ㄏㄨㄚˋ ㄧˋ ㄍㄨㄛˊ", pos: "句型", meaning: "教化僅止於鄭國這一個國家。" },
+                { word: "誠率是道", zhuyin: "ㄔㄥˊ ㄕㄨㄞˋ ㄕˋ ㄉㄠˋ", pos: "句型", meaning: "如果真的能遵循這個道理。率，遵循。是，此、這個。" },
+                { word: "相天下君", zhuyin: "ㄒㄧㄤˋ ㄊㄧㄢ ㄒㄧㄚˋ ㄐㄩㄣ", pos: "動賓片語", meaning: "輔佐天下的君主。相，音ㄒㄧㄤˋ。" },
+                { word: "交暢旁達", zhuyin: "ㄐㄧㄠ ㄔㄤˋ ㄆㄤˊ ㄉㄚˊ", pos: "成語", meaning: "上下交流順暢，政令與民意四方通達。" },
+                { word: "施及無垠", zhuyin: "ㄕ ㄐㄧˊ ㄨˊ ㄧㄣˊ", pos: "句型", meaning: "恩澤施及到無邊無際的地方。施，音ㄕ，蔓延。無垠，無邊際。" },
+                { word: "於虖", zhuyin: "ㄨ ㄏㄨ", pos: "嘆詞", meaning: "同「嗚呼」，嘆詞，表示感嘆。" },
+                { word: "不理", zhuyin: "ㄅㄨˋ ㄌㄧˇ", pos: "動詞", meaning: "得不到治理(指天下大亂)。" },
+                { word: "有君無臣", zhuyin: "ㄧㄡˇ ㄐㄩㄣ ㄨˊ ㄔㄣˊ", pos: "成語", meaning: "有君王卻沒有(像子產那樣開明的)賢臣輔佐。" },
+                { word: "嗣", zhuyin: "ㄙˋ", pos: "動詞", meaning: "繼承，此指接續子產這種作風的人。" }
+            ],
+
+            segments: [
+                {
+                    original: "我思古人，伊鄭之僑。以禮相國，人未安其教，遊於鄉之校，眾口囂囂。",
+                    translation: "我思念古人，那就是鄭國的子產（公孫僑）。他用禮法來治理國家，剛開始人民還不習慣他的政教，於是在鄉間的學校裡聚會，眾人議論紛紛、喧嘩抱怨。",
+                    audioText: "我思古人，，伊鄭之僑。，以禮相國，，人未安其教，，遊於鄉之校，，眾口囂囂。",
+                    notes: {
+                        "伊": { zhuyin: "ㄧ", type: "代詞/發語詞", def: "發語詞，無義；或作代詞「這」。" },
+                        "鄭之僑": { zhuyin: "ㄓㄥˋ ㄓ ㄑㄧㄠˊ", type: "名詞", def: "即鄭國大夫子產。" },
+                        "相國": { zhuyin: "ㄒㄧㄤˋ ㄍㄨㄛˊ", type: "動詞片語", def: "治理國政。相，輔佐。" },
+                        "安其教": { zhuyin: "ㄢ ㄑㄧˊ ㄐㄧㄠˋ", type: "動詞片語", def: "習慣他的政教法令。" },
+                        "鄉之校": { zhuyin: "ㄒㄧㄤ ㄓ ㄒㄧㄠˋ", type: "名詞", def: "古代鄉人議論政事的地方。" },
+                        "囂囂": { zhuyin: "ㄒㄧㄠ ㄒㄧㄠ", type: "形容詞", def: "喧嘩、議論紛紛的樣子。" }
+                    }
+                },
+                {
+                    original: "或謂子產，毀鄉校則止。曰：「何患焉? 可以成美。夫豈多言，亦各其志。善也吾行，不善吾避。維善維否，我於此視。川不可防，言不可弭；下塞上聾，邦其傾矣。」既鄉校不毀，而鄭國以理。",
+                    translation: "有人勸子產，把鄉校毀掉，那些議論就會停止。子產說：「有什麼好擔心的呢？這正好可以成就施政的美善。他們難道只是多嘴嗎？其實也是各自表達心志。他們說好的，我就去推行；他們說不好的，我就防備並改正。是好還是不好，我就在這裡觀察。河流不能強行堵塞，言論也不能強行禁止；如果堵塞了下層的言路，讓上層統治者變成聾子聽不到民意，國家恐怕就要傾覆了。」既然鄉校沒有被毀掉，不久後鄭國也得到了大治。",
+                    audioText: "或謂子產，，毀鄉校則止。，曰：「何患焉？，可以成美。，夫豈多言，，亦各其志。，善也吾行，，不善吾避。，維善維否，，我於此視。，川不可防，，言不可弭；，下塞上聾，，邦其傾矣。」，既鄉校不毀，，而鄭國以理。",
+                    notes: {
+                        "何患焉": { zhuyin: "ㄏㄜˊ ㄏㄨㄢˋ ㄧㄢ", type: "句型", def: "有什麼好擔心的呢？" },
+                        "成美": { zhuyin: "ㄔㄥˊ ㄇㄟˇ", type: "動詞片語", def: "成就美善的政績。" },
+                        "夫豈多言": { zhuyin: "ㄈㄨˊ ㄑㄧˇ ㄉㄨㄛ ㄧㄢ", type: "句型", def: "難道只是多嘴愛說話嗎？夫，音ㄈㄨˊ。" },
+                        "亦各其志": { zhuyin: "ㄧˋ ㄍㄜˋ ㄑㄧˊ ㄓˋ", type: "句型", def: "也是各自表達他們的心志。" },
+                        "善也吾行": { zhuyin: "ㄕㄢˋ ㄧㄝˇ ㄨˊ ㄒㄧㄥˊ", type: "句型", def: "民眾說得好的，我就推行。" },
+                        "不善吾避": { zhuyin: "ㄅㄨˊ ㄕㄢˋ ㄨˊ ㄅㄧˋ", type: "句型", def: "民眾說得不好的，我就防備改正。" },
+                        "維善維否": { zhuyin: "ㄨㄟˊ ㄕㄢˋ ㄨㄟˊ ㄈㄡˇ", type: "句型", def: "是好還是不好。維，發語詞。" },
+                        "川不可防": { zhuyin: "ㄔㄨㄢ ㄅㄨˋ ㄎㄜˇ ㄈㄤˊ", type: "句型", def: "河流不能強行堵塞。喻民意不可強制壓抑。" },
+                        "言不可弭": { zhuyin: "ㄧㄢˊ ㄅㄨˋ ㄎㄜˇ ㄇㄧˇ", type: "句型", def: "言論不能強行消除。弭，消除。" },
+                        "下塞上聾": { zhuyin: "ㄒㄧㄚˋ ㄙㄜˋ ㄕㄤˋ ㄌㄨㄥˊ", type: "成語", def: "下層言路被堵塞，上層統治者如聾。" },
+                        "邦其傾矣": { zhuyin: "ㄅㄤ ㄑㄧˊ ㄑㄧㄥ ㄧˇ", type: "句型", def: "國家大概就要傾覆了。其，大概。" },
+                        "以理": { zhuyin: "ㄧˇ ㄌㄧˇ", type: "副詞片語", def: "得到大治、治理得很好。" }
+                    }
+                },
+                {
+                    original: "在周之興，養老乞言；及其已衰，謗者使監。成敗之迹，昭然可觀。維是子產，執政之式。維其不遇，止化一國。誠率是道，相天下君；交暢旁達，施及無垠。",
+                    translation: "在周朝興盛的時候，尊敬長者並向他們求取善言；到了周朝衰敗的時候，卻派人監視批評朝政的人。國家興衰成敗的歷史軌跡，清楚明白地擺在眼前。這位子產，正是執政者的典範。只可惜他生不逢時，沒有遇到統一天下的君主，所以他的教化僅止於鄭國。如果真的能遵循他這種道理，來輔佐天下的君主，那麼上下交流必定順暢，政令與民意四通八達，恩澤將會廣施到無邊無際的地方。",
+                    audioText: "在周之興，，養老乞言；，及其已衰，，謗者使監。，成敗之迹，，昭然可觀。，維是子產，，執政之式。，維其不遇，，止化一國。，誠率是道，，相天下君；，交暢旁達，，施及無垠。",
+                    notes: {
+                        "養老乞言": { zhuyin: "ㄧㄤˇ ㄌㄠˇ ㄑㄧˇ ㄧㄢˊ", type: "成語", def: "奉養老人，並求取施政建議。" },
+                        "已衰": { zhuyin: "ㄧˇ ㄕㄨㄞ", type: "動詞", def: "已經衰敗(指周厲王時)。" },
+                        "謗者使監": { zhuyin: "ㄅㄤˋ ㄓㄜˇ ㄕˇ ㄐㄧㄢ", type: "句型", def: "派人監視批評朝政的人。謗，批評。" },
+                        "成敗之迹": { zhuyin: "ㄔㄥˊ ㄅㄞˋ ㄓ ㄐㄧ", type: "名詞", def: "國家興衰成敗的歷史軌跡。" },
+                        "昭然": { zhuyin: "ㄓㄠ ㄖㄢˊ", type: "形容詞", def: "清楚明白的樣子。" },
+                        "式": { zhuyin: "ㄕˋ", type: "名詞", def: "法度、榜樣、典範。" },
+                        "維其不遇": { zhuyin: "ㄨㄟˊ ㄑㄧˊ ㄅㄨˋ ㄩˋ", type: "句型", def: "只可惜他沒有遇到統一天下的明君。" },
+                        "止化一國": { zhuyin: "ㄓˇ ㄏㄨㄚˋ ㄧˋ ㄍㄨㄛˊ", type: "句型", def: "教化僅止於鄭國這一個國家。" },
+                        "誠率是道": { zhuyin: "ㄔㄥˊ ㄕㄨㄞˋ ㄕˋ ㄉㄠˋ", type: "句型", def: "若真能遵循此道。率，遵循。是，此。" },
+                        "相天下君": { zhuyin: "ㄒㄧㄤˋ ㄊㄧㄢ ㄒㄧㄚˋ ㄐㄩㄣ", type: "動詞片語", def: "輔佐天下君主。相，音ㄒㄧㄤˋ。" },
+                        "交暢旁達": { zhuyin: "ㄐㄧㄠ ㄔㄤˋ ㄆㄤˊ ㄉㄚˊ", type: "成語", def: "上下交流順暢，政令與民意四方通達。" },
+                        "施及無垠": { zhuyin: "ㄕ ㄐㄧˊ ㄨˊ ㄧㄣˊ", type: "句型", def: "恩澤施及到無邊無際的地方。施，蔓延。" }
+                    }
+                },
+                {
+                    original: "於虖！四海所以不理，有君無臣。誰其嗣之？我思古人。",
+                    translation: "唉！現在天下之所以不能大治，是因為雖然有君主，卻沒有像子產這樣的賢臣來輔佐。有誰能繼承他的開明作風呢？（因為沒有，所以我更）思念這位古人啊。",
+                    audioText: "於虖！，四海所以不理，，有君無臣。，誰其嗣之？，我思古人。",
+                    notes: {
+                        "於虖": { zhuyin: "ㄨ ㄏㄨ", type: "嘆詞", def: "同「嗚呼」，嘆詞，表示感嘆。" },
+                        "不理": { zhuyin: "ㄅㄨˋ ㄌㄧˇ", type: "動詞", def: "得不到治理(天下大亂)。" },
+                        "有君無臣": { zhuyin: "ㄧㄡˇ ㄐㄩㄣ ㄨˊ ㄔㄣˊ", type: "成語", def: "有君王卻無賢臣輔佐。" },
+                        "嗣": { zhuyin: "ㄙˋ", type: "動詞", def: "繼承，接續子產這種作風的人。" }
+                    }
+                }
+            ],
+            
+            quiz: [
+                { q: "關於「以禮相國」的「相」字，下列音義何者正確？", opts: ["A. ㄒㄧㄤ，互相", "B. ㄒㄧㄤˋ，宰相", "C. ㄒㄧㄤˋ，輔佐、治理", "D. ㄒㄧㄤ，觀察"], ans: "C", exp: "相在此作動詞，音ㄒㄧㄤˋ，意思是輔佐、治理國政。" },
+                { q: "「人未安其教」的「安」字，在此處作何解釋最為適切？", opts: ["A. 安全", "B. 習慣、安於", "C. 安置", "D. 撫慰"], ans: "B", exp: "安其教指人民尚未「習慣、安於」他的政教法令。" },
+                { q: "「或謂子產」中的「或」字，其詞性與字義為何？", opts: ["A. 連詞，或者", "B. 代詞，有人", "C. 副詞，或許", "D. 助詞，無義"], ans: "B", exp: "或，代詞，指「有的人」。" },
+                { q: "子產認為鄉校的議論「可以成美」，他的具體做法是？", opts: ["A. 毀掉鄉校以統一思想", "B. 善也吾行，不善吾避", "C. 派人監視，嚴懲不貸", "D. 順其自然，不聞不問"], ans: "B", exp: "子產認為可以從鄉校的議論中吸取意見，好的就推行，不好的就改正（善也吾行，不善吾避）。" },
+                { q: "「川不可防，言不可弭」使用了何種修辭手法，旨在說明什麼道理？", opts: ["A. 頂真；言論自由的危害", "B. 借代；治水與治國的不同", "C. 譬喻與對偶；民意如洪水，只能疏導不能壓抑", "D. 誇飾；鄉民的勢力強大"], ans: "C", exp: "以河流不可堵塞來「譬喻」言論不可強行禁止，且句式工整構成「對偶」。說明民意必須疏導。" },
+                { q: "「下塞上聾，邦其傾矣」的「其」字，表示何種語氣？", opts: ["A. 肯定", "B. 祈使", "C. 反詰", "D. 推測（大概、恐怕）"], ans: "D", exp: "其，副詞，表推論語氣，譯為大概、恐怕是。" },
+                { q: "周朝興衰的對比中，「養老乞言」代表了何種政治態度？", opts: ["A. 尊老恤貧", "B. 廣開言路、虛心納諫", "C. 無為而治", "D. 嚴刑峻法"], ans: "B", exp: "養老乞言指向老人求取施政建議，代表了願意傾聽民意、廣開言路的開明態度。" },
+                { q: "「及其已衰，謗者使監」指的是周朝哪一位君王時期的歷史事件？", opts: ["A. 周文王", "B. 周武王", "C. 周厲王", "D. 周幽王"], ans: "C", exp: "典故出自《國語》，周厲王殘暴，派衛巫監視批評朝政的人（謗者使監），最後引發國人暴動。" },
+                { q: "「維是子產，執政之式」中的「式」字，作何解釋？", opts: ["A. 儀式", "B. 方式", "C. 典範、法度", "D. 權勢"], ans: "C", exp: "式，名詞，指法度、榜樣、典範。" },
+                { q: "韓愈認為子產「止化一國」的根本原因是什麼？", opts: ["A. 子產才能不足", "B. 鄭國人民不受教", "C. 維其不遇（生不逢時，未遇統治天下的明君）", "D. 鄉校最終還是被毀了"], ans: "C", exp: "作者感嘆子產「維其不遇」，也就是沒有遇到能統一天下的君主，因此教化只能侷限在鄭國一國。" },
+                { q: "「誠率是道」的「率」字與「是」字，分別該如何解釋？", opts: ["A. 率領；這", "B. 遵循；此（這個）", "C. 輕率；對", "D. 效率；肯定"], ans: "B", exp: "率，動詞，遵循。是，代詞，此、這個（指子產不毀鄉校之道）。" },
+                { q: "「施及無垠」的「施」字，讀音與意義為何？", opts: ["A. ㄕ，實行", "B. ㄕˋ，恩惠", "C. ㄕ，延續、擴展（施加）", "D. ㄧˋ，斜行"], ans: "C", exp: "施，音ㄕ，有延續、蔓延、擴展之意，指恩澤廣被。" },
+                { q: "韓愈在文末感嘆「四海所以不理，有君無臣」，他所謂的「無臣」是指？", opts: ["A. 朝廷裡沒有官員", "B. 沒有能帶兵打仗的武將", "C. 沒有像子產這樣能廣開言路、輔佐君王的賢臣", "D. 大臣們都辭官歸隱了"], ans: "C", exp: "「有君無臣」是深刻的政治批判，指當代缺乏像子產般具有開明思想與治國之才的賢臣。" },
+                { q: "「誰其嗣之」的「嗣」字，意為？", opts: ["A. 子孫", "B. 繼承、接續", "C. 祠堂", "D. 期待"], ans: "B", exp: "嗣，動詞，繼承、接續。" },
+                { q: "下列「」中字音的標示，何者完全正確？", opts: ["A. 「伊」鄭之僑：ㄧㄣ", "B. 言不可「弭」：ㄇㄧˇ", "C. 下「塞」上聾：ㄙㄞ", "D. 於「虖」：ㄏㄨ"], ans: "B", exp: "A.應為ㄧ。C.應為ㄙㄜˋ。D.應為ㄨ ㄏㄨ。" },
+                { q: "《子產不毀鄉校頌》一文的核心主旨，最接近下列哪一句名言？", opts: ["A. 治大國若烹小鮮", "B. 防民之口，甚於防川", "C. 民為貴，社稷次之，君為輕", "D. 水能載舟，亦能覆舟"], ans: "B", exp: "全文以「川不可防，言不可弭」為核心，與「防民之口，甚於防川」理念完全一致。" },
+                { q: "本文的體裁屬於「頌」，關於「頌」的說明，下列何者正確？", opts: ["A. 專門用來哀悼死者的文體", "B. 原為《詩經》六義之一，後演變為讚美、頌揚功德的文體", "C. 是一種格律嚴謹的近體詩", "D. 內容必須虛構，以增強文學性"], ans: "B", exp: "「頌」本是詩經體制（風、雅、頌），後引申為讚頌人物功德的散文體裁。" },
+                { q: "在文章結構上，首尾皆有「我思古人」一句，這屬於何種修辭章法？", opts: ["A. 首尾呼應", "B. 倒敘", "C. 破題", "D. 伏筆"], ans: "A", exp: "開頭與結尾使用相同的句子，構成首尾呼應，使情感更為綿長迴盪。" },
+                { q: "「善也吾行，不善吾避」體現了子產何種為政之道？", opts: ["A. 剛愎自用", "B. 察納雅言，從善如流", "C. 賞罰分明", "D. 息事寧人"], ans: "B", exp: "這句話充分展現了執政者願意傾聽民意、接受批評並勇於改正的虛心態度。" },
+                { q: "綜合全文，韓愈寫作此文的最終目的是什麼？", opts: ["A. 考證鄭國的歷史", "B. 批評周朝的腐敗", "C. 藉由讚美子產，諷刺當時統治者不能廣開言路，並期盼賢臣出現", "D. 宣導鄉村教育的重要性"], ans: "C", exp: "作者借古諷今，表面頌揚子產，實則批判中唐時期言路閉塞的政治現狀，呼喚賢明之臣。" }
+            ]
+        };
+
+        // 預處理所有關鍵字
+        const allKeywords = {};
+        contentData.segments.forEach((seg, idx) => {
+            Object.entries(seg.notes).forEach(([key, note]) => {
+                if (!allKeywords[key]) {
+                    allKeywords[key] = { ...note, segIdx: idx };
+                }
+            });
+        });
+
+        // ----------------------------------------------------
+        // 2. 全域狀態管理 (靜態版本)
+        // ----------------------------------------------------
+        let currentTab = 'overview';
+        let userAnswers = {}; 
+
+        window.onload = function() {
+            document.getElementById('main-title').textContent = contentData.metadata.title;
+            document.getElementById('author-name').textContent = contentData.metadata.author;
+            document.getElementById('source-name').textContent = contentData.metadata.source;
+            switchTab('overview');
+
+            if ('speechSynthesis' in window) {
+                 window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+            }
+
+            document.addEventListener('click', (e) => {
+                const popup = document.getElementById('note-template');
+                if (!e.target.closest('.interactive-word') && !e.target.closest('.note-popup')) {
+                    closeNote();
+                }
+            });
+        };
+
+        function closeNote() {
+            const popup = document.getElementById('note-template');
+            if(popup) { popup.classList.add('hidden'); popup.style.display = ''; }
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            closeNote();
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+
+            const container = document.getElementById('content-display');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                switch(tabId) {
+                    case 'overview': renderOverview(container); break;
+                    case 'reading': renderReading(container); break;
+                    case 'deep': renderDeepUnderstanding(container); break;
+                    case 'vocabulary': renderVocabulary(container); break;
+                    case 'analysis': renderAnalysis(container); break;
+                    case 'quiz': renderQuiz(container); break;
+                    case 'story': renderStory(container); break;
+                }
+                container.style.opacity = '1';
+            }, 200);
+        }
+
+        function renderOverview(container) {
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-orange-50 rounded-2xl p-8 border border-orange-200 mb-8 shadow-sm">
+                        <h2 class="text-2xl font-bold text-amber-900 mb-4 font-serif"><i class="fas fa-scroll mr-2"></i>課文導讀</h2>
+                        <p class="text-lg text-amber-900 leading-loose text-justify">${contentData.summary}</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
+                            <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-comments text-amber-700 text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">廣開言路</h3>
+                            <p class="text-amber-800 font-serif text-lg">善也吾行，不善吾避</p>
+                        </div>
+                        <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
+                            <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-water text-orange-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">防民甚防川</h3>
+                            <p class="text-orange-800 font-serif text-lg">川不可防，言不可弭</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderReading(container) {
+            let segmentsHtml = contentData.segments.map((seg, idx) => {
+                let displayHtml = seg.original;
+                const sortedKeys = Object.keys(seg.notes).sort((a, b) => b.length - a.length);
+                
+                sortedKeys.forEach(key => {
+                     displayHtml = displayHtml.replace(new RegExp(`(?<!<[^>]*)${key}`, 'g'), `<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
+                });
+
+                // 修改為直接讀取本地靜態圖片
+                const localPath = `Chinese-Classical1-23-images/reading_segment_${idx + 1}.jpg`;
+                let imageSection = `
+                    <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
+                        <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
+                    </div>
+                `;
+
+                return `
+                    <div class="group mb-12 relative pl-6 sm:pl-8 border-l-4 border-amber-300 hover:border-amber-500 transition-colors duration-300">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2 py-1 rounded uppercase tracking-widest">段落 ${idx + 1}</span>
+                            <div class="flex gap-2">
+                                <button onclick="playAudio('${seg.audioText}')" class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center hover:bg-amber-200 hover:text-amber-900 transition shadow-sm" title="朗讀 (高品質女聲，優化節奏)">
+                                    <i class="fas fa-volume-up text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative hover-trans-container cursor-help py-2">
+                            <p class="text-xl sm:text-2xl font-serif text-stone-800 leading-loose relative z-10 text-justify tracking-wide">${displayHtml}</p>
+                            <div class="hover-translation hidden absolute left-0 top-full mt-2 w-full z-20">
+                                <div class="bg-stone-900/95 backdrop-blur-sm p-4 rounded-lg text-amber-50 text-lg leading-7 shadow-2xl relative border border-amber-900">
+                                    <div class="absolute -top-2 left-8 w-4 h-4 bg-stone-900 border-t border-l border-amber-900 transform rotate-45"></div>
+                                    <span class="font-bold text-amber-300 mr-1"><i class="fas fa-language mr-1"></i>白話：</span> ${seg.translation}
+                                </div>
+                            </div>
+                        </div>
+                        ${imageSection}
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-amber-200 shadow-sm">
+                    <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
+                    <p class="text-sm text-amber-700">運用寫實風格與東方臉孔設定，為您重現子產的開明睿智與鄉校風貌。</p>
+                </div>
+                <div class="max-w-4xl mx-auto mt-4">
+                    ${segmentsHtml}
+                </div>
+                <div class="text-center mt-12 pb-6 text-amber-600 text-sm space-y-1">
+                    <p><i class="fas fa-mouse-pointer mr-1"></i> 點擊底線文字查看「語詞精解」</p>
+                    <p><i class="fas fa-hand-pointer mr-1"></i> 滑鼠移過古文即可查看「白話翻譯」</p>
+                </div>
+            `;
+        }
+        
+        function renderDeepUnderstanding(container) {
+            container.innerHTML = `
+                <div class="space-y-12">
+                    <section>
+                        <h2 class="text-2xl font-bold text-amber-950 mb-6 font-serif border-l-4 border-amber-500 pl-4">歷史對比與邏輯推演圖</h2>
+                        <div class="bg-white rounded-xl shadow-lg p-8 border border-amber-200 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
+                             <svg viewBox="0 0 700 450" class="w-full h-full">
+                                <defs>
+                                    <marker id="arrow-deep" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#ea580c" />
+                                    </marker>
+                                </defs>
+                                
+                                <!-- Core Philosophy -->
+                                <rect x="250" y="10" width="200" height="50" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="3" />
+                                <text x="350" y="40" text-anchor="middle" font-weight="bold" font-size="16" fill="#92400e">核心議題：如何對待民意</text>
+                                
+                                <path d="M350,60 L350,90" stroke="#fcd34d" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <!-- Historical Contrast -->
+                                <rect x="250" y="90" width="200" height="40" rx="8" fill="#fef3c7" stroke="#fbbf24" stroke-width="2" />
+                                <text x="350" y="115" text-anchor="middle" font-weight="bold" font-size="14" fill="#b45309">周朝的成敗之迹</text>
+
+                                <!-- Left: Good Path (Zhou Rise / Zi Chan) -->
+                                <path d="M250,110 L190,110 L190,140" stroke="#fcd34d" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <rect x="100" y="140" width="180" height="60" rx="8" fill="#ffedd5" stroke="#fdba74" stroke-width="2" />
+                                <text x="190" y="165" text-anchor="middle" font-weight="bold" font-size="14" fill="#c2410c">在周之興 / 子產</text>
+                                <text x="190" y="185" text-anchor="middle" font-size="12" fill="#c2410c">(養老乞言 / 善行不善避)</text>
+
+                                <path d="M190,200 L190,230" stroke="#fdba74" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <rect x="100" y="230" width="180" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="2" />
+                                <text x="190" y="260" text-anchor="middle" font-weight="bold" font-size="14" fill="#9a3412">廣開言路，國家大治</text>
+
+                                <!-- Right: Bad Path (Zhou Fall / Dictatorship) -->
+                                <path d="M450,110 L510,110 L510,140" stroke="#fcd34d" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <rect x="420" y="140" width="180" height="60" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="2" />
+                                <text x="510" y="165" text-anchor="middle" font-weight="bold" font-size="14" fill="#b91c1c">及其已衰 / 暴君</text>
+                                <text x="510" y="185" text-anchor="middle" font-size="12" fill="#b91c1c">(謗者使監 / 毀滅鄉校)</text>
+
+                                <path d="M510,200 L510,230" stroke="#fca5a5" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <rect x="420" y="230" width="180" height="60" rx="8" fill="#fecaca" stroke="#ef4444" stroke-width="2" />
+                                <text x="510" y="255" text-anchor="middle" font-weight="bold" font-size="12" fill="#991b1b">川不可防，言不可弭</text>
+                                <text x="510" y="275" text-anchor="middle" font-weight="bold" font-size="12" fill="#991b1b">(下塞上聾，邦其傾矣)</text>
+
+                                <!-- Final Conclusion -->
+                                <path d="M510,290 L510,350 L350,350" stroke="#ea580c" stroke-width="2" fill="none"/>
+                                <path d="M190,280 L190,350 L350,350" stroke="#ea580c" stroke-width="2" fill="none"/>
+                                <path d="M350,350 L350,380" stroke="#ea580c" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <rect x="230" y="380" width="240" height="60" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="3" />
+                                <text x="350" y="405" text-anchor="middle" font-weight="bold" font-size="16" fill="#7c2d12">交暢旁達，施及無垠</text>
+                                <text x="350" y="425" text-anchor="middle" font-size="12" fill="#7c2d12">呼喚賢臣輔政，達成天下大治</text>
+                            </svg>
+                        </div>
+                        <p class="mt-6 text-amber-900 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-200">
+                            <strong><i class="fas fa-lightbulb text-amber-600 mr-2"></i>文學分析：</strong> 韓愈運用了高超的「正反對比」與「借古諷今」手法。正面以子產「善也吾行，不善吾避」的開明態度，印證周朝初年「養老乞言」的盛世氣象；反面則警告壓制言論如同「謗者使監」，必定導致「下塞上聾，邦其傾矣」的悲慘結局。結尾的「有君無臣」，更是作者對中唐政治現實最沉痛的批判。
+                        </p>
+                    </section>
+                </div>
+            `;
+        }
+
+        function renderVocabulary(container) {
+            const cardsHtml = contentData.vocabulary.map(item => `
+                <div class="bg-white border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition duration-200 flex flex-col h-full group hover:border-amber-400">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-2xl font-bold text-amber-950 group-hover:text-amber-700 font-serif">${item.word}</h3>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-sm font-mono bg-amber-50 px-2 py-1 rounded text-amber-800">${item.zhuyin}</span>
+                        <span class="text-xs font-bold text-white bg-orange-500 px-2 py-1 rounded-full">${item.pos}</span>
+                    </div>
+                    <p class="text-stone-700 text-lg leading-relaxed flex-grow border-t border-dashed border-amber-100 pt-2">${item.meaning}</p>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-amber-950 font-serif mb-2">語詞精解</h2>
+                        <p class="text-amber-800">共收錄 ${contentData.vocabulary.length} 個重點詞彙，精準掌握教育部標準字音與核心字義</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        ${cardsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAnalysis(container) {
+            const rhetoricHtml = contentData.rhetoric.map(r => `
+                <div class="flex items-start mb-6 p-5 bg-white rounded-xl border border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex-shrink-0 mr-5">
+                        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-amber-700 font-bold text-lg shadow-sm">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                    </div>
+                    <div class="prose prose-amber text-stone-800 text-lg">
+                        ${marked.parse(r)}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <section>
+                        <h2 class="text-2xl font-bold text-amber-950 mb-6 font-serif flex items-center">
+                            <i class="fas fa-lightbulb mr-3 text-amber-500"></i>全文主旨與核心哲理
+                        </h2>
+                        <div class="bg-amber-50 p-8 rounded-2xl border border-amber-200 shadow-sm text-lg text-stone-800 leading-loose">
+                            ${marked.parse(contentData.meaning)}
+                        </div>
+                    </section>
+                    <section>
+                        <h2 class="text-2xl font-bold text-amber-950 mb-6 font-serif flex items-center">
+                            <i class="fas fa-highlighter mr-3 text-amber-500"></i>寫作技巧與敘事特徵
+                        </h2>
+                        <div class="space-y-4">
+                            ${rhetoricHtml}
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        function renderQuiz(container) {
+            let quizHtml = contentData.quiz.map((q, i) => {
+                const val = ["A","B","C","D"];
+                const isAnswered = userAnswers[i] !== undefined;
+                const userAnswer = userAnswers[i];
+                let feedback = '';
+                let cardClass = "bg-white border border-amber-200 hover:border-amber-400";
+                let feedbackClass = "hidden mt-4 p-4 rounded-lg text-base bg-amber-50 border border-amber-200"; 
+                
+                if (isAnswered) {
+                    feedbackClass = "mt-4 p-4 rounded-lg text-base animate-fade-in border"; 
+                    if (userAnswer === q.ans) {
+                        feedback = `<strong class="block mb-1 text-lg"><i class="fas fa-check-circle mr-2"></i>答對了！</strong>${q.exp}`;
+                        cardClass = "bg-green-50/60 border border-green-500 shadow-sm";
+                        feedbackClass += " bg-green-50 border-green-200 text-green-900";
+                    } else {
+                        const userOption = q.opts.find((opt, idx) => ["A","B","C","D"][idx] === userAnswer);
+                        const correctOption = q.opts.find((opt, idx) => ["A","B","C","D"][idx] === q.ans);
+                        feedback = `
+                            <div class="mb-2">
+                                <span class="block font-bold text-red-700 text-lg"><i class="fas fa-times-circle mr-2"></i>答錯了</span>
+                                <span class="block text-amber-900 mt-1">您的答案：${userOption}</span>
+                                <span class="block text-green-700 font-bold mt-1">正確答案：${correctOption}</span>
+                            </div>
+                            <div class="pt-2 border-t border-red-200 mt-2 text-stone-800">
+                                <strong><i class="fas fa-lightbulb text-yellow-600 mr-1"></i>解析：</strong>${q.exp}
+                            </div>
+                        `;
+                        cardClass = "bg-red-50/60 border border-red-500 shadow-sm";
+                        feedbackClass += " bg-red-50 border-red-200 text-red-900";
+                    }
+                }
+
+                return `
+                <div class="${cardClass} rounded-xl p-6 mb-8 shadow-sm transition-all duration-300" id="quiz-card-${i}">
+                    <div class="flex items-start mb-4">
+                        <span class="flex-shrink-0 w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold mr-3 mt-1">${i+1}</span>
+                        <p class="font-bold text-xl text-amber-950 leading-relaxed">${q.q}</p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3 pl-11">
+                        ${q.opts.map((opt, optIdx) => {
+                            const val = ["A","B","C","D"][optIdx];
+                            const isChecked = userAnswer === val ? 'checked' : '';
+                            const isDisabled = isAnswered ? 'disabled' : '';
+                            const labelClass = isAnswered 
+                                ? (val === q.ans ? 'bg-green-100 border-green-400 font-bold text-green-900' : (isChecked ? 'bg-red-100 border-red-300' : 'opacity-50'))
+                                : 'hover:bg-amber-50 hover:border-amber-300 cursor-pointer bg-white';
+
+                            return `
+                            <label class="flex items-center p-4 rounded-lg border border-amber-200 transition group ${labelClass}">
+                                <input type="radio" name="q-${i}" value="${val}" class="mr-3 text-amber-600 focus:ring-amber-500 w-5 h-5" onchange="checkAnswer(${i}, '${val}', '${q.ans}')" ${isChecked} ${isDisabled}>
+                                <span class="text-lg text-stone-800">${opt}</span>
+                            </label>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div id="feedback-${i}" class="${feedbackClass}">${feedback}</div>
+                </div>
+            `}).join('');
+            
+            container.innerHTML = `
+                <div class="max-w-3xl mx-auto pb-24">
+                    <div class="text-center mb-10">
+                        <span class="bg-amber-200 text-amber-900 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-amber-300">高難度 / 高鑑別度</span>
+                        <h2 class="text-3xl font-bold text-amber-950 font-serif">隨堂測驗 (20題)</h2>
+                        <p class="text-amber-800 mt-2">挑戰文言語法、字音辨析與核心政治哲理的深度考題</p>
+                    </div>
+                    ${quizHtml}
+                    
+                    <div class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-amber-200 p-4 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] flex justify-center items-center z-40">
+                         <button onclick="submitQuiz()" class="px-10 py-3 bg-amber-400 hover:bg-amber-500 text-stone-900 font-bold rounded-full shadow-lg transition transform hover:scale-105 flex items-center text-lg">
+                            <i class="fas fa-paper-plane mr-2"></i> 交卷並查看成績
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        const storyNodes = {
+            start: {
+                id: 'start',
+                text: "春秋時期，鄭國。你是子產大人身邊的親信官員。某日，鄭國鄉校裡，鄉民們正熱烈地議論著子產大人頒布的新政，其中不乏嚴厲的批評與抱怨。有些朝中大臣對此十分不滿，建議子產派兵封閉鄉校。子產大人轉頭問你的意見：「你覺得這鄉校，該不該毀？」",
+                choices: [
+                    { text: "「大人，這些鄉民愚昧無知，任由他們妄議朝政只會動搖國本，應當立刻封閉！」", next: "ignore_horse" },
+                    { text: "「大人，防民之口甚於防川。鄉校正是我們了解民意、改進施政的絕佳場所，不該毀！」", next: "save_horse" }
+                ]
+            },
+            ignore_horse: {
+                id: 'ignore_horse',
+                text: "【下塞上聾】你選擇了壓制。子產聽了你的建議，封閉了鄉校。因為言路被堵塞，民怨無處發洩，統治者聽不到真實的聲音。不久後，鄭國爆發了嚴重的動亂，國家走向傾覆。你成為了「下塞上聾」的歷史罪人。",
+                choices: [{ text: "重來，這次我要當一回明臣", next: "start" }],
+                isEnding: true
+            },
+            save_horse: {
+                id: 'save_horse',
+                text: "【善也吾行】子產欣慰地笑了：「善也吾行，不善吾避。你懂我的心意。」幾個月後，鄉校裡的議論聲沒有停止，反而有人提出了一個極具建設性的農政改革建議，但這個建議會得罪國內一些權勢極大的貴族。你決定...",
+                choices: [
+                    { text: "「這建議雖然好，但得罪貴族太危險了，我們還是假裝沒聽到吧。」", next: "coward_ending" },
+                    { text: "「大人，既然是為了國家好，我們應當力排眾議，採納這項建議！」", next: "true_win" }
+                ]
+            },
+            coward_ending: {
+                id: 'coward_ending',
+                text: "【錯失良機】你雖然懂得不毀鄉校的道理，卻沒有「善也吾行」的勇氣與魄力。鄭國雖然免於動亂，卻也錯失了變法圖強的絕佳機會，最終只能在諸侯國中苟延殘喘。",
+                choices: [{ text: "重來，我要勇敢推行善政", next: "start" }],
+                isEnding: true
+            },
+            true_win: {
+                id: 'true_win',
+                text: "【施及無垠】子產採納了建議，力排眾議推行改革。鄭國因此大治，成為春秋時期的強國。你幫助子產完成了「交暢旁達，施及無垠」的偉業！韓愈在後世寫作時，必定會為你們的君臣相得而讚嘆。",
+                choices: [
+                    { text: "回到總覽，銘記這段政治智慧", next: "start" }
+                ],
+                isEnding: true,
+                win: true
+            }
+        };
+
+        function renderStory(container) {
+            if(!window.currentStoryNode) window.currentStoryNode = 'start';
+            const node = storyNodes[window.currentStoryNode];
+
+            // 修改為直接讀取本地靜態圖片
+            const localPath = `Chinese-Classical1-23-images/rpg_${window.currentStoryNode}.jpg`;
+            let imageContent = `
+                <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
+                    <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
+                </div>
+            `;
+
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-amber-200">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-orange-600 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-stone-800 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>開明盛世</div>` : `<div class="text-center mb-8 text-amber-800 font-bold text-2xl p-6 bg-amber-50 rounded-xl border border-amber-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-amber-100 border-2 border-amber-200 hover:border-amber-400 rounded-xl text-amber-950 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-400 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
+        }
+
+        function nextStoryNode(nodeId) {
+            window.currentStoryNode = nodeId;
+            renderStory(document.getElementById('content-display'));
+        }
+
+        function checkAnswer(idx, val, ans) {
+            if (userAnswers[idx] !== undefined) return; 
+            userAnswers[idx] = val; 
+            const radios = document.getElementsByName(`q-${idx}`);
+            for (let radio of radios) {
+                radio.disabled = true;
+                radio.parentElement.classList.add('disabled-label');
+            }
+
+            const feedbackEl = document.getElementById(`feedback-${idx}`);
+            const card = document.getElementById(`quiz-card-${idx}`);
+            const qData = contentData.quiz[idx];
+            if (!feedbackEl || !card) return;
+            
+            feedbackEl.className = 'mt-4 p-4 rounded-lg text-base animate-fade-in border';
+            card.classList.remove('bg-white');
+
+            if (val === ans) {
+                feedbackEl.innerHTML = `<strong class="block mb-1 text-lg"><i class="fas fa-check-circle mr-2"></i>答對了！</strong>${qData.exp}`;
+                feedbackEl.classList.add('bg-green-50', 'border-green-200', 'text-green-900');
+                card.classList.add('bg-green-50/60', 'border-green-500');
+            } else {
+                const correctOption = qData.opts.find((opt, i) => ["A","B","C","D"][i] === ans);
+                const userOption = qData.opts.find((opt, i) => ["A","B","C","D"][i] === val);
+                
+                feedbackEl.innerHTML = `
+                    <div class="mb-2">
+                        <span class="block font-bold text-red-700 text-lg"><i class="fas fa-times-circle mr-2"></i>答錯了</span>
+                        <span class="block text-amber-900 mt-1">您的答案：${userOption}</span>
+                        <span class="block text-green-700 font-bold mt-1">正確答案：${correctOption}</span>
+                    </div>
+                    <div class="pt-2 border-t border-red-200 mt-2 text-stone-800">
+                        <strong><i class="fas fa-lightbulb text-yellow-600 mr-1"></i>解析：</strong>${qData.exp}
+                    </div>
+                `;
+                feedbackEl.classList.add('bg-red-50', 'border-red-200', 'text-stone-800');
+                card.classList.add('bg-red-50/60', 'border-red-500');
+            }
+            feedbackEl.classList.remove('hidden');
+        }
+
+        function submitQuiz() {
+            const total = contentData.quiz.length;
+            const answered = Object.keys(userAnswers).length;
+            
+            if (answered < total) {
+                showError(`您還有 ${total - answered} 題未完成，請作答完畢後再交卷！`);
+                return;
+            }
+            
+            let correctCount = 0;
+            for (let i = 0; i < total; i++) {
+                if (userAnswers[i] === contentData.quiz[i].ans) {
+                    correctCount++;
+                }
+            }
+            
+            const score = Math.round((correctCount / total) * 100);
+            const scoreText = document.getElementById('score-text');
+            scoreText.innerHTML = `您的總分是 <span class="text-amber-700 font-bold text-5xl">${score}</span> 分`;
+            
+            const modal = document.getElementById('score-modal');
+            modal.classList.remove('hidden');
+            
+            try {
+                if(score >= 80) { confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } }); }
+            } catch(e) {}
+        }
+
+        function closeScoreModal() {
+            const modal = document.getElementById('score-modal');
+            modal.classList.add('hidden');
+        }
+
+        function showNote(key, segIdx, el, e) {
+            if (e && e.stopPropagation) e.stopPropagation();
+            const popup = document.getElementById('note-template');
+            const content = document.getElementById('note-content');
+            let noteData = null;
+            
+            if (segIdx !== undefined && contentData.segments[segIdx] && contentData.segments[segIdx].notes[key]) { 
+                noteData = contentData.segments[segIdx].notes[key]; 
+            } else if (allKeywords[key]) { 
+                noteData = allKeywords[key]; 
+            }
+            
+            if(!noteData) return;
+            
+            content.innerHTML = `
+                <div class="flex items-baseline justify-between border-b border-amber-100 pb-2 mb-2">
+                    <h4 class="text-xl font-bold text-amber-900 font-serif">${key}</h4>
+                    <span class="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full font-bold">${noteData.type || noteData.pos}</span>
+                </div>
+                <p class="text-sm text-amber-700 mb-2 font-mono bg-orange-50 px-2 py-1 rounded inline-block">${noteData.zhuyin}</p>
+                <p class="text-amber-800 leading-relaxed font-medium">${noteData.def || noteData.meaning}</p>
+            `;
+            
+            const rect = el.getBoundingClientRect();
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let left = rect.left + scrollLeft;
+            let top = rect.bottom + scrollTop + 8; 
+            
+            if (left + 300 > document.body.clientWidth) { left = document.body.clientWidth - 310; }
+            
+            popup.style.left = `${left}px`;
+            popup.style.top = `${top}px`;
+            popup.classList.remove('hidden');
+        }
+        
+        // 優化語音播放：優先採用女聲 (Google 國語/Mei-Jia 等)、語速 0.9、音調 1.05
+        async function playAudio(text) {
+            if (!('speechSynthesis' in window)) { showError("您的瀏覽器不支援語音朗讀功能。"); return; }
+            window.speechSynthesis.cancel();
+            
+            let voices = window.speechSynthesis.getVoices();
+            if (voices.length === 0) {
+                await new Promise(resolve => {
+                    const id = setInterval(() => {
+                        voices = window.speechSynthesis.getVoices();
+                        if (voices.length > 0) { clearInterval(id); resolve(); }
+                    }, 100);
+                });
+            }
+
+            // 嚴格篩選高品質女聲
+            const preferredVoices = ['Google 國語', 'Mei-Jia', 'Lili', 'Ting-Ting', 'Hsiao-Chen', 'Yating', 'Xiaoxiao'];
+            let targetVoice = null;
+            
+            for (const pv of preferredVoices) {
+                targetVoice = voices.find(v => (v.lang.startsWith('zh') || v.lang.includes('Hant')) && v.name.includes(pv));
+                if (targetVoice) break;
+            }
+            
+            // 備用選項：台灣中文
+            if (!targetVoice) targetVoice = voices.find(v => v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW'); 
+            if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('zh'));
+
+            // 強化斷句處理：根據全形標點符號建立微停頓陣列，避免一口氣念完
+            const chunks = text.split(/([，、。？！；：])/).reduce((acc, curr, i) => {
+                if (i % 2 === 0) { 
+                    if (curr.trim()) acc.push({ text: curr, pause: 0 });
+                } else { 
+                    if (acc.length > 0) {
+                        acc[acc.length - 1].text += curr;
+                        if (['。', '！', '？'].includes(curr)) acc[acc.length - 1].pause = 800; // 句號停頓久
+                        else if (['；', '：'].includes(curr)) acc[acc.length - 1].pause = 600; // 分號停頓中
+                        else acc[acc.length - 1].pause = 400; // 逗號停頓短
+                    }
+                }
+                return acc;
+            }, []);
+
+            if (chunks.length === 0) return;
+
+            const playNext = (index) => {
+                if (index >= chunks.length) return;
+                const utterance = new SpeechSynthesisUtterance(chunks[index].text);
+                utterance.lang = 'zh-TW';
+                
+                // 設定語速與語調
+                utterance.rate = 0.9;  
+                utterance.pitch = 1.05; 
+                
+                if (targetVoice) utterance.voice = targetVoice;
+                
+                utterance.onend = () => { setTimeout(() => playNext(index + 1), chunks[index].pause); };
+                window.speechSynthesis.speak(utterance);
+            };
+
+            playNext(0);
+        }
+
+        function showError(msg) {
+            const toast = document.getElementById('error-toast');
+            document.getElementById('error-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
+            setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
+        }
+
+    </script>
+</body>
+</html>
