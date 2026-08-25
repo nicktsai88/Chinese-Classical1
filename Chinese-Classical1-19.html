@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(吳敏男 - 第三輯) 第10篇 山中與裴迪秀才書 - 互動式古文學習 (AI 旗艦版)</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 載入 FontAwesome 圖標 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 載入 Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fffbf0; /* 暖色象牙白底色 */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fcd34d' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* 自定義滾動條 (暖橘/琥珀配色) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fff7ed; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 4px; }
+
+        /* 標籤樣式 */
+        .tab-btn { position: relative; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 3px; background-color: #ea580c; transition: width 0.3s ease; }
+        .tab-btn.active { color: #78350f; background-color: #fef3c7; font-weight: bold; }
+        .tab-btn.active::after { width: 100%; }
+
+        /* 互動文字樣式 */
+        .interactive-word {
+            cursor: pointer;
+            border-bottom: 2px dotted #f59e0b; 
+            transition: all 0.2s;
+            padding-bottom: 1px;
+            position: relative;
+            z-index: 20;
+            color: #b45309; 
+            font-weight: 600;
+        }
+        .interactive-word:hover { background-color: #fde68a; color: #78350f; border-bottom-style: solid; }
+
+        /* 彈出註釋 */
+        .note-popup {
+            animation: fadeIn 0.2s ease-out;
+            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.15), 0 8px 10px -6px rgba(217, 119, 6, 0.1);
+            border-left-color: #f59e0b !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+            to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+
+        /* 懸停翻譯效果 */
+        .hover-trans-container:hover .hover-translation { display: block; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 故事模式樣式 */
+        .story-choice:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(217, 119, 6, 0.15), 0 2px 4px -1px rgba(217, 119, 6, 0.1); }
+        .fade-in-image { animation: fadeInImg 0.8s ease-out forwards; }
+        @keyframes fadeInImg { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        /* 禁用狀態的樣式 */
+        input[type="radio"]:disabled { cursor: not-allowed; opacity: 0.6; }
+        .disabled-label { cursor: not-allowed !important; opacity: 0.7; }
+    </style>
+</head>
+<body class="text-stone-800 min-h-screen flex flex-col">
+
+    <nav class="bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 shadow-lg sticky top-0 z-50 border-b border-amber-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-mountain text-2xl mr-3 text-amber-300"></i>
+                    <span class="font-bold text-xl tracking-wider font-serif">古文互動教室 <span class="text-xs text-amber-300 font-sans ml-1">AI 旗艦版</span></span>
+                </div>
+                <div class="hidden md:block text-sm opacity-90 text-amber-200 font-medium">
+                    深度學習：第10篇 山中與裴迪秀才書
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" class="max-w-6xl mx-auto p-4 sm:p-6 w-full flex-grow flex flex-col">
+        
+        <header class="bg-white rounded-2xl shadow-md overflow-hidden mb-6 border border-amber-200 relative">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-amber-100 rounded-bl-full opacity-60 z-0"></div>
+            <div class="bg-gradient-to-r from-amber-50 to-white p-6 sm:p-8 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 id="main-title" class="text-3xl sm:text-4xl font-serif font-bold text-amber-950 mb-2"></h1>
+                        <div class="flex items-center text-amber-900 space-x-4 text-sm sm:text-base">
+                            <span class="flex items-center bg-amber-100 px-3 py-1 rounded-full border border-amber-200"><i class="fas fa-user-edit mr-2 text-amber-600"></i><span id="author-name"></span></span>
+                            <span class="flex items-center bg-amber-100 px-3 py-1 rounded-full border border-amber-200"><i class="fas fa-book mr-2 text-amber-600"></i><span id="source-name"></span></span>
+                        </div>
+                    </div>
+                    <div class="hidden md:block text-right">
+                        <span class="inline-block bg-orange-100 text-orange-900 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide mb-1 border border-orange-300">重要考試文章</span>
+                        <div class="text-xs text-amber-700 font-medium">適合程度：中高階 (詩畫交融與寫景抒情)</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-wrap justify-center bg-white rounded-xl shadow-sm mb-6 border border-amber-200 sticky top-20 z-40 overflow-x-auto">
+            <button id="tab-overview" class="tab-btn active px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('overview')"><i class="fas fa-info-circle mr-2"></i>總覽</button>
+            <button id="tab-reading" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('reading')"><i class="fas fa-glasses mr-2"></i>精讀與圖解</button>
+            <button id="tab-deep" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('deep')"><i class="fas fa-project-diagram mr-2"></i>深度理解</button>
+            <button id="tab-story" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('story')"><i class="fas fa-theater-masks mr-2"></i>抉擇 RPG</button>
+            <button id="tab-vocabulary" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('vocabulary')"><i class="fas fa-spell-check mr-2"></i>語詞精解</button>
+            <button id="tab-analysis" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('analysis')"><i class="fas fa-feather-alt mr-2"></i>修辭分析</button>
+            <button id="tab-quiz" class="tab-btn px-4 py-3 md:px-5 md:py-4 font-medium text-amber-800 hover:text-amber-950" onclick="switchTab('quiz')"><i class="fas fa-pen-nib mr-2"></i>隨堂測驗</button>
+        </div>
+
+        <main id="content-display" class="flex-grow bg-white rounded-2xl shadow-lg p-6 sm:p-8 min-h-[500px] transition-all duration-300 relative border border-amber-100">
+            <!-- Content will be injected here -->
+        </main>
+        
+    </div>
+
+    <div id="note-template" class="note-popup absolute bg-white border-l-4 rounded-r-lg shadow-2xl p-4 z-50 hidden w-72" onclick="event.stopPropagation()">
+        <button onclick="closeNote()" class="absolute top-2 right-2 text-amber-400 hover:text-amber-700 transition"><i class="fas fa-times"></i></button>
+        <div id="note-content"></div>
+    </div>
+
+    <div id="score-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl transform transition-all scale-100 border-2 border-amber-200">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-amber-100 to-orange-200 mb-6 shadow-inner">
+                    <i class="fas fa-award text-3xl text-amber-800"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-stone-900 mb-2 font-serif">測驗結果</h3>
+                <p class="text-amber-700 mb-6" id="score-text">你的得分是...</p>
+                <button onclick="closeScoreModal()" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-md px-4 py-3 bg-amber-500 text-white font-bold hover:bg-amber-600 focus:outline-none transition">
+                    查看詳細解析
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="error-toast" class="fixed bottom-6 right-6 bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg shadow-xl hidden z-50 flex items-center transition-all transform translate-y-10 opacity-0">
+        <i class="fas fa-exclamation-circle mr-3 text-xl"></i>
+        <div>
+            <p class="font-bold">系統提示</p>
+            <p id="error-msg" class="text-sm"></p>
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 1. 教材資料結構 (Content Data) - 山中與裴迪秀才書
+        // ----------------------------------------------------
+        const contentData = {
+            metadata: {
+                title: "(吳敏男 - 第三輯) 第10篇 山中與裴迪秀才書",
+                author: "王維",
+                source: "《王右丞集》"
+            },
+            summary: "〈山中與裴迪秀才書〉是唐代「詩佛」王維寫給好友裴迪的一封書信。當時王維隱居於輞川別墅，裴迪正在準備科舉考試。信中，王維生動地描繪了輞川冬夜的清寒幽靜，以及他對昔日兩人同遊、賦詩的美好回憶。接著，筆鋒一轉，以極具生機的筆觸預寫了春天到來時輞川生機盎然的景象，並藉此真誠地邀請裴迪在春天時同來遊賞。全文情景交融，語言駢散結合，充滿了「詩中有畫，畫中有詩」的藝術魅力，展現了作者清雅脫俗的情懷與深厚的友誼。",
+            
+            meaning: "1. **寫景如畫的藝術技巧**：王維完美展現了其「畫中有詩」的特點。冬景部分採用「以動襯靜」（如：犬吠、夜舂、疏鐘）描繪出空靈寂靜；春景部分則用絢麗的色彩與動態（如：輕鯈出水、白鷗矯翼）呈現出勃勃生機。\n2. **真摯深厚的朋友情誼**：作者因為朋友「方溫經」而不敢打擾，體現了體貼；夜深獨坐時「多思曩昔，攜手賦詩」，體現了深深的思念；最後的邀約更是充滿了期盼。\n3. **清妙脫俗的人生境界**：王維將遊山玩水視為「不急之務」，卻認為其中有「深趣」。只有具備「天機清妙」的人，才能領會大自然中蘊含的深刻理趣，這反映了王維深受佛道思想影響的隱逸情懷。",
+            
+            rhetoric: [
+                "**以動襯靜:** 「深巷寒犬，吠聲如豹。村墟夜舂，復與疏鐘相間。」透過狗吠聲、搗穀聲和鐘聲，反襯出冬夜山村的極度寂靜。",
+                "**視覺與聽覺交錯:** 描寫冬景時，既有「寒山遠火，明滅林外」（視覺），也有「村墟夜舂」（聽覺）；描寫春景時，有「白鷗矯翼」（視覺），也有「麥隴朝雊」（聽覺），感官描寫立體豐滿。",
+                "**對比 (映襯):** 前半段描繪冬夜的「清寒、冷寂、靜態」，與後半段描繪春天的「明媚、生機、動態」形成強烈的對比，展現了時空推移的美感。",
+                "**呼告與設問:** 「斯之不遠，儻能從我遊乎？」直接對不在面前的朋友發出邀請，語氣親切懇切。"
+            ],
+            
+            vocabulary: [
+                { word: "臘月", zhuyin: "ㄌㄚˋ ㄩㄝˋ", pos: "名詞", meaning: "農曆十二月，古時在歲末祭祀眾神稱為「臘」。" },
+                { word: "景氣", zhuyin: "ㄐㄧㄥˇ ㄑㄧˋ", pos: "名詞", meaning: "氣候與景色。" },
+                { word: "和暢", zhuyin: "ㄏㄜˊ ㄔㄤˋ", pos: "形容詞", meaning: "溫和舒暢。" },
+                { word: "故山", zhuyin: "ㄍㄨˋ ㄕㄢ", pos: "名詞", meaning: "舊日居住的山，此指王維隱居的輞川別墅。" },
+                { word: "殊可過", zhuyin: "ㄕㄨ ㄎㄜˇ ㄍㄨㄛˋ", pos: "片語", meaning: "很值得去遊賞。殊：很、極。過：拜訪、遊賞。" },
+                { word: "足下", zhuyin: "ㄗㄨˊ ㄒㄧㄚˋ", pos: "代詞", meaning: "對同輩或朋友的敬稱。" },
+                { word: "方", zhuyin: "ㄈㄤ", pos: "副詞", meaning: "正當、正在。" },
+                { word: "溫經", zhuyin: "ㄨㄣ ㄐㄧㄥ", pos: "動賓", meaning: "溫習經書，指準備科舉考試。" },
+                { word: "猥", zhuyin: "ㄨㄟˇ", pos: "副詞", meaning: "鄙陋。此處作自謙之詞。亦有「輕率」之意。" },
+                { word: "輒", zhuyin: "ㄓㄜˊ", pos: "副詞", meaning: "就、於是。" },
+                { word: "憩", zhuyin: "ㄑㄧˋ", pos: "動詞", meaning: "休息。" },
+                { word: "飯訖", zhuyin: "ㄈㄢˋ ㄑㄧˋ", pos: "片語", meaning: "吃完飯。訖：完結、終了。" },
+                { word: "玄灞", zhuyin: "ㄒㄩㄢˊ ㄅㄚˋ", pos: "專名", meaning: "指灞水，因水色深暗故稱「玄」。" },
+                { word: "暎", zhuyin: "ㄧㄥˋ", pos: "動詞", meaning: "同「映」，照耀。" },
+                { word: "郭", zhuyin: "ㄍㄨㄛ", pos: "名詞", meaning: "外城。" },
+                { word: "華子岡", zhuyin: "ㄏㄨㄚˋ ㄗˇ ㄍㄤ", pos: "專名", meaning: "山名，輞川勝景之一。" },
+                { word: "輞水", zhuyin: "ㄨㄤˇ ㄕㄨㄟˇ", pos: "名詞", meaning: "輞川的流水。" },
+                { word: "淪漣", zhuyin: "ㄌㄨㄣˊ ㄌㄧㄢˊ", pos: "形容詞", meaning: "水波蕩漾的樣子。" },
+                { word: "上下", zhuyin: "ㄕㄤˋ ㄒㄧㄚˋ", pos: "動詞", meaning: "此指水波隨著月光或月影隨波浮動的樣子。" },
+                { word: "明滅", zhuyin: "ㄇㄧㄥˊ ㄇㄧㄝˋ", pos: "動詞", meaning: "忽明忽暗。" },
+                { word: "村墟", zhuyin: "ㄘㄨㄣ ㄒㄩ", pos: "名詞", meaning: "村落。墟：有人居住的地方。" },
+                { word: "夜舂", zhuyin: "ㄧㄝˋ ㄔㄨㄥ", pos: "動賓", meaning: "夜間用杵搗穀。" },
+                { word: "相間", zhuyin: "ㄒㄧㄤ ㄐㄧㄢˋ", pos: "動詞", meaning: "互相交織、交錯。" },
+                { word: "曩昔", zhuyin: "ㄋㄤˇ ㄒㄧˊ", pos: "時間詞", meaning: "從前、以往。" },
+                { word: "仄逕", zhuyin: "ㄗㄜˋ ㄐㄧㄥˋ", pos: "名詞", meaning: "狹窄的小路。仄：狹窄。逕：小路。" },
+                { word: "蔓發", zhuyin: "ㄇㄢˋ ㄈㄚ", pos: "動詞", meaning: "蔓延生長。" },
+                { word: "輕鯈", zhuyin: "ㄑㄧㄥ ㄊㄧㄠˊ", pos: "名詞", meaning: "輕快靈敏的小魚。鯈：一種長形小魚。" },
+                { word: "矯翼", zhuyin: "ㄐㄧㄠˇ ㄧˋ", pos: "動賓", meaning: "展翅飛翔。矯：舉起。" },
+                { word: "青皋", zhuyin: "ㄑㄧㄥ ㄍㄠ", pos: "名詞", meaning: "青草叢生的水邊高地。皋：水邊高地。" },
+                { word: "麥隴", zhuyin: "ㄇㄞˋ ㄌㄨㄥˇ", pos: "名詞", meaning: "麥田。隴：田中高地。" },
+                { word: "朝雊", zhuyin: "ㄓㄠ ㄍㄡˋ", pos: "動詞", meaning: "早晨雉雞的鳴叫。雊：野雞叫。" },
+                { word: "儻", zhuyin: "ㄊㄤˇ", pos: "副詞", meaning: "倘若、或者。表示希望、期盼的語氣詞。" },
+                { word: "天機清妙", zhuyin: "ㄊㄧㄢ ㄐㄧ ㄑㄧㄥ ㄇㄧㄠˋ", pos: "片語", meaning: "天性清高脫俗。天機：天賦的靈性。" },
+                { word: "不急之務", zhuyin: "ㄅㄨˋ ㄐㄧˊ ㄓ ㄨˋ", pos: "名詞", meaning: "不急迫的事，指遊山玩水等閒情逸致。" },
+                { word: "無忽", zhuyin: "ㄨˊ ㄏㄨ", pos: "動詞", meaning: "不要忽略、不要忘記。無，通「毋」，不要。" },
+                { word: "黃檗", zhuyin: "ㄏㄨㄤˊ ㄅㄛˋ", pos: "名詞", meaning: "一種落葉喬木，樹皮可作黃色染料及藥用。" },
+                { word: "不一", zhuyin: "ㄅㄨˋ ㄧ", pos: "片語", meaning: "書信結尾用語，意指不一一細說（言不盡意）。" },
+                { word: "白", zhuyin: "ㄅㄞˊ", pos: "動詞", meaning: "陳述、說明。用於書信署名後，表示恭敬地陳述。" }
+            ],
+
+            segments: [
+                {
+                    original: "近臘月下，景氣和暢，故山殊可過。足下方溫經，猥不敢相煩，輒便往山中，憩感配寺，與山僧飯訖而去。",
+                    translation: "近來到了農曆十二月底，氣候溫和景色舒暢，舊日隱居的輞川山中很值得去遊賞。您正在溫習經書準備考試，我自覺鄙陋不敢輕率地打擾您，於是就獨自前往山中，在感配寺休息，和寺裡的山僧吃完飯後便離開了。",
+                    audioText: "近臘月下，，景氣和暢，，故山殊可過。，足下方溫經，，猥不敢相煩，，輒便往山中，，憩感配寺，，與山僧飯訖而去。",
+                    notes: {
+                        "臘月": { zhuyin: "ㄌㄚˋ ㄩㄝˋ", type: "名詞", def: "農曆十二月。" },
+                        "景氣": { zhuyin: "ㄐㄧㄥˇ ㄑㄧˋ", type: "名詞", def: "氣候與景色。" },
+                        "故山": { zhuyin: "ㄍㄨˋ ㄕㄢ", type: "名詞", def: "指王維隱居的輞川別墅。" },
+                        "殊可過": { zhuyin: "ㄕㄨ ㄎㄜˇ ㄍㄨㄛˋ", type: "片語", def: "很值得遊賞。過，拜訪、遊賞。" },
+                        "足下": { zhuyin: "ㄗㄨˊ ㄒㄧㄚˋ", type: "代詞", def: "對朋友的敬稱。" },
+                        "方": { zhuyin: "ㄈㄤ", type: "副詞", def: "正在。" },
+                        "溫經": { zhuyin: "ㄨㄣ ㄐㄧㄥ", type: "動賓", def: "溫習經書備考。" },
+                        "猥": { zhuyin: "ㄨㄟˇ", type: "副詞", def: "鄙陋、輕率。自謙之詞。" },
+                        "飯訖": { zhuyin: "ㄈㄢˋ ㄑㄧˋ", type: "片語", def: "吃完飯。" }
+                    }
+                },
+                {
+                    original: "北涉玄灞，清月暎郭。夜登華子岡，輞水淪漣，與月上下。寒山遠火，明滅林外。深巷寒犬，吠聲如豹。村墟夜舂，復與疏鐘相間。此時獨坐，僮僕靜默，多思曩昔，攜手賦詩，步仄逕，臨清流也。",
+                    translation: "向北渡過深暗的灞水，清朗的月光照耀著外城。夜晚登上華子岡，輞川的水波蕩漾，水中的月影也跟著波浪上下浮動。寒冷山頭遠處的燈火，在樹林外忽明忽暗。深巷裡的寒犬，叫聲像豹子一樣宏亮。村落裡夜間搗穀的聲音，又與稀疏的寺廟鐘聲交錯相伴。這時候我獨自坐著，身邊的僮僕也都安靜無聲，我心中深深思念起從前，我們攜手作詩，走在狹窄的小徑上，來到清澈的溪流旁的時光。",
+                    audioText: "北涉玄灞，，清月暎郭。，夜登華子岡，，輞水淪漣，，與月上下。，寒山遠火，，明滅林外。，深巷寒犬，，吠聲如豹。，村墟夜舂，，復與疏鐘相間。，此時獨坐，，僮僕靜默，，多思曩昔，，攜手賦詩，，步仄逕，，臨清流也。",
+                    notes: {
+                        "玄灞": { zhuyin: "ㄒㄩㄢˊ ㄅㄚˋ", type: "名詞", def: "灞水，水色深暗故稱玄。" },
+                        "暎": { zhuyin: "ㄧㄥˋ", type: "動詞", def: "同「映」，照耀。" },
+                        "淪漣": { zhuyin: "ㄌㄨㄣˊ ㄌㄧㄢˊ", type: "形容詞", def: "水波蕩漾的樣子。" },
+                        "上下": { zhuyin: "ㄕㄤˋ ㄒㄧㄚˋ", type: "動詞", def: "月光隨水波浮動。" },
+                        "村墟": { zhuyin: "ㄘㄨㄣ ㄒㄩ", type: "名詞", def: "村落。" },
+                        "夜舂": { zhuyin: "ㄧㄝˋ ㄔㄨㄥ", type: "動詞", def: "夜間搗穀。" },
+                        "曩昔": { zhuyin: "ㄋㄤˇ ㄒㄧˊ", type: "時間詞", def: "從前、以往。" },
+                        "仄逕": { zhuyin: "ㄗㄜˋ ㄐㄧㄥˋ", type: "名詞", def: "狹窄的小路。" }
+                    }
+                },
+                {
+                    original: "當待春中，草木蔓發，春山可望，輕鯈出水，白鷗矯翼，露溼青皋，麥隴朝雊。斯之不遠，儻能從我遊乎？非子天機清妙者，豈能以此不急之務相邀？然是中有深趣矣，無忽！因馱黃檗人往，不一。山中人王維白。",
+                    translation: "等到仲春時節，草木蔓延生長，春天的山景明媚可期，輕快的小魚躍出水面，白鷗展翅飛翔，露水沾溼了水邊青草叢生的高地，麥田裡傳來早晨野雞的鳴叫。這樣的日子已經不遠了，您能和我一起來遊玩嗎？如果不是您天性清高脫俗，我怎能用這遊山玩水的不急之務來邀請您呢？然而這大自然中確實有著深奧的理趣啊，請千萬不要忽略了！趁著有人運送黃檗下山，託他帶去這封信，就不一一詳述了。山中人王維敬白。",
+                    audioText: "當待春中，，草木蔓發，，春山可望，，輕鯈出水，，白鷗矯翼，，露溼青皋，，麥隴朝雊。，斯之不遠，，儻能從我遊乎？，非子天機清妙者，，豈能以此不急之務相邀？，然是中有深趣矣，，無忽！，因馱黃檗人往，，不一。，山中人王維白。",
+                    notes: {
+                        "蔓發": { zhuyin: "ㄇㄢˋ ㄈㄚ", type: "動詞", def: "蔓延生長。" },
+                        "輕鯈": { zhuyin: "ㄑㄧㄥ ㄊㄧㄠˊ", type: "名詞", def: "輕快的小魚。" },
+                        "矯翼": { zhuyin: "ㄐㄧㄠˇ ㄧˋ", type: "動詞", def: "展翅飛翔。" },
+                        "青皋": { zhuyin: "ㄑㄧㄥ ㄍㄠ", type: "名詞", def: "青草叢生的水邊高地。" },
+                        "朝雊": { zhuyin: "ㄓㄠ ㄍㄡˋ", type: "動詞", def: "早晨野雞的鳴叫。" },
+                        "儻": { zhuyin: "ㄊㄤˇ", type: "副詞", def: "倘若，表示期盼語氣。" },
+                        "天機清妙": { zhuyin: "ㄊㄧㄢ ㄐㄧ ㄑㄧㄥ ㄇㄧㄠˋ", type: "片語", def: "天性清高脫俗。" },
+                        "不急之務": { zhuyin: "ㄅㄨˋ ㄐㄧˊ ㄓ ㄨˋ", type: "名詞", def: "不急迫的事，指遊山玩水。" },
+                        "無忽": { zhuyin: "ㄨˊ ㄏㄨ", type: "動詞", def: "不要忽略。無，通毋。" },
+                        "黃檗": { zhuyin: "ㄏㄨㄤˊ ㄅㄛˋ", type: "名詞", def: "樹皮可作染料與藥用的喬木。" },
+                        "不一": { zhuyin: "ㄅㄨˋ ㄧ", type: "詞組", def: "書信結尾用語，不一一細說。" },
+                        "白": { zhuyin: "ㄅㄞˊ", type: "動詞", def: "書信用語，陳述。" }
+                    }
+                }
+            ],
+            
+            quiz: [
+                { q: "「故山殊可過」中的「過」，字義為何？", opts: ["A. 經過、路過", "B. 超越、勝過", "C. 拜訪、遊賞", "D. 錯誤、過失"], ans: "C", exp: "「過」在這裡是動詞，指拜訪、探望，引申為遊賞（山林）。" },
+                { q: "「足下方溫經」的「方」，與下列何者的「方」字意義相同？", opts: ["A. 「方」寸大亂", "B. 「方」興未艾", "C. 教導有「方」", "D. 貽笑大「方」"], ans: "B", exp: "題幹的「方」意為「正當、正在」。B選項的「方興未艾」意指正在蓬勃發展，兩者皆為「正在」之意。A為指心(方寸之間)，C指方法，D指專家/內行人。" },
+                { q: "「猥不敢相煩」中，作者自稱「猥」的用意為何？", opts: ["A. 抱怨天氣寒冷", "B. 謙稱自己鄙陋、輕率", "C. 指責對方太過繁忙", "D. 形容道路崎嶇難行"], ans: "B", exp: "「猥」本義為鄙陋，此處是作者的自謙之詞，表示自己不敢輕率地去打擾正在溫書的朋友。" },
+                { q: "「輞水淪漣，與月上下」運用了何種描寫手法？", opts: ["A. 將靜態的月光寫成動態，生動描繪水月交輝", "B. 運用聽覺描寫水聲的嘈雜", "C. 描寫月亮在天空中快速移動", "D. 寫出水面上漁船來往頻繁"], ans: "A", exp: "「與月上下」是指水中的月影隨著水波蕩漾而起伏，將原本靜態的月光賦予了動態感。" },
+                { q: "「深巷寒犬，吠聲如豹。村墟夜舂，復與疏鐘相間。」這段文字主要營造了何種氛圍？", opts: ["A. 熱鬧喧囂的節慶氣氛", "B. 危機四伏的恐怖感", "C. 以動襯靜，突顯冬夜山村的極度幽靜", "D. 農家忙碌豐收的喜悅"], ans: "C", exp: "作者透過描寫偶發的聲音（狗吠、搗穀聲、鐘聲），反襯出大環境的寂靜，這是中國文學中常見的「以動襯靜」手法。" },
+                { q: "「多思曩昔，攜手賦詩」中的「曩昔」，詞義為何？", opts: ["A. 明日、未來", "B. 從前、以往", "C. 早晨、清晨", "D. 傍晚、黃昏"], ans: "B", exp: "「曩昔」指從前、過去的時間。" },
+                { q: "作者在信中預寫了「輕鯈出水，白鷗矯翼，露溼青皋，麥隴朝雊」的春景，其主要目的為何？", opts: ["A. 炫耀自己隱居之地的富饒", "B. 以生機盎然的春景，誘發/邀請裴迪春天同來遊賞", "C. 證明自己擁有預知未來的能力", "D. 抱怨冬天的寒冷與無趣"], ans: "B", exp: "作者鋪陳未來春天的美好景致，是為了增強對裴迪的吸引力，作為後文「儻能從我遊乎」的鋪墊。" },
+                { q: "「輕鯈出水」中的「鯈」字，讀音與字義為何？", opts: ["A. ㄧㄡ，游泳", "B. ㄊㄧㄠˊ，一種輕快的小魚", "C. ㄑㄧㄡ，泥鰍", "D. ㄉㄧㄠ，釣魚"], ans: "B", exp: "鯈，音ㄊㄧㄠˊ，指白鰷魚，是一種細長且游動敏捷的小魚。" },
+                { q: "「麥隴朝雊」中的「雊」字，所指為何？", opts: ["A. 狗吠聲", "B. 嬰兒啼哭聲", "C. 早上公雞打鳴", "D. 野雞（雉）的鳴叫聲"], ans: "D", exp: "「雊」，音ㄍㄡˋ，專指雉雞（野雞）的叫聲。" },
+                { q: "「非子天機清妙者，豈能以此不急之務相邀？」句中「天機清妙」意指什麼？", opts: ["A. 掌握了朝廷的核心機密", "B. 天性清高脫俗，能領略自然之美", "C. 懂得預測天氣的變化", "D. 擅長修理精密的機械"], ans: "B", exp: "天機指天賦的靈性。「天機清妙」讚美裴迪天性清雅高潔，不是那種追逐世俗名利之人。" },
+                { q: "承上題，王維所稱的「不急之務」實際上是指什麼事情？", opts: ["A. 準備科舉考試", "B. 處理國家政事", "C. 採買日常用品", "D. 欣賞自然山水、遊山玩水"], ans: "D", exp: "相較於世俗追求的功名利祿，遊山玩水看似「不急之務」，但在作者眼中卻是具有「深趣」的高雅之事。" },
+                { q: "「然是中有深趣矣，無忽！」的「無」字，字義與下列何者相同？", opts: ["A. 「無」中生有", "B. 「無」與倫比", "C. 毋、不要", "D. 虛「無」縹緲"], ans: "C", exp: "「無」在此通「毋」，是禁止、不要的意思。「無忽」即不要忽略。" },
+                { q: "「因馱黃檗人往，不一。」中的「不一」在古代書信中代表什麼涵義？", opts: ["A. 意見分歧，無法統一", "B. 數量很多，不僅僅一個", "C. 書信結尾用語，意指「不一一細說」", "D. 表示雙方感情破裂"], ans: "C", exp: "「不一」是古代書信常見的結尾客套語，表示言不盡意，無法一一詳述。" },
+                { q: "本文在寫景上具有極高的藝術成就，下列關於本文寫景的敘述，何者『錯誤』？", opts: ["A. 善用「以動襯靜」手法，如「深巷寒犬...復與疏鐘相間」", "B. 具備「詩中有畫」的特色，色彩感與動態感十足", "C. 內容僅描寫了作者寫信當下的真實冬夜景色", "D. 運用視覺與聽覺的交錯描寫，使畫面立體生動"], ans: "C", exp: "文中除了寫當下的冬夜實景，後半段「當待春中...」完全是作者基於對輞川的了解而『想像』出的春景。" },
+                { q: "「近臘月下」點出了本文寫作的季節，請問是哪個季節？", opts: ["A. 暮春", "B. 盛夏", "C. 深秋", "D. 隆冬"], ans: "D", exp: "臘月為農曆十二月，屬於冬季的末尾（隆冬）。" },
+                { q: "「深巷寒犬，吠聲如豹」使用了哪兩種修辭手法？", opts: ["A. 譬喻、誇飾", "B. 擬人、借代", "C. 排比、層遞", "D. 頂真、迴文"], ans: "A", exp: "將狗吠聲比喻為豹子的叫聲（譬喻/明喻），同時也放大了狗叫的聲量以突顯寧靜中的突兀（誇飾）。" },
+                { q: "王維的散文與詩歌風格相近，蘇軾曾如何評價王維的作品？", opts: ["A. 筆落驚風雨，詩成泣鬼神", "B. 味摩詰之詩，詩中有畫；觀摩詰之畫，畫中有詩", "C. 詩史，反映社會現實", "D. 豪放飄逸，氣象萬千"], ans: "B", exp: "蘇軾評價王維（字摩詰）的作品特色為「詩中有畫，畫中有詩」。" },
+                { q: "「露溼青皋」中的「皋」字，意思為何？", opts: ["A. 早晨的太陽", "B. 水邊高地", "C. 白色的鳥類", "D. 茂密的樹林"], ans: "B", exp: "皋，音ㄍㄠ，指水邊的高地。" },
+                { q: "關於《山中與裴迪秀才書》一文的寫作結構，下列排序何者正確？", opts: ["A. 邀約同遊 -> 回憶過去 -> 描繪春景", "B. 描繪冬夜 -> 回憶過去 -> 想像春景 -> 邀約同遊", "C. 想像春景 -> 描繪冬夜 -> 邀約同遊 -> 回憶過去", "D. 回憶過去 -> 邀約同遊 -> 描繪冬夜 -> 想像春景"], ans: "B", exp: "文章先寫獨遊冬山之景（實寫），接著觸景生情思念昔日同遊（回憶），再想像春天生機勃發之景（虛寫），最後發出邀約。" },
+                { q: "「儻能從我遊乎？」一句，表達了作者怎樣的情感？", opts: ["A. 強迫對方必須前來的命令", "B. 對朋友不理睬自己的憤怒", "C. 懇切期盼友人春天能來同遊的願望", "D. 懷疑朋友是否還有體力爬山"], ans: "C", exp: "「儻」為倘若、或者，帶有婉轉、期盼的語氣，表達了真摯的邀請之意。" }
+            ]
+        };
+
+        // 預處理所有關鍵字
+        const allKeywords = {};
+        contentData.segments.forEach((seg, idx) => {
+            Object.entries(seg.notes).forEach(([key, note]) => {
+                if (!allKeywords[key]) {
+                    allKeywords[key] = { ...note, segIdx: idx };
+                }
+            });
+        });
+
+        // ----------------------------------------------------
+        // 2. 全域狀態管理 (靜態版本)
+        // ----------------------------------------------------
+        let currentTab = 'overview';
+        let userAnswers = {}; 
+
+        window.onload = function() {
+            document.getElementById('main-title').textContent = contentData.metadata.title;
+            document.getElementById('author-name').textContent = contentData.metadata.author;
+            document.getElementById('source-name').textContent = contentData.metadata.source;
+            switchTab('overview');
+
+            if ('speechSynthesis' in window) {
+                 window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+            }
+
+            document.addEventListener('click', (e) => {
+                const popup = document.getElementById('note-template');
+                if (!e.target.closest('.interactive-word') && !e.target.closest('.note-popup')) {
+                    closeNote();
+                }
+            });
+        };
+
+        function closeNote() {
+            const popup = document.getElementById('note-template');
+            if(popup) { popup.classList.add('hidden'); popup.style.display = ''; }
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            closeNote();
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+
+            const container = document.getElementById('content-display');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                switch(tabId) {
+                    case 'overview': renderOverview(container); break;
+                    case 'reading': renderReading(container); break;
+                    case 'deep': renderDeepUnderstanding(container); break;
+                    case 'vocabulary': renderVocabulary(container); break;
+                    case 'analysis': renderAnalysis(container); break;
+                    case 'quiz': renderQuiz(container); break;
+                    case 'story': renderStory(container); break;
+                }
+                container.style.opacity = '1';
+            }, 200);
+        }
+
+        function renderOverview(container) {
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-orange-50 rounded-2xl p-8 border border-orange-200 mb-8 shadow-sm">
+                        <h2 class="text-2xl font-bold text-amber-900 mb-4 font-serif"><i class="fas fa-scroll mr-2"></i>課文導讀</h2>
+                        <p class="text-lg text-amber-900 leading-loose text-justify">${contentData.summary}</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <div class="bg-white border border-amber-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
+                            <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-eye text-amber-700 text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-amber-900 mb-2 text-lg font-serif">詩中有畫</h3>
+                            <p class="text-amber-800 font-serif text-lg">以動襯靜，視聽交融的絕美意境</p>
+                        </div>
+                        <div class="bg-white border border-orange-200 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
+                            <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-leaf text-orange-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-orange-900 mb-2 text-lg font-serif">清妙脫俗</h3>
+                            <p class="text-orange-800 font-serif text-lg">是中有深趣矣，無忽！</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderReading(container) {
+            let segmentsHtml = contentData.segments.map((seg, idx) => {
+                let displayHtml = seg.original;
+                const sortedKeys = Object.keys(seg.notes).sort((a, b) => b.length - a.length);
+                
+                sortedKeys.forEach(key => {
+                     displayHtml = displayHtml.replace(new RegExp(`(?<!<[^>]*)${key}`, 'g'), `<span class="interactive-word" onclick="showNote('${key}', ${idx}, this, event)">${key}</span>`);
+                });
+
+                // 修改為直接讀取本地靜態圖片
+                const localPath = `Chinese-Classical1-19-images/reading_segment_${idx + 1}.jpg`;
+                let imageSection = `
+                    <div class="mt-6 rounded-lg overflow-hidden border border-amber-200 bg-orange-50 shadow-md">
+                        <img src="${localPath}" class="w-full h-auto object-cover" alt="段落插圖" onerror="this.style.display='none'">
+                    </div>
+                `;
+
+                return `
+                    <div class="group mb-12 relative pl-6 sm:pl-8 border-l-4 border-amber-300 hover:border-amber-500 transition-colors duration-300">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2 py-1 rounded uppercase tracking-widest">段落 ${idx + 1}</span>
+                            <div class="flex gap-2">
+                                <button onclick="playAudio('${seg.audioText}')" class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center hover:bg-amber-200 hover:text-amber-900 transition shadow-sm" title="朗讀 (高品質女聲，優化節奏)">
+                                    <i class="fas fa-volume-up text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative hover-trans-container cursor-help py-2">
+                            <p class="text-xl sm:text-2xl font-serif text-stone-800 leading-loose relative z-10 text-justify tracking-wide">${displayHtml}</p>
+                            <div class="hover-translation hidden absolute left-0 top-full mt-2 w-full z-20">
+                                <div class="bg-stone-900/95 backdrop-blur-sm p-4 rounded-lg text-amber-50 text-lg leading-7 shadow-2xl relative border border-amber-900">
+                                    <div class="absolute -top-2 left-8 w-4 h-4 bg-stone-900 border-t border-l border-amber-900 transform rotate-45"></div>
+                                    <span class="font-bold text-amber-300 mr-1"><i class="fas fa-language mr-1"></i>白話：</span> ${seg.translation}
+                                </div>
+                            </div>
+                        </div>
+                        ${imageSection}
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="flex flex-col gap-2 mb-8 items-start bg-gradient-to-r from-orange-50 to-white p-5 rounded-xl border border-amber-200 shadow-sm">
+                    <h3 class="font-bold text-amber-900 text-lg">古文寫實圖解</h3>
+                    <p class="text-sm text-amber-700">為您重現王維筆下的詩意輞川。</p>
+                </div>
+                <div class="max-w-4xl mx-auto mt-4">
+                    ${segmentsHtml}
+                </div>
+                <div class="text-center mt-12 pb-6 text-amber-600 text-sm space-y-1">
+                    <p><i class="fas fa-mouse-pointer mr-1"></i> 點擊底線文字查看「語詞精解」</p>
+                    <p><i class="fas fa-hand-pointer mr-1"></i> 滑鼠移過古文即可查看「白話翻譯」</p>
+                </div>
+            `;
+        }
+        
+        function renderDeepUnderstanding(container) {
+            container.innerHTML = `
+                <div class="space-y-12">
+                    <section>
+                        <h2 class="text-2xl font-bold text-amber-950 mb-6 font-serif border-l-4 border-amber-500 pl-4">時空與情景對比圖</h2>
+                        <div class="bg-white rounded-xl shadow-lg p-8 border border-amber-200 flex justify-center items-center overflow-hidden" style="min-height: 400px;">
+                             <svg viewBox="0 0 700 450" class="w-full h-full">
+                                <defs>
+                                    <marker id="arrow-deep" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#ea580c" />
+                                    </marker>
+                                </defs>
+                                
+                                <!-- Core -->
+                                <rect x="250" y="10" width="200" height="50" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="3" />
+                                <text x="350" y="40" text-anchor="middle" font-weight="bold" font-size="16" fill="#92400e">山中與裴迪秀才書</text>
+
+                                <!-- Left: Winter Night -->
+                                <rect x="100" y="100" width="180" height="70" rx="8" fill="#ffedd5" stroke="#fdba74" stroke-width="2" />
+                                <text x="190" y="125" text-anchor="middle" font-weight="bold" font-size="14" fill="#c2410c">實寫：臘月冬夜</text>
+                                <text x="190" y="145" text-anchor="middle" font-size="12" fill="#c2410c">清寒、幽寂、靜態為主</text>
+                                <text x="190" y="160" text-anchor="middle" font-size="12" fill="#c2410c">(寒山遠火、夜舂疏鐘)</text>
+
+                                <path d="M190,170 L190,210" stroke="#fdba74" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <!-- Left Bottom: Emotion -->
+                                <rect x="100" y="210" width="180" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="2" />
+                                <text x="190" y="235" text-anchor="middle" font-weight="bold" font-size="14" fill="#9a3412">觸景生情：思曩昔</text>
+                                <text x="190" y="250" text-anchor="middle" font-size="12" fill="#9a3412">懷念故人</text>
+
+                                <!-- Right: Spring Day -->
+                                <rect x="420" y="100" width="180" height="70" rx="8" fill="#fef3c7" stroke="#fcd34d" stroke-width="2" />
+                                <text x="510" y="125" text-anchor="middle" font-weight="bold" font-size="14" fill="#b45309">虛寫：春中勝景</text>
+                                <text x="510" y="145" text-anchor="middle" font-size="12" fill="#b45309">明媚、生機、動態為主</text>
+                                <text x="510" y="160" text-anchor="middle" font-size="12" fill="#b45309">(輕鯈出水、白鷗矯翼)</text>
+
+                                <path d="M510,170 L510,210" stroke="#fcd34d" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <!-- Right Bottom: Emotion -->
+                                <rect x="420" y="210" width="180" height="50" rx="8" fill="#fde68a" stroke="#f59e0b" stroke-width="2" />
+                                <text x="510" y="235" text-anchor="middle" font-weight="bold" font-size="14" fill="#92400e">誠摯邀約：儻能從我遊</text>
+                                <text x="510" y="250" text-anchor="middle" font-size="12" fill="#92400e">期盼同樂</text>
+
+                                <!-- Merging Paths -->
+                                <path d="M190,260 L190,320 L350,320" stroke="#ea580c" stroke-width="2" fill="none"/>
+                                <path d="M510,260 L510,320 L350,320" stroke="#d97706" stroke-width="2" fill="none"/>
+                                <path d="M350,320 L350,350" stroke="#ea580c" stroke-width="2" marker-end="url(#arrow-deep)" fill="none"/>
+
+                                <!-- Final Conclusion -->
+                                <rect x="230" y="350" width="240" height="60" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="3" />
+                                <text x="350" y="375" text-anchor="middle" font-weight="bold" font-size="16" fill="#7c2d12">天機清妙，自然深趣</text>
+                                <text x="350" y="395" text-anchor="middle" font-size="12" fill="#7c2d12">超脫世俗的隱逸情懷</text>
+                            </svg>
+                        </div>
+                        <p class="mt-6 text-amber-900 leading-relaxed text-justify bg-orange-50 p-4 rounded-lg border border-orange-200">
+                            <strong><i class="fas fa-lightbulb text-amber-600 mr-2"></i>文學分析：</strong> 王維這封短信，結構極為巧妙。先寫眼前的「冬夜實景」，利用「深巷寒犬」、「夜舂疏鐘」以動襯靜，烘托出空靈孤寂之感，並順勢引出對朋友的思念。接著，文筆一轉，以極其鮮豔動態的筆法「想像」未來的春景，草木蔓發、鳥飛魚躍，將朋友的思緒帶入充滿生機的春天，最後自然地發出「儻能從我遊乎」的真誠邀請。
+                        </p>
+                    </section>
+                </div>
+            `;
+        }
+
+        function renderVocabulary(container) {
+            const cardsHtml = contentData.vocabulary.map(item => `
+                <div class="bg-white border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition duration-200 flex flex-col h-full group hover:border-amber-400">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-2xl font-bold text-amber-950 group-hover:text-amber-700 font-serif">${item.word}</h3>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-sm font-mono bg-amber-50 px-2 py-1 rounded text-amber-800">${item.zhuyin}</span>
+                        <span class="text-xs font-bold text-white bg-orange-500 px-2 py-1 rounded-full">${item.pos}</span>
+                    </div>
+                    <p class="text-stone-700 text-lg leading-relaxed flex-grow border-t border-dashed border-amber-100 pt-2">${item.meaning}</p>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-amber-950 font-serif mb-2">語詞精解</h2>
+                        <p class="text-amber-800">共收錄 ${contentData.vocabulary.length} 個重點詞彙，精準掌握字義與難詞注音</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        ${cardsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAnalysis(container) {
+            const rhetoricHtml = contentData.rhetoric.map(r => `
+                <div class="flex items-start mb-6 p-5 bg-white rounded-xl border border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex-shrink-0 mr-5">
+                        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-amber-700 font-bold text-lg shadow-sm">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                    </div>
+                    <div class="prose prose-amber text-stone-800 text-lg">
+                        ${marked.parse(r)}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <section>
+                        <h2 class="text-2xl font-bold text-amber-950 mb-6 font-serif flex items-center">
+                            <i class="fas fa-lightbulb mr-3 text-amber-500"></i>全文主旨與核心哲理
+                        </h2>
+                        <div class="bg-amber-50 p-8 rounded-2xl border border-amber-200 shadow-sm text-lg text-stone-800 leading-loose">
+                            ${marked.parse(contentData.meaning)}
+                        </div>
+                    </section>
+                    <section>
+                        <h2 class="text-2xl font-bold text-amber-950 mb-6 font-serif flex items-center">
+                            <i class="fas fa-highlighter mr-3 text-amber-500"></i>寫作技巧與敘事特徵
+                        </h2>
+                        <div class="space-y-4">
+                            ${rhetoricHtml}
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        function renderQuiz(container) {
+            let quizHtml = contentData.quiz.map((q, i) => {
+                const val = ["A","B","C","D"];
+                const isAnswered = userAnswers[i] !== undefined;
+                const userAnswer = userAnswers[i];
+                let feedback = '';
+                let cardClass = "bg-white border border-amber-200 hover:border-amber-400";
+                let feedbackClass = "hidden mt-4 p-4 rounded-lg text-base bg-amber-50 border border-amber-200"; 
+                
+                if (isAnswered) {
+                    feedbackClass = "mt-4 p-4 rounded-lg text-base animate-fade-in border"; 
+                    if (userAnswer === q.ans) {
+                        feedback = `<strong class="block mb-1 text-lg"><i class="fas fa-check-circle mr-2"></i>答對了！</strong>${q.exp}`;
+                        cardClass = "bg-green-50/60 border border-green-500 shadow-sm";
+                        feedbackClass += " bg-green-50 border-green-200 text-green-900";
+                    } else {
+                        const userOption = q.opts.find((opt, idx) => ["A","B","C","D"][idx] === userAnswer);
+                        const correctOption = q.opts.find((opt, idx) => ["A","B","C","D"][idx] === q.ans);
+                        feedback = `
+                            <div class="mb-2">
+                                <span class="block font-bold text-red-700 text-lg"><i class="fas fa-times-circle mr-2"></i>答錯了</span>
+                                <span class="block text-amber-900 mt-1">您的答案：${userOption}</span>
+                                <span class="block text-green-700 font-bold mt-1">正確答案：${correctOption}</span>
+                            </div>
+                            <div class="pt-2 border-t border-red-200 mt-2 text-stone-800">
+                                <strong><i class="fas fa-lightbulb text-yellow-600 mr-1"></i>解析：</strong>${q.exp}
+                            </div>
+                        `;
+                        cardClass = "bg-red-50/60 border border-red-500 shadow-sm";
+                        feedbackClass += " bg-red-50 border-red-200 text-red-900";
+                    }
+                }
+
+                return `
+                <div class="${cardClass} rounded-xl p-6 mb-8 shadow-sm transition-all duration-300" id="quiz-card-${i}">
+                    <div class="flex items-start mb-4">
+                        <span class="flex-shrink-0 w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold mr-3 mt-1">${i+1}</span>
+                        <p class="font-bold text-xl text-amber-950 leading-relaxed">${q.q}</p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3 pl-11">
+                        ${q.opts.map((opt, optIdx) => {
+                            const val = ["A","B","C","D"][optIdx];
+                            const isChecked = userAnswer === val ? 'checked' : '';
+                            const isDisabled = isAnswered ? 'disabled' : '';
+                            const labelClass = isAnswered 
+                                ? (val === q.ans ? 'bg-green-100 border-green-400 font-bold text-green-900' : (isChecked ? 'bg-red-100 border-red-300' : 'opacity-50'))
+                                : 'hover:bg-amber-50 hover:border-amber-300 cursor-pointer bg-white';
+
+                            return `
+                            <label class="flex items-center p-4 rounded-lg border border-amber-200 transition group ${labelClass}">
+                                <input type="radio" name="q-${i}" value="${val}" class="mr-3 text-amber-600 focus:ring-amber-500 w-5 h-5" onchange="checkAnswer(${i}, '${val}', '${q.ans}')" ${isChecked} ${isDisabled}>
+                                <span class="text-lg text-stone-800">${opt}</span>
+                            </label>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div id="feedback-${i}" class="${feedbackClass}">${feedback}</div>
+                </div>
+            `}).join('');
+            
+            container.innerHTML = `
+                <div class="max-w-3xl mx-auto pb-24">
+                    <div class="text-center mb-10">
+                        <span class="bg-amber-200 text-amber-900 px-3 py-1 rounded-full text-sm font-bold uppercase mb-2 inline-block border border-amber-300">高難度 / 高鑑別度</span>
+                        <h2 class="text-3xl font-bold text-amber-950 font-serif">隨堂測驗 (20題)</h2>
+                        <p class="text-amber-800 mt-2">挑戰字義解析、寫作手法與修辭鑑賞的深度考題</p>
+                    </div>
+                    ${quizHtml}
+                    
+                    <div class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-amber-200 p-4 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] flex justify-center items-center z-40">
+                         <button onclick="submitQuiz()" class="px-10 py-3 bg-amber-400 hover:bg-amber-500 text-stone-900 font-bold rounded-full shadow-lg transition transform hover:scale-105 flex items-center text-lg">
+                            <i class="fas fa-paper-plane mr-2"></i> 交卷並查看成績
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        const storyNodes = {
+            start: {
+                id: 'start',
+                text: "你是裴迪，正在長安城內苦讀經書，準備即將到來的科舉考試。這天，一位扛著黃檗樹皮的山民叩開了你的門，遞給你一封信。信箋上帶著淡淡的山林清香，字跡是你好朋友王維的。信中描繪了輞川冬夜的空靈，以及他對春日美景的期待，最後誠摯地邀請你：「儻能從我遊乎？」看著桌上堆積如山的經書，你決定...",
+                choices: [
+                    { text: "科舉考試在即，功名要緊，婉拒王維的邀請，繼續挑燈夜戰。", next: "refuse_invite" },
+                    { text: "功名利祿皆是身外之物，自然山水才有深趣！收拾行囊，赴輞川之約。", next: "accept_invite" }
+                ]
+            },
+            refuse_invite: {
+                id: 'refuse_invite',
+                text: "【不急之務】你回信婉拒了王維。幾個月後，你考取了功名，但也陷入了官場的爾虞我詐之中。某個疲憊的深夜，你突然想起王維信中提到的「輕鯈出水，白鷗矯翼」，心中湧起一陣強烈的失落。你得到了世俗的成功，卻錯失了天機清妙的自然深趣與知音。",
+                choices: [{ text: "重來，這次我要聽從內心的呼喚", next: "start" }],
+                isEnding: true
+            },
+            accept_invite: {
+                id: 'accept_invite',
+                text: "【天機清妙】你放下了沉重的經書，來到了輞川。春天的輞川果如王維所言，草木蔓發，生機盎然。你們兩人攜手步仄逕，臨清流，賦詩高歌。這份遠離塵囂的清閒與深厚的友誼，成為了你一生中最珍貴的回憶，也印證了你們彼此「天機清妙」的契合。",
+                choices: [
+                    { text: "回到總覽，銘記這段詩畫奇緣", next: "start" }
+                ],
+                isEnding: true,
+                win: true
+            }
+        };
+
+        function renderStory(container) {
+            if(!window.currentStoryNode) window.currentStoryNode = 'start';
+            const node = storyNodes[window.currentStoryNode];
+
+            // 修改為直接讀取本地靜態圖片
+            const localPath = `Chinese-Classical1-19-images/rpg_${window.currentStoryNode}.jpg`;
+            let imageContent = `
+                <div class="w-full overflow-hidden rounded-t-xl bg-gray-100">
+                    <img src="${localPath}" class="w-full h-auto fade-in-image shadow-inner" alt="場景圖" onerror="this.style.display='none'">
+                </div>
+            `;
+
+            container.innerHTML = `<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-amber-200">${imageContent}<div class="p-8 sm:p-10"><div class="flex items-center mb-6 text-orange-600 text-sm font-bold uppercase tracking-widest border-b border-orange-100 pb-2"><i class="fas fa-compass mr-2"></i> 抉擇時刻</div><p class="text-xl sm:text-2xl leading-relaxed text-stone-800 mb-10 font-serif">${node.text}</p>${node.isEnding ? (node.win ? `<div class="text-center mb-8 text-green-700 font-bold text-2xl p-6 bg-green-50 rounded-xl border border-green-200 shadow-sm"><i class="fas fa-check-circle mr-3"></i>深趣盎然</div>` : `<div class="text-center mb-8 text-amber-800 font-bold text-2xl p-6 bg-amber-50 rounded-xl border border-amber-200 shadow-sm"><i class="fas fa-redo mr-3"></i>重新體驗</div>`) : ''}<div class="grid gap-4">${node.choices.map(c => `<button onclick="nextStoryNode('${c.next}')" class="story-choice w-full py-5 px-8 bg-white hover:bg-amber-100 border-2 border-amber-200 hover:border-amber-400 rounded-xl text-amber-950 font-bold text-xl transition duration-200 flex items-center justify-between group shadow-sm hover:shadow-md text-left"><span>${c.text}</span><i class="fas fa-chevron-right text-amber-400 group-hover:text-amber-600 transition transform group-hover:translate-x-1"></i></button>`).join('')}</div></div></div>`;
+            if(node.win) { try { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } catch (e) { console.log("Confetti not loaded"); } }
+        }
+
+        function nextStoryNode(nodeId) {
+            window.currentStoryNode = nodeId;
+            renderStory(document.getElementById('content-display'));
+        }
+
+        function checkAnswer(idx, val, ans) {
+            if (userAnswers[idx] !== undefined) return; 
+            userAnswers[idx] = val; 
+            const radios = document.getElementsByName(`q-${idx}`);
+            for (let radio of radios) {
+                radio.disabled = true;
+                radio.parentElement.classList.add('disabled-label');
+            }
+
+            const feedbackEl = document.getElementById(`feedback-${idx}`);
+            const card = document.getElementById(`quiz-card-${idx}`);
+            const qData = contentData.quiz[idx];
+            if (!feedbackEl || !card) return;
+            
+            feedbackEl.className = 'mt-4 p-4 rounded-lg text-base animate-fade-in border';
+            card.classList.remove('bg-white');
+
+            if (val === ans) {
+                feedbackEl.innerHTML = `<strong class="block mb-1 text-lg"><i class="fas fa-check-circle mr-2"></i>答對了！</strong>${qData.exp}`;
+                feedbackEl.classList.add('bg-green-50', 'border-green-200', 'text-green-900');
+                card.classList.add('bg-green-50/60', 'border-green-500');
+            } else {
+                const correctOption = qData.opts.find((opt, i) => ["A","B","C","D"][i] === ans);
+                const userOption = qData.opts.find((opt, i) => ["A","B","C","D"][i] === val);
+                
+                feedbackEl.innerHTML = `
+                    <div class="mb-2">
+                        <span class="block font-bold text-red-700 text-lg"><i class="fas fa-times-circle mr-2"></i>答錯了</span>
+                        <span class="block text-amber-900 mt-1">您的答案：${userOption}</span>
+                        <span class="block text-green-700 font-bold mt-1">正確答案：${correctOption}</span>
+                    </div>
+                    <div class="pt-2 border-t border-red-200 mt-2 text-stone-800">
+                        <strong><i class="fas fa-lightbulb text-yellow-600 mr-1"></i>解析：</strong>${qData.exp}
+                    </div>
+                `;
+                feedbackEl.classList.add('bg-red-50', 'border-red-200', 'text-stone-800');
+                card.classList.add('bg-red-50/60', 'border-red-500');
+            }
+            feedbackEl.classList.remove('hidden');
+        }
+
+        function submitQuiz() {
+            const total = contentData.quiz.length;
+            const answered = Object.keys(userAnswers).length;
+            
+            if (answered < total) {
+                showError(`您還有 ${total - answered} 題未完成，請作答完畢後再交卷！`);
+                return;
+            }
+            
+            let correctCount = 0;
+            for (let i = 0; i < total; i++) {
+                if (userAnswers[i] === contentData.quiz[i].ans) {
+                    correctCount++;
+                }
+            }
+            
+            const score = Math.round((correctCount / total) * 100);
+            const scoreText = document.getElementById('score-text');
+            scoreText.innerHTML = `您的總分是 <span class="text-amber-700 font-bold text-5xl">${score}</span> 分`;
+            
+            const modal = document.getElementById('score-modal');
+            modal.classList.remove('hidden');
+            
+            try {
+                if(score >= 80) { confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } }); }
+            } catch(e) {}
+        }
+
+        function closeScoreModal() {
+            const modal = document.getElementById('score-modal');
+            modal.classList.add('hidden');
+        }
+        
+        function showNote(key, segIdx, el, e) {
+            if (e && e.stopPropagation) e.stopPropagation();
+            const popup = document.getElementById('note-template');
+            const content = document.getElementById('note-content');
+            let noteData = null;
+            
+            if (segIdx !== undefined && contentData.segments[segIdx] && contentData.segments[segIdx].notes[key]) { 
+                noteData = contentData.segments[segIdx].notes[key]; 
+            } else if (allKeywords[key]) { 
+                noteData = allKeywords[key]; 
+            }
+            
+            if(!noteData) return;
+            
+            content.innerHTML = `
+                <div class="flex items-baseline justify-between border-b border-amber-100 pb-2 mb-2">
+                    <h4 class="text-xl font-bold text-amber-900 font-serif">${key}</h4>
+                    <span class="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full font-bold">${noteData.type || noteData.pos}</span>
+                </div>
+                <p class="text-sm text-amber-700 mb-2 font-mono bg-orange-50 px-2 py-1 rounded inline-block">${noteData.zhuyin}</p>
+                <p class="text-amber-800 leading-relaxed font-medium">${noteData.def || noteData.meaning}</p>
+            `;
+            
+            const rect = el.getBoundingClientRect();
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let left = rect.left + scrollLeft;
+            let top = rect.bottom + scrollTop + 8; 
+            
+            if (left + 300 > document.body.clientWidth) { left = document.body.clientWidth - 310; }
+            
+            popup.style.left = `${left}px`;
+            popup.style.top = `${top}px`;
+            popup.classList.remove('hidden');
+        }
+
+        async function playAudio(text) {
+            if (!('speechSynthesis' in window)) { showError("您的瀏覽器不支援語音朗讀功能。"); return; }
+            window.speechSynthesis.cancel();
+            
+            let voices = window.speechSynthesis.getVoices();
+            if (voices.length === 0) {
+                await new Promise(resolve => {
+                    const id = setInterval(() => {
+                        voices = window.speechSynthesis.getVoices();
+                        if (voices.length > 0) { clearInterval(id); resolve(); }
+                    }, 100);
+                });
+            }
+
+            const preferredVoices = ['Google 國語', 'Mei-Jia', 'Lili', 'Ting-Ting', 'Hsiao-Chen', 'Yating', 'Xiaoxiao'];
+            let targetVoice = null;
+            
+            for (const pv of preferredVoices) {
+                targetVoice = voices.find(v => (v.lang.startsWith('zh') || v.lang.includes('Hant')) && v.name.includes(pv));
+                if (targetVoice) break;
+            }
+            
+            if (!targetVoice) targetVoice = voices.find(v => v.lang === 'zh-TW' || v.lang === 'cmn-Hant-TW'); 
+            if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('zh'));
+
+            const chunks = text.split(/([，、。？！；：])/).reduce((acc, curr, i) => {
+                if (i % 2 === 0) { 
+                    if (curr.trim()) acc.push({ text: curr, pause: 0 });
+                } else { 
+                    if (acc.length > 0) {
+                        acc[acc.length - 1].text += curr;
+                        if (['。', '！', '？'].includes(curr)) acc[acc.length - 1].pause = 800; 
+                        else if (['；', '：'].includes(curr)) acc[acc.length - 1].pause = 600; 
+                        else acc[acc.length - 1].pause = 400; 
+                    }
+                }
+                return acc;
+            }, []);
+
+            if (chunks.length === 0) return;
+
+            const playNext = (index) => {
+                if (index >= chunks.length) return;
+                const utterance = new SpeechSynthesisUtterance(chunks[index].text);
+                utterance.lang = 'zh-TW';
+                
+                utterance.rate = 0.9;  
+                utterance.pitch = 1.05; 
+                
+                if (targetVoice) utterance.voice = targetVoice;
+                
+                utterance.onend = () => { setTimeout(() => playNext(index + 1), chunks[index].pause); };
+                window.speechSynthesis.speak(utterance);
+            };
+
+            playNext(0);
+        }
+
+        function showError(msg) {
+            const toast = document.getElementById('error-toast');
+            document.getElementById('error-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            requestAnimationFrame(() => { toast.classList.remove('translate-y-10', 'opacity-0'); });
+            setTimeout(() => { toast.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => toast.classList.add('hidden'), 300); }, 4000);
+        }
+
+    </script>
+</body>
+</html>
